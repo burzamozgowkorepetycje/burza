@@ -1,0 +1,11 @@
+{
+  "name": "burza-mozgow",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Burza Mózgów Korepetycje — strona centrum korepetycji w Wyszkowie (statyczny HTML)",
+  "scripts": {
+    "build": "echo \"Strona statyczna — krok budowania nie jest potrzebny.\"",
+    "dev": "npx --yes serve .",
+    "start": "npx --yes serve ."
+  }
+}
