@@ -401,6 +401,22 @@
       flex-wrap: wrap;
       margin-bottom: 2rem;
     }
+    .btn-call {
+      display: inline-block;
+      font-family: var(--body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--dark);
+      background: var(--blush);
+      padding: 0.95rem 2.2rem;
+      text-decoration: none;
+      border: 2px solid var(--blush);
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .btn-call:hover { background: var(--blush-deep); border-color: var(--blush-deep); color: var(--white); }
+
     .btn-primary {
       display: inline-block;
       font-family: var(--body);
@@ -1126,6 +1142,7 @@
       <p class="hero-sub fade-in fade-in-delay-2">Twoje dziecko może być następne. Kursy maturalne i przygotowanie do egzaminu ósmoklasisty w Wyszkowie — stacjonarnie i online.</p>
       <p class="hero-offer fade-in fade-in-delay-3">Zajęcia od 40 zł/h · Gwarancja wyniku 70%+</p>
       <div class="hero-actions fade-in fade-in-delay-4">
+        <a href="tel:+48605947803" class="btn-call">📞 Zadzwoń teraz</a>
         <a href="#contact" class="btn-primary">Umów bezpłatną konsultację</a>
         <span class="trust-badge">
           <span class="trust-stars" aria-hidden="true">
