@@ -306,9 +306,9 @@
       cursor: pointer;
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: background 0.25s, color 0.25s;
+      transition: background 0.18s ease-out, color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
     }
-    .nav-cta:hover { background: var(--blush); color: var(--dark); }
+    .nav-cta:hover { background: var(--blush); color: var(--dark); transform: scale(1.02); box-shadow: 0 8px 20px rgba(237,177,176,0.4); }
 
     /* Hamburger */
     .nav-hamburger {
@@ -401,6 +401,7 @@
       flex-wrap: wrap;
       margin-bottom: 2rem;
     }
+    /* Secondary CTA — outline, celowo mniej dominujący niż .btn-primary */
     .btn-call {
       display: inline-block;
       font-family: var(--body);
@@ -408,30 +409,43 @@
       font-weight: 600;
       letter-spacing: 0.03em;
       color: var(--dark);
-      background: var(--blush);
-      padding: 0.95rem 2.2rem;
+      background: transparent;
+      padding: 0.95rem 2rem;
       text-decoration: none;
-      border: 2px solid var(--blush);
+      border: 2px solid rgba(32,28,26,0.25);
       cursor: pointer;
-      transition: background 0.25s, color 0.25s, border-color 0.25s;
+      transition: background 0.18s ease-out, color 0.18s ease-out, border-color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
     }
-    .btn-call:hover { background: var(--blush-deep); border-color: var(--blush-deep); color: var(--white); }
+    .btn-call:hover {
+      border-color: var(--blush-deep);
+      color: var(--blush-deep);
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(32,28,26,0.08);
+    }
 
+    /* Primary CTA — główny przycisk konwersji, wyraźnie dominujący */
     .btn-primary {
       display: inline-block;
       font-family: var(--body);
-      font-size: 0.875rem;
-      font-weight: 600;
+      font-size: 0.95rem;
+      font-weight: 700;
       letter-spacing: 0.03em;
-      color: var(--white);
-      background: var(--dark);
-      padding: 0.95rem 2.2rem;
+      color: var(--dark);
+      background: var(--blush);
+      padding: 1.15rem 2.7rem;
       text-decoration: none;
-      border: 2px solid var(--dark);
+      border: 2px solid var(--blush);
       cursor: pointer;
-      transition: background 0.25s, color 0.25s, border-color 0.25s;
+      box-shadow: 0 10px 28px rgba(217,143,142,0.4);
+      transition: background 0.18s ease-out, color 0.18s ease-out, border-color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
     }
-    .btn-primary:hover { background: var(--blush); color: var(--dark); border-color: var(--blush); }
+    .btn-primary:hover {
+      background: var(--blush-deep);
+      border-color: var(--blush-deep);
+      color: var(--white);
+      transform: scale(1.03);
+      box-shadow: 0 14px 34px rgba(217,143,142,0.55);
+    }
     .btn-primary:focus-visible { outline: 2px solid var(--blush-deep); outline-offset: 3px; }
 
     /* Google trust badge */
@@ -681,6 +695,52 @@
       line-height: 1.65;
     }
 
+    /* Guarantee badge — stamp-like highlight for the strongest selling point */
+    .guarantee-badge {
+      display: inline-block;
+      padding: 0.35rem 1.1rem;
+      border: 1.5px solid var(--blush-deep);
+      border-radius: 999px;
+      background: rgba(237,177,176,0.14);
+      box-shadow: 0 0 0 4px rgba(237,177,176,0.12), 0 0 22px rgba(237,177,176,0.45);
+      transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+    }
+    .guarantee-badge:hover {
+      transform: scale(1.03);
+      animation: guaranteePulse 1.6s ease-in-out infinite;
+    }
+    @keyframes guaranteePulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(237,177,176,0.12), 0 0 22px rgba(237,177,176,0.45); }
+      50%      { box-shadow: 0 0 0 6px rgba(237,177,176,0.18), 0 0 30px rgba(237,177,176,0.6); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .guarantee-badge:hover { animation: none; transform: none; }
+      .btn-primary:hover, .btn-call:hover, .nav-cta:hover, .btn-submit:hover { transform: none; }
+    }
+
+    /* Sticky CTA — mobile only, wjeżdża od dołu po przewinięciu za hero */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 320;
+      padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+      background: rgba(247,244,239,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--gray);
+      transform: translateY(110%);
+      transition: transform 0.35s cubic-bezier(.16,1,.3,1);
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta .btn-primary { display: block; width: 100%; text-align: center; padding: 1rem 1.5rem; }
+    @media (max-width: 860px) {
+      .sticky-cta { display: block; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .sticky-cta { transition: none; }
+    }
+
     /* ─── How ─── */
     #how { background: var(--gray); }
     .steps-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
@@ -881,9 +941,9 @@
       padding: 1rem 2.5rem;
       cursor: pointer;
       align-self: flex-start;
-      transition: background 0.25s, color 0.25s;
+      transition: background 0.18s ease-out, color 0.18s ease-out, transform 0.18s ease-out, box-shadow 0.18s ease-out;
     }
-    .btn-submit:hover { background: transparent; color: var(--blush); }
+    .btn-submit:hover { background: transparent; color: var(--blush); transform: scale(1.02); box-shadow: 0 8px 20px rgba(237,177,176,0.25); }
     .btn-submit:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
 
     /* ─── Footer ─── */
@@ -1024,6 +1084,169 @@
       .subjects-grid { grid-template-columns: 1fr; }
       .footer-addresses { grid-template-columns: 1fr; }
     }
+
+    /* ─── Quiz Modal ─── */
+    .quiz-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 400;
+      background: rgba(32,28,26,0.55);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .quiz-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .quiz-modal {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      max-height: 88vh;
+      overflow-y: auto;
+      background: var(--cream);
+      border-radius: 20px;
+      box-shadow: 0 40px 90px rgba(32,28,26,0.35);
+      padding: 2.75rem 2.5rem 2.5rem;
+      transform: translateY(24px) scale(0.98);
+      transition: transform 0.35s cubic-bezier(.16,1,.3,1);
+    }
+    .quiz-overlay.open .quiz-modal { transform: translateY(0) scale(1); }
+
+    .quiz-topbar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
+    .quiz-back {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--gray);
+      background: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--dark);
+      transition: border-color 0.2s;
+      visibility: hidden;
+    }
+    .quiz-back.show { visibility: visible; }
+    .quiz-back:hover { border-color: var(--blush-deep); }
+
+    .quiz-progress-track {
+      flex: 1;
+      height: 5px;
+      background: var(--gray);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blush-deep), var(--blush));
+      border-radius: 3px;
+      transition: width 0.35s cubic-bezier(.16,1,.3,1);
+    }
+
+    .quiz-close {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: none;
+      background: transparent;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.15rem;
+      color: var(--dark);
+      opacity: 0.5;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    .quiz-close:hover { opacity: 1; background: var(--gray); }
+
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: quizStepIn 0.35s cubic-bezier(.16,1,.3,1); }
+    @keyframes quizStepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .quiz-question {
+      font-family: var(--display);
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 1.75rem;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .quiz-options.single-col { grid-template-columns: 1fr; }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1.05rem 1.15rem;
+      background: var(--white);
+      border: 1.5px solid var(--gray);
+      border-radius: 12px;
+      font-family: var(--body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .quiz-option:hover { border-color: var(--blush-deep); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(217,143,142,0.18); }
+    .quiz-option .qo-emoji { font-size: 1.2rem; }
+
+    .quiz-contact-fields { display: flex; flex-direction: column; gap: 1.1rem; margin-bottom: 1.5rem; }
+
+    .quiz-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .quiz-chip {
+      font-family: var(--body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(237,177,176,0.18);
+      color: var(--blush-deep);
+    }
+
+    .quiz-success { text-align: center; padding: 1.5rem 0; }
+    .quiz-success-icon {
+      width: 64px; height: 64px; margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: var(--blush);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem;
+    }
+    .quiz-success h3 { font-family: var(--display); font-size: 1.6rem; font-weight: 500; margin-bottom: 0.75rem; }
+    .quiz-success p { font-size: 0.95rem; color: rgba(32,28,26,0.65); line-height: 1.6; margin-bottom: 1.5rem; }
+
+    .quiz-error { font-size: 0.85rem; color: var(--blush-deep); margin-top: 0.75rem; display: none; }
+    .quiz-error.show { display: block; }
+
+    /* Contact form fields sit on a dark section by default; re-theme for the light quiz modal */
+    .quiz-modal .form-label { color: var(--dark); opacity: 0.55; }
+    .quiz-modal .form-input {
+      color: var(--dark);
+      background: var(--white);
+      border: 1.5px solid var(--gray);
+    }
+    .quiz-modal .form-input::placeholder { color: rgba(32,28,26,0.32); }
+    .quiz-modal .form-input:focus { border-color: var(--blush-deep); background: var(--white); }
+
+    @media (max-width: 560px) {
+      .quiz-modal { padding: 2rem 1.5rem 1.75rem; border-radius: 16px; max-height: 92vh; }
+      .quiz-options { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1142,8 +1365,8 @@
       <p class="hero-sub fade-in fade-in-delay-2">Twoje dziecko może być następne. Kursy maturalne i przygotowanie do egzaminu ósmoklasisty w Wyszkowie — stacjonarnie i online.</p>
       <p class="hero-offer fade-in fade-in-delay-3">Zajęcia od 40 zł/h · Gwarancja wyniku 70%+</p>
       <div class="hero-actions fade-in fade-in-delay-4">
-        <a href="tel:+48605947803" class="btn-call">📞 Zadzwoń teraz</a>
         <a href="#contact" class="btn-primary">Umów bezpłatną konsultację</a>
+        <a href="tel:+48605947803" class="btn-call">📞 Zadzwoń teraz</a>
         <span class="trust-badge">
           <span class="trust-stars" aria-hidden="true">
             <svg><use href="#star-gold"/></svg><svg><use href="#star-gold"/></svg><svg><use href="#star-gold"/></svg><svg><use href="#star-gold"/></svg><svg><use href="#star-gold"/></svg>
@@ -1250,19 +1473,19 @@
     </div>
     <div class="stats-grid">
       <div class="stat-item fade-in">
-        <div class="stat-number"><span class="count" data-target="80">0</span><span>%</span></div>
+        <div class="stat-number"><span class="count" data-target="80">80</span><span>%</span></div>
         <p class="stat-label">Średni wynik na egzaminach</p>
       </div>
       <div class="stat-item fade-in fade-in-delay-1">
-        <div class="stat-number"><span class="count" data-target="100">0</span><span>+</span></div>
+        <div class="stat-number"><span class="count" data-target="100">100</span><span>+</span></div>
         <p class="stat-label">Opinii 5★ na Google</p>
       </div>
       <div class="stat-item fade-in fade-in-delay-2">
-        <div class="stat-number"><span class="count" data-target="8">0</span></div>
+        <div class="stat-number"><span class="count" data-target="8">8</span></div>
         <p class="stat-label">Dostępnych przedmiotów</p>
       </div>
       <div class="stat-item fade-in fade-in-delay-3">
-        <div class="stat-number"><span class="count" data-target="2">0</span></div>
+        <div class="stat-number"><span class="count" data-target="2">2</span></div>
         <p class="stat-label">Lokalizacje w Wyszkowie</p>
       </div>
     </div>
@@ -1288,7 +1511,7 @@
           <div class="why-item fade-in fade-in-delay-1">
             <span class="why-number">02</span>
             <div>
-              <h3 class="why-title">Gwarancja 70%+</h3>
+              <h3 class="why-title"><span class="guarantee-badge">Gwarancja 70%+</span></h3>
               <p class="why-desc">Jeśli uczeń nie osiągnie 70% na egzaminie, zwracamy pieniądze za ostatni miesiąc zajęć.* Stawiamy na wyniki, nie na słowa.</p>
             </div>
           </div>
@@ -1552,6 +1775,96 @@
     </div>
   </footer>
 
+  <!-- ─── STICKY CTA (mobile) ─── -->
+  <div class="sticky-cta" id="sticky-cta">
+    <a href="#contact" class="btn-primary">Umów bezpłatną konsultację</a>
+  </div>
+
+  <!-- ─── QUIZ MODAL ─── -->
+  <div class="quiz-overlay" id="quiz-overlay" role="dialog" aria-modal="true" aria-label="Zapisz się na zajęcia">
+    <div class="quiz-modal">
+      <div class="quiz-topbar">
+        <button class="quiz-back" id="quiz-back" aria-label="Wstecz" type="button">←</button>
+        <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+        <button class="quiz-close" id="quiz-close" aria-label="Zamknij" type="button">✕</button>
+      </div>
+
+      <!-- Step: Etap nauki -->
+      <div class="quiz-step active" data-step="grade">
+        <p class="quiz-question">Jaką klasę / etap nauki wybrać?</p>
+        <div class="quiz-options" id="quiz-grade-options">
+          <button class="quiz-option" data-field="grade" data-value="Zerówka"><span class="qo-emoji">🎈</span>Zerówka</button>
+          <button class="quiz-option" data-field="grade" data-value="Klasa 1-3"><span class="qo-emoji">✏️</span>Klasa 1–3</button>
+          <button class="quiz-option" data-field="grade" data-value="Klasa 4-8"><span class="qo-emoji">📘</span>Klasa 4–8</button>
+          <button class="quiz-option" data-field="grade" data-value="Liceum"><span class="qo-emoji">🎓</span>Liceum</button>
+          <button class="quiz-option" data-field="grade" data-value="Technikum"><span class="qo-emoji">📐</span>Technikum</button>
+          <button class="quiz-option" data-field="grade" data-value="Zawodówka"><span class="qo-emoji">🛠️</span>Zawodówka</button>
+        </div>
+      </div>
+
+      <!-- Step: Konkretna klasa (dynamiczny, zależny od etapu, pomijany dla Zerówki) -->
+      <div class="quiz-step" data-step="grade-detail">
+        <p class="quiz-question">Do której dokładnie klasy chodzi Twoje dziecko?</p>
+        <div class="quiz-options" id="quiz-classnum-options"></div>
+      </div>
+
+      <!-- Step: Przedmiot -->
+      <div class="quiz-step" data-step="subject">
+        <p class="quiz-question">Jaki przedmiot Cię interesuje?</p>
+        <div class="quiz-options" id="quiz-subject-options">
+          <button class="quiz-option" data-field="subject" data-value="Matematyka">Matematyka</button>
+          <button class="quiz-option" data-field="subject" data-value="Język angielski">Język angielski</button>
+          <button class="quiz-option" data-field="subject" data-value="Biologia">Biologia</button>
+          <button class="quiz-option" data-field="subject" data-value="Chemia">Chemia</button>
+          <button class="quiz-option" data-field="subject" data-value="Język polski">Język polski</button>
+          <button class="quiz-option" data-field="subject" data-value="Język hiszpański">Język hiszpański</button>
+          <button class="quiz-option" data-field="subject" data-value="Geografia">Geografia</button>
+          <button class="quiz-option" data-field="subject" data-value="WOS">WOS</button>
+          <button class="quiz-option" data-field="subject" data-value="Inny">Inny</button>
+        </div>
+      </div>
+
+      <!-- Step: Forma zajęć -->
+      <div class="quiz-step" data-step="format">
+        <p class="quiz-question">Jaka forma zajęć Cię interesuje?</p>
+        <div class="quiz-options" id="quiz-format-options">
+          <button class="quiz-option" data-field="format" data-value="Stacjonarnie (Wyszków)"><span class="qo-emoji">📍</span>Stacjonarnie (Wyszków)</button>
+          <button class="quiz-option" data-field="format" data-value="Online"><span class="qo-emoji">💻</span>Online</button>
+        </div>
+      </div>
+
+      <!-- Step: Dane kontaktowe -->
+      <div class="quiz-step" data-step="contact">
+        <p class="quiz-question">Zostaw numer, oddzwonimy i dobierzemy termin.</p>
+        <div class="quiz-summary" id="quiz-summary"></div>
+        <form id="quiz-contact-form" novalidate>
+          <div class="quiz-contact-fields">
+            <div class="form-group">
+              <label class="form-label" for="quiz-name">Imię i nazwisko</label>
+              <input class="form-input" type="text" id="quiz-name" name="name" placeholder="Jan Kowalski" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-phone">Numer telefonu</label>
+              <input class="form-input" type="tel" id="quiz-phone" name="phone" placeholder="+48 600 000 000" required autocomplete="tel" />
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="quiz-submit-btn" style="width:100%;">Wyślij zgłoszenie</button>
+          <p class="quiz-error" id="quiz-error">Coś poszło nie tak — spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
+        </form>
+      </div>
+
+      <!-- Step: Sukces -->
+      <div class="quiz-step" data-step="success">
+        <div class="quiz-success">
+          <div class="quiz-success-icon">✓</div>
+          <h3>Dziękujemy!</h3>
+          <p>Zgłoszenie dotarło do naszego sekretariatu. Oddzwonimy w ciągu 24h, aby dobrać termin i formę zajęć.<br />Wolisz szybciej? Zadzwoń już teraz.</p>
+          <a href="tel:+48605947803" class="btn-primary" style="display:inline-block;">📞 605 947 803</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ─── Nav scroll + scroll progress + parallax watermark ───
     const nav = document.getElementById('main-nav');
@@ -1664,6 +1977,165 @@
         btn.disabled = false;
       }
     });
+  </script>
+
+  <!-- ─── Quiz Modal Logic ─── -->
+  <script>
+  (function () {
+    const QUIZ_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyAgf3UccAXC7QAohp3tZOb-px3c8bcm-YxRXVCvORw-YtW7Ui8XFkiTxPVXqAuQ_KcBg/exec';
+
+    const overlay = document.getElementById('quiz-overlay');
+    const steps = Array.from(document.querySelectorAll('.quiz-step'));
+    const progressFill = document.getElementById('quiz-progress-fill');
+    const backBtn = document.getElementById('quiz-back');
+    const closeBtn = document.getElementById('quiz-close');
+    const summaryEl = document.getElementById('quiz-summary');
+    const contactForm = document.getElementById('quiz-contact-form');
+    const submitBtn = document.getElementById('quiz-submit-btn');
+    const errorEl = document.getElementById('quiz-error');
+
+    const classnumOptionsEl = document.getElementById('quiz-classnum-options');
+
+    // Konkretne klasy dostępne dla każdego etapu nauki. Zerówka nie ma podziału, więc krok jest pomijany.
+    const CLASS_NUMBERS = {
+      'Klasa 1-3': [1, 2, 3],
+      'Klasa 4-8': [4, 5, 6, 7, 8],
+      'Liceum': [1, 2, 3, 4],
+      'Technikum': [1, 2, 3, 4, 5],
+      'Zawodówka': [1, 2, 3]
+    };
+
+    const answers = { grade: '', classNumber: '', subject: '', format: '', name: '', phone: '' };
+    let currentStepId = 'grade';
+
+    function stepOrder() {
+      const order = ['grade'];
+      if (answers.grade && CLASS_NUMBERS[answers.grade]) order.push('grade-detail');
+      order.push('subject', 'format', 'contact');
+      return order;
+    }
+
+    function renderClassNumberOptions() {
+      const nums = CLASS_NUMBERS[answers.grade] || [];
+      classnumOptionsEl.innerHTML = nums.map(n =>
+        `<button class="quiz-option" data-field="classNumber" data-value="Klasa ${n}">Klasa ${n}</button>`
+      ).join('');
+      classnumOptionsEl.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
+    }
+
+    function showStepId(id) {
+      steps.forEach(s => s.classList.toggle('active', s.dataset.step === id));
+      currentStepId = id;
+      const order = stepOrder();
+      const idx = order.indexOf(id);
+      const pct = idx >= 0 ? ((idx + 1) / order.length) * 100 : 100;
+      progressFill.style.width = Math.min(pct, 100) + '%';
+      backBtn.classList.toggle('show', idx > 0);
+      if (id === 'contact') renderSummary();
+    }
+
+    function goToNextStep() {
+      const order = stepOrder();
+      const idx = order.indexOf(currentStepId);
+      const nextId = order[idx + 1];
+      if (nextId === 'grade-detail') renderClassNumberOptions();
+      showStepId(nextId);
+    }
+
+    function renderSummary() {
+      const chips = [answers.grade, answers.classNumber, answers.subject, answers.format].filter(Boolean);
+      summaryEl.innerHTML = chips.map(c => `<span class="quiz-chip">${c}</span>`).join('');
+    }
+
+    function openQuiz() {
+      answers.grade = answers.classNumber = answers.subject = answers.format = answers.name = answers.phone = '';
+      contactForm.reset();
+      errorEl.classList.remove('show');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Wyślij zgłoszenie';
+      showStepId('grade');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (typeof trackPixelEvent === 'function') trackPixelEvent('Lead', { lead_type: 'quiz_open' });
+    }
+
+    function closeQuiz() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.nav-cta, .mobile-nav-cta, #hero .btn-primary, .sticky-cta .btn-primary').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openQuiz();
+      });
+    });
+
+    // Sticky CTA (mobile): pokazuj po przewinięciu za hero
+    const stickyBar = document.getElementById('sticky-cta');
+    const heroSection = document.getElementById('hero');
+    if (stickyBar && heroSection && 'IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        stickyBar.classList.toggle('visible', !entries[0].isIntersecting);
+      }, { threshold: 0 }).observe(heroSection);
+    }
+
+    closeBtn.addEventListener('click', closeQuiz);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeQuiz(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeQuiz(); });
+
+    backBtn.addEventListener('click', () => {
+      const order = stepOrder();
+      const idx = order.indexOf(currentStepId);
+      if (idx > 0) showStepId(order[idx - 1]);
+    });
+
+    function handleOptionClick(e) {
+      const opt = e.currentTarget;
+      const field = opt.dataset.field;
+      answers[field] = opt.dataset.value;
+      goToNextStep();
+    }
+
+    document.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
+
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      answers.name = contactForm.name.value.trim();
+      answers.phone = contactForm.phone.value.trim();
+      errorEl.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wysyłanie…';
+
+      const payload = {
+        imie: answers.name,
+        telefon: answers.phone,
+        klasa: answers.classNumber || answers.grade,
+        etap: answers.grade,
+        przedmiot: answers.subject,
+        forma: answers.format,
+        wiadomosc: 'Zgłoszenie z quizu na stronie',
+        data: new Date().toLocaleString('pl-PL')
+      };
+
+      try {
+        await fetch(QUIZ_SHEETS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (typeof trackPixelEvent === 'function') {
+          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, format: answers.format });
+        }
+        showStepId('success');
+      } catch (err) {
+        errorEl.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Wyślij zgłoszenie';
+      }
+    });
+  })();
   </script>
 
   <!-- Event Tracking: Meta Pixel + Google Analytics -->
