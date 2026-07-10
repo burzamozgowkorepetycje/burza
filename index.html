@@ -1318,7 +1318,7 @@
       </span>
     </a>
     <ul class="nav-links">
-      <li><a href="https://matgrind.elms.pl/next/public/" target="_blank" rel="noopener noreferrer" class="nav-courses-btn">Kursy ↗</a></li>
+      <li><a href="/kursy.html" class="nav-courses-btn">Kursy →</a></li>
       <li><a href="#subjects">Przedmioty</a></li>
       <li><a href="#why">Dlaczego my</a></li>
       <li><a href="#how">Jak to działa</a></li>
@@ -1340,7 +1340,7 @@
       <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Zamknij menu">✕</button>
     </div>
     <ul class="mobile-nav-links">
-      <li><a href="https://matgrind.elms.pl/next/public/" target="_blank" rel="noopener noreferrer" class="mobile-link" style="color: var(--blush);"><span class="mnl-num">01</span>Kursy&nbsp;↗</a></li>
+      <li><a href="/kursy.html" class="mobile-link" style="color: var(--blush);"><span class="mnl-num">01</span>Kursy&nbsp;→</a></li>
       <li><a href="#subjects" class="mobile-link"><span class="mnl-num">02</span>Przedmioty</a></li>
       <li><a href="#why" class="mobile-link"><span class="mnl-num">03</span>Dlaczego my</a></li>
       <li><a href="#how" class="mobile-link"><span class="mnl-num">04</span>Jak to działa</a></li>
@@ -2176,7 +2176,7 @@
   });
 
   // Track "Kursy" link clicks
-  document.querySelectorAll('a[href*="matgrind"]').forEach(link => {
+  document.querySelectorAll('a[href="/kursy.html"]').forEach(link => {
     link.addEventListener('click', () => {
       trackPixelEvent('ViewContent', { content_type: 'courses' });
     });
