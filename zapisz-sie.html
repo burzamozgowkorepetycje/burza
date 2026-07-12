@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dobierz kurs dla swojego dziecka | Burza Mózgów Korepetycje</title>
+  <meta name="description" content="Odpowiedz na kilka pytań, a dobierzemy kurs, formę zajęć i termin. Kursy maturalne i przygotowanie do egzaminu ósmoklasisty w Wyszkowie — stacjonarnie i online." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://burza-mozgow-korepetycje.pl/zapisz-sie" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://burza-mozgow-korepetycje.pl/zapisz-sie" />
+  <meta property="og:title" content="Dobierz kurs dla swojego dziecka | Burza Mózgów Korepetycje" />
+  <meta property="og:description" content="Odpowiedz na kilka pytań, a dobierzemy kurs, formę zajęć i termin — bez zobowiązań." />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:site_name" content="Burza Mózgów Korepetycje" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWWWQMM89P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZWWWQMM89P');
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NLNXJ3DC');</script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '37060592533531781');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=37060592533531781&ev=PageView&noscript=1" /></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #F7F4EF;
+      --blush:      #EDB1B0;
+      --blush-deep: #D98F8E;
+      --dark:       #201C1A;
+      --white:      #FFFFFF;
+      --gray:       #EDEBE7;
+      --display:    'Cormorant Garamond', Georgia, serif;
+      --body:       'DM Sans', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: var(--body);
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Minimal header ─── */
+    .lp-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1.5rem 1.5rem 0.5rem;
+    }
+    .lp-header .logo-word { display: flex; flex-direction: column; line-height: 1.15; }
+    .lp-header .lw-main { font-family: var(--display); font-size: 1.15rem; font-weight: 600; }
+    .lp-header .lw-sub { font-family: var(--body); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blush-deep); }
+
+    .lp-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .lp-footer {
+      text-align: center;
+      padding: 1.25rem 1.5rem 2rem;
+      font-size: 0.78rem;
+      color: rgba(32,28,26,0.45);
+    }
+    .lp-footer a { color: var(--blush-deep); text-decoration: none; }
+
+    /* ─── Quiz card (standalone page version of the modal) ─── */
+    .quiz-card {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 30px 70px rgba(32,28,26,0.12);
+      padding: 2.75rem 2.5rem 2.5rem;
+    }
+
+    .quiz-topbar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
+    .quiz-back {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--gray);
+      background: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--dark);
+      transition: border-color 0.2s;
+      visibility: hidden;
+    }
+    .quiz-back.show { visibility: visible; }
+    .quiz-back:hover { border-color: var(--blush-deep); }
+
+    .quiz-progress-track { flex: 1; height: 5px; background: var(--gray); border-radius: 3px; overflow: hidden; }
+    .quiz-progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--blush-deep), var(--blush));
+      border-radius: 3px;
+      transition: width 0.35s cubic-bezier(.16,1,.3,1);
+    }
+
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: quizStepIn 0.35s cubic-bezier(.16,1,.3,1); }
+    @keyframes quizStepIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .quiz-question {
+      font-family: var(--display);
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      font-weight: 500;
+      line-height: 1.25;
+      margin-bottom: 1.75rem;
+    }
+
+    .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .quiz-options.single-col { grid-template-columns: 1fr; }
+
+    .quiz-option {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 1.05rem 1.15rem;
+      background: var(--cream);
+      border: 1.5px solid var(--gray);
+      border-radius: 12px;
+      font-family: var(--body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .quiz-option:hover { border-color: var(--blush-deep); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(217,143,142,0.18); }
+    .quiz-option .qo-emoji { font-size: 1.2rem; }
+
+    .quiz-contact-fields { display: flex; flex-direction: column; gap: 1.1rem; margin-bottom: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-family: var(--body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(32,28,26,0.55); }
+    .form-input {
+      font-family: var(--body);
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      border: 1.5px solid var(--gray);
+      background: var(--cream);
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input::placeholder { color: rgba(32,28,26,0.32); }
+    .form-input:focus { border-color: var(--blush-deep); background: var(--white); }
+
+    .quiz-summary { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+    .quiz-chip {
+      font-family: var(--body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+      padding: 0.4rem 0.8rem; border-radius: 999px;
+      background: rgba(237,177,176,0.18); color: var(--blush-deep);
+    }
+
+    .quiz-consent { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.25rem; }
+    .quiz-consent-row { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .quiz-consent-row input[type="checkbox"] { margin-top: 0.2rem; width: 16px; height: 16px; accent-color: var(--blush-deep); flex-shrink: 0; cursor: pointer; }
+    .quiz-consent-row label { font-size: 0.78rem; line-height: 1.5; color: rgba(32,28,26,0.65); cursor: pointer; }
+    .quiz-consent-row a { color: var(--blush-deep); text-decoration: underline; }
+
+    .btn-submit {
+      width: 100%;
+      font-family: var(--body); font-size: 0.95rem; font-weight: 700;
+      padding: 1rem 1.5rem;
+      border: none; border-radius: 12px;
+      background: var(--dark); color: var(--white);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-submit:hover { transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+    .quiz-error { font-size: 0.85rem; color: var(--blush-deep); margin-top: 0.75rem; display: none; }
+    .quiz-error.show { display: block; }
+
+    /* Intro step */
+    .quiz-intro { text-align: center; padding: 0.5rem 0 1rem; }
+    .quiz-intro-ratings { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+    .quiz-rating-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--cream); border: 1px solid var(--gray); border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+    }
+    .quiz-rating-pill .qrp-logo { font-family: var(--body); font-weight: 700; font-size: 0.8rem; }
+    .quiz-rating-pill .qrp-num { font-family: var(--display); font-size: 0.95rem; font-weight: 600; color: var(--dark); }
+    .quiz-rating-pill .qrp-count { font-family: var(--body); font-size: 0.68rem; color: var(--dark); opacity: 0.5; }
+    .quiz-intro h1 { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 500; line-height: 1.25; margin-bottom: 0.75rem; }
+    .quiz-intro p { font-size: 0.95rem; color: rgba(32,28,26,0.65); line-height: 1.6; margin-bottom: 1.75rem; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .quiz-intro-note { font-size: 0.8rem; color: rgba(32,28,26,0.45); margin-top: 1rem; }
+    .quiz-start-btn { display: inline-block; width: auto; padding: 1rem 2.5rem; }
+
+    .quiz-success { text-align: center; padding: 1.5rem 0; }
+    .quiz-success-icon {
+      width: 64px; height: 64px; margin: 0 auto 1.25rem;
+      border-radius: 50%; background: var(--blush);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem;
+    }
+    .quiz-success h3 { font-family: var(--display); font-size: 1.6rem; font-weight: 500; margin-bottom: 0.75rem; }
+    .quiz-success p { font-size: 0.95rem; color: rgba(32,28,26,0.65); line-height: 1.6; margin-bottom: 1.5rem; }
+    .quiz-success .btn-primary {
+      display: inline-block; text-decoration: none;
+      font-family: var(--body); font-weight: 700; font-size: 0.95rem;
+      padding: 0.9rem 1.75rem; border-radius: 12px;
+      background: var(--dark); color: var(--white);
+    }
+
+    @media (max-width: 560px) {
+      .quiz-card { padding: 2rem 1.5rem 1.75rem; border-radius: 16px; }
+      .quiz-options { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-header">
+    <svg width="34" height="35" aria-hidden="true" viewBox="0 0 140 150">
+      <defs>
+        <radialGradient id="brainGrad" cx="38%" cy="28%" r="85%">
+          <stop offset="0%" stop-color="#F6CFCE"/>
+          <stop offset="60%" stop-color="#EDB1B0"/>
+          <stop offset="100%" stop-color="#DD9695"/>
+        </radialGradient>
+      </defs>
+      <g fill="url(#brainGrad)">
+        <circle cx="48" cy="32" r="13"/><circle cx="62" cy="22" r="13"/><circle cx="76" cy="19" r="14"/>
+        <circle cx="90" cy="24" r="13"/><circle cx="101" cy="36" r="12"/><circle cx="40" cy="46" r="12"/>
+        <circle cx="105" cy="50" r="11"/><circle cx="55" cy="42" r="14"/><circle cx="71" cy="36" r="15"/>
+        <circle cx="87" cy="42" r="14"/><circle cx="62" cy="55" r="13"/><circle cx="80" cy="55" r="13"/>
+      </g>
+      <path d="M71 22 C66 34 76 42 71 58" stroke="#D28987" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.55"/>
+      <ellipse cx="63" cy="44" rx="4.6" ry="5.6" fill="#FFFFFF"/><ellipse cx="80" cy="44" rx="4.6" ry="5.6" fill="#FFFFFF"/>
+      <circle cx="64" cy="45" r="2.4" fill="#201C1A"/><circle cx="81" cy="45" r="2.4" fill="#201C1A"/>
+      <path d="M66 53 Q72 58 78 53" stroke="#201C1A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M30 64 C46 56 60 59 71 66 C82 59 96 56 112 64 L112 94 C96 86 82 88 71 94 C60 88 46 86 30 94 Z" fill="#201C1A"/>
+      <path d="M71 66 L71 94" stroke="#EDB1B0" stroke-width="2"/>
+    </svg>
+    <span class="logo-word">
+      <span class="lw-main">Burza Mózgów</span>
+      <span class="lw-sub">Korepetycje · Wyszków</span>
+    </span>
+  </header>
+
+  <main class="lp-main">
+    <div class="quiz-card" role="region" aria-label="Dobierz kurs">
+      <div class="quiz-topbar">
+        <button class="quiz-back" id="quiz-back" aria-label="Wstecz" type="button">←</button>
+        <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+      </div>
+
+      <!-- Step: Powitanie / social proof -->
+      <div class="quiz-step active" data-step="intro">
+        <div class="quiz-intro">
+          <div class="quiz-intro-ratings">
+            <span class="quiz-rating-pill"><span class="qrp-logo">Google</span><span class="qrp-num">5,0</span><span class="qrp-count">100+ opinii</span></span>
+          </div>
+          <h1>Sprawdź, który kurs pasuje do Twojego dziecka</h1>
+          <p>Odpowiedz na kilka pytań, a dobierzemy przedmiot, formę zajęć i termin — bez zobowiązań.</p>
+          <button class="btn-submit quiz-start-btn" id="quiz-start-btn" type="button">Zaczynamy →</button>
+          <p class="quiz-intro-note">Całość zajmie do 2 minut</p>
+        </div>
+      </div>
+
+      <!-- Step: Etap nauki -->
+      <div class="quiz-step" data-step="grade">
+        <p class="quiz-question">Jaką klasę / etap nauki wybrać?</p>
+        <div class="quiz-options" id="quiz-grade-options">
+          <button class="quiz-option" data-field="grade" data-value="Zerówka"><span class="qo-emoji">🎈</span>Zerówka</button>
+          <button class="quiz-option" data-field="grade" data-value="Klasa 1-3"><span class="qo-emoji">✏️</span>Klasa 1–3</button>
+          <button class="quiz-option" data-field="grade" data-value="Klasa 4-8"><span class="qo-emoji">📘</span>Klasa 4–8</button>
+          <button class="quiz-option" data-field="grade" data-value="Liceum"><span class="qo-emoji">🎓</span>Liceum</button>
+          <button class="quiz-option" data-field="grade" data-value="Technikum"><span class="qo-emoji">📐</span>Technikum</button>
+          <button class="quiz-option" data-field="grade" data-value="Zawodówka"><span class="qo-emoji">🛠️</span>Zawodówka</button>
+        </div>
+      </div>
+
+      <!-- Step: Konkretna klasa -->
+      <div class="quiz-step" data-step="grade-detail">
+        <p class="quiz-question">Do której dokładnie klasy chodzi Twoje dziecko?</p>
+        <div class="quiz-options" id="quiz-classnum-options"></div>
+      </div>
+
+      <!-- Step: Przedmiot -->
+      <div class="quiz-step" data-step="subject">
+        <p class="quiz-question">Jaki przedmiot Cię interesuje?</p>
+        <div class="quiz-options" id="quiz-subject-options">
+          <button class="quiz-option" data-field="subject" data-value="Matematyka">Matematyka</button>
+          <button class="quiz-option" data-field="subject" data-value="Język angielski">Język angielski</button>
+          <button class="quiz-option" data-field="subject" data-value="Biologia">Biologia</button>
+          <button class="quiz-option" data-field="subject" data-value="Chemia">Chemia</button>
+          <button class="quiz-option" data-field="subject" data-value="Język polski">Język polski</button>
+          <button class="quiz-option" data-field="subject" data-value="Język hiszpański">Język hiszpański</button>
+          <button class="quiz-option" data-field="subject" data-value="Geografia">Geografia</button>
+          <button class="quiz-option" data-field="subject" data-value="WOS">WOS</button>
+          <button class="quiz-option" data-field="subject" data-value="Inny">Inny</button>
+        </div>
+      </div>
+
+      <!-- Step: Cel nauki -->
+      <div class="quiz-step" data-step="goal">
+        <p class="quiz-question">Jaki jest Wasz główny cel?</p>
+        <div class="quiz-options single-col" id="quiz-goal-options">
+          <button class="quiz-option" data-field="goal" data-value="Poprawa bieżących ocen"><span class="qo-emoji">📈</span>Poprawa bieżących ocen</button>
+          <button class="quiz-option" data-field="goal" data-value="Jak najlepszy wynik na egzaminie"><span class="qo-emoji">🎯</span>Jak najlepszy wynik na egzaminie</button>
+          <button class="quiz-option" data-field="goal" data-value="Nadrobienie zaległości"><span class="qo-emoji">🧩</span>Nadrobienie zaległości</button>
+          <button class="quiz-option" data-field="goal" data-value="Utrzymanie dobrego poziomu"><span class="qo-emoji">✅</span>Utrzymanie dobrego poziomu</button>
+        </div>
+      </div>
+
+      <!-- Step: Pilność -->
+      <div class="quiz-step" data-step="urgency">
+        <p class="quiz-question">Kiedy chcecie zacząć zajęcia?</p>
+        <div class="quiz-options single-col" id="quiz-urgency-options">
+          <button class="quiz-option" data-field="urgency" data-value="Jak najszybciej"><span class="qo-emoji">🔥</span>Jak najszybciej</button>
+          <button class="quiz-option" data-field="urgency" data-value="W ciągu 2-4 tygodni"><span class="qo-emoji">📅</span>W ciągu 2–4 tygodni</button>
+          <button class="quiz-option" data-field="urgency" data-value="Jeszcze się rozglądamy"><span class="qo-emoji">🔎</span>Jeszcze się rozglądamy</button>
+        </div>
+      </div>
+
+      <!-- Step: Forma zajęć -->
+      <div class="quiz-step" data-step="format">
+        <p class="quiz-question">Jaka forma zajęć Cię interesuje?</p>
+        <div class="quiz-options" id="quiz-format-options">
+          <button class="quiz-option" data-field="format" data-value="Stacjonarnie (Wyszków)"><span class="qo-emoji">📍</span>Stacjonarnie (Wyszków)</button>
+          <button class="quiz-option" data-field="format" data-value="Online"><span class="qo-emoji">💻</span>Online</button>
+        </div>
+      </div>
+
+      <!-- Step: Dane kontaktowe -->
+      <div class="quiz-step" data-step="contact">
+        <p class="quiz-question">Zostaw numer, oddzwonimy i dobierzemy termin.</p>
+        <div class="quiz-summary" id="quiz-summary"></div>
+        <form id="quiz-contact-form" novalidate>
+          <div class="quiz-contact-fields">
+            <div class="form-group">
+              <label class="form-label" for="quiz-name">Imię i nazwisko</label>
+              <input class="form-input" type="text" id="quiz-name" name="name" placeholder="Jan Kowalski" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-email">Adres e-mail</label>
+              <input class="form-input" type="email" id="quiz-email" name="email" placeholder="jan@przyklad.pl" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-phone">Numer telefonu</label>
+              <input class="form-input" type="tel" id="quiz-phone" name="phone" placeholder="+48 600 000 000" required autocomplete="tel" />
+            </div>
+          </div>
+          <div class="quiz-consent">
+            <div class="quiz-consent-row">
+              <input type="checkbox" id="quiz-consent-phone" name="consentPhone" required />
+              <label for="quiz-consent-phone">Zgadzam się na kontakt telefoniczny ze strony Burza Mózgów Korepetycje w celu przedstawienia oferty zajęć. <a href="/privacy-policy.html" target="_blank" rel="noopener">Szczegóły</a></label>
+            </div>
+            <div class="quiz-consent-row">
+              <input type="checkbox" id="quiz-consent-email" name="consentEmail" required />
+              <label for="quiz-consent-email">Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy.html" target="_blank" rel="noopener">Szczegóły</a></label>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="quiz-submit-btn">Wyślij zgłoszenie</button>
+          <p class="quiz-error" id="quiz-error">Coś poszło nie tak — spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
+        </form>
+      </div>
+
+      <!-- Step: Sukces -->
+      <div class="quiz-step" data-step="success">
+        <div class="quiz-success">
+          <div class="quiz-success-icon">✓</div>
+          <h3>Dziękujemy!</h3>
+          <p>Zgłoszenie dotarło do naszego sekretariatu. Oddzwonimy w ciągu 24h, aby dobrać termin i formę zajęć.<br />Wolisz szybciej? Zadzwoń już teraz.</p>
+          <a href="tel:+48605947803" class="btn-primary">📞 605 947 803</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="lp-footer">
+    <p>ul. Prosta 3 / ul. Sowińskiego 38, 07-200 Wyszków · <a href="tel:+48605947803">605 947 803</a></p>
+    <p><a href="/privacy-policy.html">Polityka prywatności</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    const QUIZ_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyAgf3UccAXC7QAohp3tZOb-px3c8bcm-YxRXVCvORw-YtW7Ui8XFkiTxPVXqAuQ_KcBg/exec';
+
+    const steps = Array.from(document.querySelectorAll('.quiz-step'));
+    const progressFill = document.getElementById('quiz-progress-fill');
+    const backBtn = document.getElementById('quiz-back');
+    const summaryEl = document.getElementById('quiz-summary');
+    const contactForm = document.getElementById('quiz-contact-form');
+    const submitBtn = document.getElementById('quiz-submit-btn');
+    const errorEl = document.getElementById('quiz-error');
+    const classnumOptionsEl = document.getElementById('quiz-classnum-options');
+
+    const CLASS_NUMBERS = {
+      'Klasa 1-3': [1, 2, 3],
+      'Klasa 4-8': [4, 5, 6, 7, 8],
+      'Liceum': [1, 2, 3, 4],
+      'Technikum': [1, 2, 3, 4, 5],
+      'Zawodówka': [1, 2, 3]
+    };
+
+    const answers = { grade: '', classNumber: '', subject: '', goal: '', urgency: '', format: '', name: '', email: '', phone: '' };
+    let currentStepId = 'intro';
+
+    function stepOrder() {
+      const order = ['intro', 'grade'];
+      if (answers.grade && CLASS_NUMBERS[answers.grade]) order.push('grade-detail');
+      order.push('subject', 'goal', 'urgency', 'format', 'contact');
+      return order;
+    }
+
+    function renderClassNumberOptions() {
+      const nums = CLASS_NUMBERS[answers.grade] || [];
+      classnumOptionsEl.innerHTML = nums.map(n =>
+        `<button class="quiz-option" data-field="classNumber" data-value="Klasa ${n}">Klasa ${n}</button>`
+      ).join('');
+      classnumOptionsEl.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
+    }
+
+    function showStepId(id) {
+      steps.forEach(s => s.classList.toggle('active', s.dataset.step === id));
+      currentStepId = id;
+      const order = stepOrder();
+      const idx = order.indexOf(id);
+      const pct = idx >= 0 ? ((idx + 1) / order.length) * 100 : 100;
+      progressFill.style.width = Math.min(pct, 100) + '%';
+      backBtn.classList.toggle('show', idx > 0);
+      if (id === 'contact') renderSummary();
+    }
+
+    function goToNextStep() {
+      const order = stepOrder();
+      const idx = order.indexOf(currentStepId);
+      const nextId = order[idx + 1];
+      if (nextId === 'grade-detail') renderClassNumberOptions();
+      showStepId(nextId);
+    }
+
+    function renderSummary() {
+      const chips = [answers.grade, answers.classNumber, answers.subject, answers.goal, answers.urgency, answers.format].filter(Boolean);
+      summaryEl.innerHTML = chips.map(c => `<span class="quiz-chip">${c}</span>`).join('');
+    }
+
+    document.getElementById('quiz-start-btn').addEventListener('click', () => {
+      goToNextStep();
+      if (typeof trackPixelEvent === 'function') trackPixelEvent('Lead', { lead_type: 'quiz_open' });
+    });
+
+    backBtn.addEventListener('click', () => {
+      const order = stepOrder();
+      const idx = order.indexOf(currentStepId);
+      if (idx > 0) showStepId(order[idx - 1]);
+    });
+
+    function handleOptionClick(e) {
+      const opt = e.currentTarget;
+      const field = opt.dataset.field;
+      answers[field] = opt.dataset.value;
+      goToNextStep();
+    }
+
+    document.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
+
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      answers.name = contactForm.name.value.trim();
+      answers.email = contactForm.email.value.trim();
+      answers.phone = contactForm.phone.value.trim();
+      errorEl.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wysyłanie…';
+
+      const payload = {
+        imie: answers.name,
+        email: answers.email,
+        telefon: answers.phone,
+        klasa: answers.classNumber || answers.grade,
+        etap: answers.grade,
+        przedmiot: answers.subject,
+        cel: answers.goal,
+        pilnosc: answers.urgency,
+        forma: answers.format,
+        zgodaTelefon: contactForm.consentPhone.checked,
+        zgodaEmail: contactForm.consentEmail.checked,
+        wiadomosc: 'Zgłoszenie z landing page /zapisz-sie',
+        zrodlo: 'zapisz-sie-landing',
+        data: new Date().toLocaleString('pl-PL')
+      };
+
+      try {
+        await fetch(QUIZ_SHEETS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          keepalive: true,
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        if (typeof trackPixelEvent === 'function') {
+          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, goal: answers.goal, urgency: answers.urgency, format: answers.format });
+        }
+        showStepId('success');
+      } catch (err) {
+        errorEl.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Wyślij zgłoszenie';
+      }
+    });
+  })();
+
+  function trackPixelEvent(eventName, eventData) {
+    eventData = eventData || {};
+    if (typeof fbq !== 'undefined') fbq('track', eventName, eventData);
+    if (typeof gtag !== 'undefined') gtag('event', eventName, eventData);
+  }
+  </script>
+</body>
+</html>

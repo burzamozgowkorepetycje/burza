@@ -1233,6 +1233,37 @@
     .quiz-error { font-size: 0.85rem; color: var(--blush-deep); margin-top: 0.75rem; display: none; }
     .quiz-error.show { display: block; }
 
+    /* Intro step: social proof + start CTA */
+    .quiz-intro { text-align: center; padding: 0.5rem 0 1rem; }
+    .quiz-intro-ratings {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+    .quiz-rating-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 1px solid var(--gray);
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+    }
+    .quiz-rating-pill .qrp-logo { font-family: var(--body); font-weight: 700; font-size: 0.8rem; }
+    .quiz-rating-pill .qrp-num { font-family: var(--display); font-size: 0.95rem; font-weight: 600; color: var(--dark); }
+    .quiz-rating-pill .qrp-count { font-family: var(--body); font-size: 0.68rem; color: var(--dark); opacity: 0.5; }
+    .quiz-intro h3 { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 500; line-height: 1.25; margin-bottom: 0.75rem; }
+    .quiz-intro p { font-size: 0.95rem; color: rgba(32,28,26,0.65); line-height: 1.6; margin-bottom: 1.75rem; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .quiz-intro .quiz-intro-note { font-size: 0.8rem; color: rgba(32,28,26,0.45); margin-top: 1rem; margin-bottom: 0; }
+
+    .quiz-consent { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.25rem; }
+    .quiz-consent-row { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .quiz-consent-row input[type="checkbox"] { margin-top: 0.2rem; width: 16px; height: 16px; accent-color: var(--blush-deep); flex-shrink: 0; cursor: pointer; }
+    .quiz-consent-row label { font-size: 0.78rem; line-height: 1.5; color: rgba(32,28,26,0.65); cursor: pointer; }
+    .quiz-consent-row a { color: var(--blush-deep); text-decoration: underline; }
+
     /* Contact form fields sit on a dark section by default; re-theme for the light quiz modal */
     .quiz-modal .form-label { color: var(--dark); opacity: 0.55; }
     .quiz-modal .form-input {
@@ -1789,8 +1820,21 @@
         <button class="quiz-close" id="quiz-close" aria-label="Zamknij" type="button">✕</button>
       </div>
 
+      <!-- Step: Powitanie / social proof -->
+      <div class="quiz-step active" data-step="intro">
+        <div class="quiz-intro">
+          <div class="quiz-intro-ratings">
+            <span class="quiz-rating-pill"><span class="qrp-logo">Google</span><span class="qrp-num">5,0</span><span class="qrp-count">100+ opinii</span></span>
+          </div>
+          <h3>Sprawdź, który kurs pasuje do Twojego dziecka</h3>
+          <p>Odpowiedz na kilka pytań, a dobierzemy przedmiot, formę zajęć i termin — bez zobowiązań.</p>
+          <button class="btn-primary quiz-start-btn" id="quiz-start-btn" type="button">Zaczynamy →</button>
+          <p class="quiz-intro-note">Całość zajmie do 1 minuty</p>
+        </div>
+      </div>
+
       <!-- Step: Etap nauki -->
-      <div class="quiz-step active" data-step="grade">
+      <div class="quiz-step" data-step="grade">
         <p class="quiz-question">Jaką klasę / etap nauki wybrać?</p>
         <div class="quiz-options" id="quiz-grade-options">
           <button class="quiz-option" data-field="grade" data-value="Zerówka"><span class="qo-emoji">🎈</span>Zerówka</button>
@@ -1844,8 +1888,22 @@
               <input class="form-input" type="text" id="quiz-name" name="name" placeholder="Jan Kowalski" required autocomplete="name" />
             </div>
             <div class="form-group">
+              <label class="form-label" for="quiz-email">Adres e-mail</label>
+              <input class="form-input" type="email" id="quiz-email" name="email" placeholder="jan@przyklad.pl" required autocomplete="email" />
+            </div>
+            <div class="form-group">
               <label class="form-label" for="quiz-phone">Numer telefonu</label>
               <input class="form-input" type="tel" id="quiz-phone" name="phone" placeholder="+48 600 000 000" required autocomplete="tel" />
+            </div>
+          </div>
+          <div class="quiz-consent">
+            <div class="quiz-consent-row">
+              <input type="checkbox" id="quiz-consent-phone" name="consentPhone" required />
+              <label for="quiz-consent-phone">Zgadzam się na kontakt telefoniczny ze strony Burza Mózgów Korepetycje w celu przedstawienia oferty zajęć. <a href="/privacy-policy.html" target="_blank" rel="noopener">Szczegóły</a></label>
+            </div>
+            <div class="quiz-consent-row">
+              <input type="checkbox" id="quiz-consent-email" name="consentEmail" required />
+              <label for="quiz-consent-email">Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy.html" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
           </div>
           <button type="submit" class="btn-submit" id="quiz-submit-btn" style="width:100%;">Wyślij zgłoszenie</button>
@@ -2006,11 +2064,11 @@
       'Zawodówka': [1, 2, 3]
     };
 
-    const answers = { grade: '', classNumber: '', subject: '', format: '', name: '', phone: '' };
-    let currentStepId = 'grade';
+    const answers = { grade: '', classNumber: '', subject: '', format: '', name: '', email: '', phone: '' };
+    let currentStepId = 'intro';
 
     function stepOrder() {
-      const order = ['grade'];
+      const order = ['intro', 'grade'];
       if (answers.grade && CLASS_NUMBERS[answers.grade]) order.push('grade-detail');
       order.push('subject', 'format', 'contact');
       return order;
@@ -2049,16 +2107,18 @@
     }
 
     function openQuiz() {
-      answers.grade = answers.classNumber = answers.subject = answers.format = answers.name = answers.phone = '';
+      answers.grade = answers.classNumber = answers.subject = answers.format = answers.name = answers.email = answers.phone = '';
       contactForm.reset();
       errorEl.classList.remove('show');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Wyślij zgłoszenie';
-      showStepId('grade');
+      showStepId('intro');
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
       if (typeof trackPixelEvent === 'function') trackPixelEvent('Lead', { lead_type: 'quiz_open' });
     }
+
+    document.getElementById('quiz-start-btn').addEventListener('click', goToNextStep);
 
     function closeQuiz() {
       overlay.classList.remove('open');
@@ -2103,6 +2163,7 @@
     contactForm.addEventListener('submit', async function (e) {
       e.preventDefault();
       answers.name = contactForm.name.value.trim();
+      answers.email = contactForm.email.value.trim();
       answers.phone = contactForm.phone.value.trim();
       errorEl.classList.remove('show');
       submitBtn.disabled = true;
@@ -2110,11 +2171,14 @@
 
       const payload = {
         imie: answers.name,
+        email: answers.email,
         telefon: answers.phone,
         klasa: answers.classNumber || answers.grade,
         etap: answers.grade,
         przedmiot: answers.subject,
         forma: answers.format,
+        zgodaTelefon: contactForm.consentPhone.checked,
+        zgodaEmail: contactForm.consentEmail.checked,
         wiadomosc: 'Zgłoszenie z quizu na stronie',
         data: new Date().toLocaleString('pl-PL')
       };
