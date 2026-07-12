@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dobierz kurs dla swojego dziecka | Burza Mózgów Korepetycje</title>
-  <meta name="description" content="Odpowiedz na kilka pytań, a dobierzemy kurs, formę zajęć i termin. Kursy maturalne i przygotowanie do egzaminu ósmoklasisty w Wyszkowie — stacjonarnie i online." />
+  <meta name="description" content="Odpowiedz na kilka pytań, a dobierzemy kurs, formę zajęć i termin. Kursy maturalne i przygotowanie do egzaminu ósmoklasisty w Wyszkowie, stacjonarnie i online." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="canonical" href="https://burza-mozgow-korepetycje.pl/zapisz-sie" />
 
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://burza-mozgow-korepetycje.pl/zapisz-sie" />
   <meta property="og:title" content="Dobierz kurs dla swojego dziecka | Burza Mózgów Korepetycje" />
-  <meta property="og:description" content="Odpowiedz na kilka pytań, a dobierzemy kurs, formę zajęć i termin — bez zobowiązań." />
+  <meta property="og:description" content="Odpowiedz na kilka pytań, a dobierzemy kurs, formę zajęć i termin. Bez zobowiązań." />
   <meta property="og:locale" content="pl_PL" />
   <meta property="og:site_name" content="Burza Mózgów Korepetycje" />
 
@@ -221,6 +221,18 @@
     .quiz-intro-guarantee { font-size: 0.8rem; color: var(--blush-deep); font-weight: 600; margin-bottom: 1.5rem; }
     .quiz-start-btn { display: inline-block; width: auto; padding: 1rem 2.5rem; }
 
+    .quiz-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1.75rem; text-align: left; }
+    .quiz-pillar {
+      display: flex; align-items: center; gap: 0.55rem;
+      background: var(--cream);
+      border: 1px solid var(--gray);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+    }
+    .quiz-pillar .qp-icon { font-size: 1.05rem; flex-shrink: 0; }
+    .quiz-pillar .qp-text { font-size: 0.82rem; font-weight: 600; color: var(--dark); line-height: 1.3; }
+    @media (max-width: 560px) { .quiz-pillars { grid-template-columns: 1fr; } }
+
     .qo-badge {
       display: inline-block;
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
@@ -309,8 +321,13 @@
             <span class="quiz-rating-pill"><span class="qrp-logo">Google</span><span class="qrp-num">5,0</span><span class="qrp-count">100+ opinii</span></span>
           </div>
           <h1>Sprawdź, który kurs pasuje do Twojego dziecka</h1>
-          <p>Odpowiedz na kilka pytań, a dobierzemy przedmiot, formę zajęć i termin — bez zobowiązań.</p>
-          <p class="quiz-intro-guarantee">🎯 Średni wynik naszych uczniów: 80% · Gwarancja wyniku 70%+ na kursach maturalnych i E8*</p>
+          <p>Odpowiedz na kilka pytań, a dobierzemy przedmiot, formę zajęć i termin. Bez zobowiązań.</p>
+          <div class="quiz-pillars">
+            <div class="quiz-pillar"><span class="qp-icon">📝</span><span class="qp-text">Wszystkie typy zadań</span></div>
+            <div class="quiz-pillar"><span class="qp-icon">📊</span><span class="qp-text">Średni wynik: E8 88%, matura 83%</span></div>
+            <div class="quiz-pillar"><span class="qp-icon">🛡️</span><span class="qp-text">Gwarancja wyniku 70%+*</span></div>
+            <div class="quiz-pillar"><span class="qp-icon">💻</span><span class="qp-text">Dostęp do platformy edukacyjnej</span></div>
+          </div>
           <button class="btn-submit quiz-start-btn" id="quiz-start-btn" type="button">Zaczynamy →</button>
           <p class="quiz-intro-note">Całość zajmie do 2 minut</p>
         </div>
@@ -378,7 +395,7 @@
 
       <!-- Step: Dane kontaktowe -->
       <div class="quiz-step" data-step="contact">
-        <div class="quiz-proof-banner" id="quiz-proof-banner" style="display:none;">📈 <span><strong>80%</strong> średni wynik naszych uczniów na egzaminie · <strong>Gwarancja wyniku 70%+</strong>*</span></div>
+        <div class="quiz-proof-banner" id="quiz-proof-banner" style="display:none;">📈 <span id="quiz-proof-text"></span></div>
         <p class="quiz-question">Zostaw numer, oddzwonimy i dobierzemy termin.</p>
         <div class="quiz-summary" id="quiz-summary"></div>
         <form id="quiz-contact-form" novalidate>
@@ -407,7 +424,7 @@
             </div>
           </div>
           <button type="submit" class="btn-submit" id="quiz-submit-btn">Wyślij zgłoszenie</button>
-          <p class="quiz-error" id="quiz-error">Coś poszło nie tak — spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
+          <p class="quiz-error" id="quiz-error">Coś poszło nie tak. Spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
         </form>
       </div>
 
@@ -426,7 +443,7 @@
   <footer class="lp-footer">
     <p>ul. Prosta 3 / ul. Sowińskiego 38, 07-200 Wyszków · <a href="tel:+48605947803">605 947 803</a></p>
     <p><a href="/privacy-policy.html">Polityka prywatności</a></p>
-    <p style="margin-top:0.75rem; font-size:0.68rem; max-width:520px; margin-left:auto; margin-right:auto;">*Gwarancja wyniku 70%+ obowiązuje pod warunkiem spełnienia warunków umowy — m.in. regularnego uczestnictwa w zajęciach przez minimum 3 miesiące przed egzaminem oraz odrabiania zadanych prac domowych. Szczegółowe warunki określa umowa.</p>
+    <p style="margin-top:0.75rem; font-size:0.68rem; max-width:520px; margin-left:auto; margin-right:auto;">*Gwarancja wyniku 70%+ obowiązuje zgodnie z warunkami umowy.</p>
   </footer>
 
   <script>
@@ -446,6 +463,7 @@
     const urgencyOptionsEl = document.getElementById('quiz-urgency-options');
     const urgencyQuestionEl = document.getElementById('quiz-urgency-question');
     const proofBanner = document.getElementById('quiz-proof-banner');
+    const proofTextEl = document.getElementById('quiz-proof-text');
 
     const CLASS_NUMBERS = {
       'Klasa 1-3': [1, 2, 3],
@@ -455,7 +473,7 @@
       'Zawodówka': [1, 2, 3]
     };
 
-    // Klasy bliskie egzaminowi — decydują, czy pokazujemy ścieżkę E8 lub Matura
+    // Klasy bliskie egzaminowi: decydują, czy pokazujemy ścieżkę E8 lub Matura
     const E8_CLASSES = ['Klasa 7', 'Klasa 8'];
     const MATURA_CLASSES_LICEUM = ['Klasa 3', 'Klasa 4'];
     const MATURA_CLASSES_TECHNIKUM = ['Klasa 4', 'Klasa 5'];
@@ -532,7 +550,14 @@
       backBtn.classList.toggle('show', idx > 0);
       if (id === 'contact') {
         renderSummary();
-        proofBanner.style.display = getExamType() === 'none' ? 'none' : 'flex';
+        const examType = getExamType();
+        if (examType === 'none') {
+          proofBanner.style.display = 'none';
+        } else {
+          const pct = examType === 'e8' ? '88%' : '83%';
+          proofTextEl.innerHTML = `<strong>${pct}</strong> średni wynik naszych uczniów na egzaminie · <strong>Gwarancja wyniku 70%+</strong>*`;
+          proofBanner.style.display = 'flex';
+        }
       }
     }
 
