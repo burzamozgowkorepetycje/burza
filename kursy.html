@@ -1,3 +1,4 @@
+ok
 <!doctype html>
 <html lang="pl">
 <head>
@@ -71,6 +72,8 @@
           <form class="quick-form" id="szybki-zapis">
             <label for="quickSubject">Interesuje mnie kurs:</label>
             <select id="quickSubject" required><option value="">Wybierz przedmiot</option><option data-exam="matura">Matematyka (online lub Wyszków)</option><option data-exam="matura">Język polski (online lub Wyszków)</option><option data-exam="matura">Język angielski (online lub Wyszków)</option><option data-exam="matura">Biologia (Wyszków — stacjonarnie)</option><option data-exam="matura">Chemia (Wyszków — stacjonarnie)</option><option data-exam="matura">Geografia (Wyszków — stacjonarnie)</option><option data-exam="matura">WOS (Wyszków — stacjonarnie)</option><option data-exam="e8" hidden>Matematyka E8 (online lub Wyszków)</option><option data-exam="e8" hidden>Język polski E8 (online lub Wyszków)</option><option data-exam="e8" hidden>Język angielski E8 (online lub Wyszków)</option></select>
+            <label for="quickName">Imię i nazwisko:</label>
+            <input id="quickName" name="name" type="text" required autocomplete="name" placeholder="Jan Kowalski">
             <label for="quickPhone">Numer telefonu:</label>
             <input id="quickPhone" name="phone" type="tel" required minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000">
             <button class="btn btn-dark" type="submit">Chcę zapisać się na kurs →</button>
@@ -186,9 +189,9 @@
     function setMode(mode){currentMode=mode;document.querySelectorAll('.exam-tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.mode===mode));document.querySelectorAll('.mode-panel').forEach(panel=>panel.classList.toggle('active',panel.dataset.panel===mode));quickSubject.value='';quickSubject.querySelectorAll('option[data-exam]').forEach(option=>option.hidden=option.dataset.exam!==mode);}
     document.querySelectorAll('.exam-tab').forEach(tab=>tab.addEventListener('click',()=>setMode(tab.dataset.mode)));
     document.getElementById('szybki-zapis').addEventListener('submit',async event=>{
-      event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const phone=document.getElementById('quickPhone').value.trim();
+      event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const name=document.getElementById('quickName').value.trim();const phone=document.getElementById('quickPhone').value.trim();
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await sendLead({imie:'Szybki zapis',telefon:phone,etap:currentMode==='matura'?'Matura':'Egzamin ósmoklasisty',przedmiot:quickSubject.value,forma:quickSubject.value.includes('stacjonarnie')?'Wyszków — stacjonarnie':'Online lub Wyszków',wiadomosc:'Szybki zapis z pierwszego ekranu'});track('Lead',{lead_type:'quick_course_form',exam:currentMode,subject:quickSubject.value});showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();setMode(currentMode);button.textContent='Zgłoszenie wysłane ✓';}
+      try{await sendLead({imie:name,telefon:phone,etap:currentMode==='matura'?'Matura':'Egzamin ósmoklasisty',przedmiot:quickSubject.value,forma:quickSubject.value.includes('stacjonarnie')?'Wyszków — stacjonarnie':'Online lub Wyszków',wiadomosc:'Szybki zapis z pierwszego ekranu'});track('Lead',{lead_type:'quick_course_form',exam:currentMode,subject:quickSubject.value});showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();setMode(currentMode);button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){showStatus(status,'Nie udało się wysłać. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
     document.getElementById('leadForm').addEventListener('submit',async event=>{
