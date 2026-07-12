@@ -218,7 +218,30 @@
     .quiz-intro h1 { font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 500; line-height: 1.25; margin-bottom: 0.75rem; }
     .quiz-intro p { font-size: 0.95rem; color: rgba(32,28,26,0.65); line-height: 1.6; margin-bottom: 1.75rem; max-width: 440px; margin-left: auto; margin-right: auto; }
     .quiz-intro-note { font-size: 0.8rem; color: rgba(32,28,26,0.45); margin-top: 1rem; }
+    .quiz-intro-guarantee { font-size: 0.8rem; color: var(--blush-deep); font-weight: 600; margin-bottom: 1.5rem; }
     .quiz-start-btn { display: inline-block; width: auto; padding: 1rem 2.5rem; }
+
+    .qo-badge {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--blush-deep);
+      background: rgba(237,177,176,0.18);
+      border-radius: 999px;
+      padding: 0.15rem 0.5rem;
+      margin-left: 0.4rem;
+    }
+
+    .quiz-proof-banner {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: rgba(237,177,176,0.14);
+      border: 1px solid rgba(217,143,142,0.3);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--dark);
+    }
+    .quiz-proof-banner strong { color: var(--blush-deep); }
 
     .quiz-success { text-align: center; padding: 1.5rem 0; }
     .quiz-success-icon {
@@ -287,6 +310,7 @@
           </div>
           <h1>Sprawdź, który kurs pasuje do Twojego dziecka</h1>
           <p>Odpowiedz na kilka pytań, a dobierzemy przedmiot, formę zajęć i termin — bez zobowiązań.</p>
+          <p class="quiz-intro-guarantee">🎯 Średni wynik naszych uczniów: 80% · Gwarancja wyniku 70%+ na kursach maturalnych i E8*</p>
           <button class="btn-submit quiz-start-btn" id="quiz-start-btn" type="button">Zaczynamy →</button>
           <p class="quiz-intro-note">Całość zajmie do 2 minut</p>
         </div>
@@ -296,11 +320,11 @@
       <div class="quiz-step" data-step="grade">
         <p class="quiz-question">Jaką klasę / etap nauki wybrać?</p>
         <div class="quiz-options" id="quiz-grade-options">
+          <button class="quiz-option" data-field="grade" data-value="Klasa 4-8"><span class="qo-emoji">📘</span>Klasa 4–8<span class="qo-badge">E8</span></button>
+          <button class="quiz-option" data-field="grade" data-value="Liceum"><span class="qo-emoji">🎓</span>Liceum<span class="qo-badge">Matura</span></button>
+          <button class="quiz-option" data-field="grade" data-value="Technikum"><span class="qo-emoji">📐</span>Technikum<span class="qo-badge">Matura</span></button>
           <button class="quiz-option" data-field="grade" data-value="Zerówka"><span class="qo-emoji">🎈</span>Zerówka</button>
           <button class="quiz-option" data-field="grade" data-value="Klasa 1-3"><span class="qo-emoji">✏️</span>Klasa 1–3</button>
-          <button class="quiz-option" data-field="grade" data-value="Klasa 4-8"><span class="qo-emoji">📘</span>Klasa 4–8</button>
-          <button class="quiz-option" data-field="grade" data-value="Liceum"><span class="qo-emoji">🎓</span>Liceum</button>
-          <button class="quiz-option" data-field="grade" data-value="Technikum"><span class="qo-emoji">📐</span>Technikum</button>
           <button class="quiz-option" data-field="grade" data-value="Zawodówka"><span class="qo-emoji">🛠️</span>Zawodówka</button>
         </div>
       </div>
@@ -313,17 +337,16 @@
 
       <!-- Step: Przedmiot -->
       <div class="quiz-step" data-step="subject">
-        <p class="quiz-question">Jaki przedmiot Cię interesuje?</p>
-        <div class="quiz-options" id="quiz-subject-options">
-          <button class="quiz-option" data-field="subject" data-value="Matematyka">Matematyka</button>
-          <button class="quiz-option" data-field="subject" data-value="Język angielski">Język angielski</button>
-          <button class="quiz-option" data-field="subject" data-value="Biologia">Biologia</button>
-          <button class="quiz-option" data-field="subject" data-value="Chemia">Chemia</button>
-          <button class="quiz-option" data-field="subject" data-value="Język polski">Język polski</button>
-          <button class="quiz-option" data-field="subject" data-value="Język hiszpański">Język hiszpański</button>
-          <button class="quiz-option" data-field="subject" data-value="Geografia">Geografia</button>
-          <button class="quiz-option" data-field="subject" data-value="WOS">WOS</button>
-          <button class="quiz-option" data-field="subject" data-value="Inny">Inny</button>
+        <p class="quiz-question" id="quiz-subject-question">Jaki przedmiot Cię interesuje?</p>
+        <div class="quiz-options" id="quiz-subject-options"></div>
+      </div>
+
+      <!-- Step: Poziom (tylko dla matury) -->
+      <div class="quiz-step" data-step="poziom">
+        <p class="quiz-question">Jaki poziom egzaminu?</p>
+        <div class="quiz-options single-col" id="quiz-poziom-options">
+          <button class="quiz-option" data-field="poziom" data-value="Poziom podstawowy"><span class="qo-emoji">📗</span>Poziom podstawowy</button>
+          <button class="quiz-option" data-field="poziom" data-value="Poziom rozszerzony"><span class="qo-emoji">📕</span>Poziom rozszerzony</button>
         </div>
       </div>
 
@@ -340,12 +363,8 @@
 
       <!-- Step: Pilność -->
       <div class="quiz-step" data-step="urgency">
-        <p class="quiz-question">Kiedy chcecie zacząć zajęcia?</p>
-        <div class="quiz-options single-col" id="quiz-urgency-options">
-          <button class="quiz-option" data-field="urgency" data-value="Jak najszybciej"><span class="qo-emoji">🔥</span>Jak najszybciej</button>
-          <button class="quiz-option" data-field="urgency" data-value="W ciągu 2-4 tygodni"><span class="qo-emoji">📅</span>W ciągu 2–4 tygodni</button>
-          <button class="quiz-option" data-field="urgency" data-value="Jeszcze się rozglądamy"><span class="qo-emoji">🔎</span>Jeszcze się rozglądamy</button>
-        </div>
+        <p class="quiz-question" id="quiz-urgency-question">Kiedy chcecie zacząć zajęcia?</p>
+        <div class="quiz-options single-col" id="quiz-urgency-options"></div>
       </div>
 
       <!-- Step: Forma zajęć -->
@@ -359,6 +378,7 @@
 
       <!-- Step: Dane kontaktowe -->
       <div class="quiz-step" data-step="contact">
+        <div class="quiz-proof-banner" id="quiz-proof-banner" style="display:none;">📈 <span><strong>80%</strong> średni wynik naszych uczniów na egzaminie · <strong>Gwarancja wyniku 70%+</strong>*</span></div>
         <p class="quiz-question">Zostaw numer, oddzwonimy i dobierzemy termin.</p>
         <div class="quiz-summary" id="quiz-summary"></div>
         <form id="quiz-contact-form" novalidate>
@@ -406,6 +426,7 @@
   <footer class="lp-footer">
     <p>ul. Prosta 3 / ul. Sowińskiego 38, 07-200 Wyszków · <a href="tel:+48605947803">605 947 803</a></p>
     <p><a href="/privacy-policy.html">Polityka prywatności</a></p>
+    <p style="margin-top:0.75rem; font-size:0.68rem; max-width:520px; margin-left:auto; margin-right:auto;">*Gwarancja wyniku 70%+ obowiązuje pod warunkiem spełnienia warunków umowy — m.in. regularnego uczestnictwa w zajęciach przez minimum 3 miesiące przed egzaminem oraz odrabiania zadanych prac domowych. Szczegółowe warunki określa umowa.</p>
   </footer>
 
   <script>
@@ -420,6 +441,11 @@
     const submitBtn = document.getElementById('quiz-submit-btn');
     const errorEl = document.getElementById('quiz-error');
     const classnumOptionsEl = document.getElementById('quiz-classnum-options');
+    const subjectOptionsEl = document.getElementById('quiz-subject-options');
+    const subjectQuestionEl = document.getElementById('quiz-subject-question');
+    const urgencyOptionsEl = document.getElementById('quiz-urgency-options');
+    const urgencyQuestionEl = document.getElementById('quiz-urgency-question');
+    const proofBanner = document.getElementById('quiz-proof-banner');
 
     const CLASS_NUMBERS = {
       'Klasa 1-3': [1, 2, 3],
@@ -429,13 +455,32 @@
       'Zawodówka': [1, 2, 3]
     };
 
-    const answers = { grade: '', classNumber: '', subject: '', goal: '', urgency: '', format: '', name: '', email: '', phone: '' };
+    // Klasy bliskie egzaminowi — decydują, czy pokazujemy ścieżkę E8 lub Matura
+    const E8_CLASSES = ['Klasa 7', 'Klasa 8'];
+    const MATURA_CLASSES_LICEUM = ['Klasa 3', 'Klasa 4'];
+    const MATURA_CLASSES_TECHNIKUM = ['Klasa 4', 'Klasa 5'];
+
+    const E8_SUBJECTS = ['Matematyka', 'Język polski', 'Język angielski'];
+    const MATURA_SUBJECTS = ['Matematyka', 'Język polski', 'Język angielski', 'Biologia', 'Chemia', 'Geografia', 'WOS', 'Język hiszpański'];
+    const GENERAL_SUBJECTS = ['Matematyka', 'Język angielski', 'Biologia', 'Chemia', 'Język polski', 'Język hiszpański', 'Geografia', 'WOS', 'Inny'];
+    const CORE_LEVEL_SUBJECTS = ['Matematyka', 'Język polski', 'Język angielski'];
+
+    const answers = { grade: '', classNumber: '', subject: '', poziom: '', goal: '', urgency: '', format: '', name: '', email: '', phone: '' };
     let currentStepId = 'intro';
+
+    function getExamType() {
+      if (answers.grade === 'Klasa 4-8' && E8_CLASSES.includes(answers.classNumber)) return 'e8';
+      if (answers.grade === 'Liceum' && MATURA_CLASSES_LICEUM.includes(answers.classNumber)) return 'matura';
+      if (answers.grade === 'Technikum' && MATURA_CLASSES_TECHNIKUM.includes(answers.classNumber)) return 'matura';
+      return 'none';
+    }
 
     function stepOrder() {
       const order = ['intro', 'grade'];
       if (answers.grade && CLASS_NUMBERS[answers.grade]) order.push('grade-detail');
-      order.push('subject', 'goal', 'urgency', 'format', 'contact');
+      order.push('subject');
+      if (getExamType() === 'matura' && CORE_LEVEL_SUBJECTS.includes(answers.subject)) order.push('poziom');
+      order.push('goal', 'urgency', 'format', 'contact');
       return order;
     }
 
@@ -447,6 +492,36 @@
       classnumOptionsEl.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
     }
 
+    function renderSubjectOptions() {
+      const examType = getExamType();
+      const list = examType === 'e8' ? E8_SUBJECTS : examType === 'matura' ? MATURA_SUBJECTS : GENERAL_SUBJECTS;
+      subjectQuestionEl.textContent = examType === 'e8'
+        ? 'Jaki przedmiot na egzaminie ósmoklasisty?'
+        : examType === 'matura'
+        ? 'Jaki przedmiot maturalny Cię interesuje?'
+        : 'Jaki przedmiot Cię interesuje?';
+      subjectOptionsEl.innerHTML = list.map(s => `<button class="quiz-option" data-field="subject" data-value="${s}">${s}</button>`).join('');
+      subjectOptionsEl.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
+    }
+
+    function renderUrgencyOptions() {
+      const examType = getExamType();
+      if (examType === 'none') {
+        urgencyQuestionEl.textContent = 'Kiedy chcecie zacząć zajęcia?';
+        urgencyOptionsEl.innerHTML = `
+          <button class="quiz-option" data-field="urgency" data-value="Jak najszybciej"><span class="qo-emoji">🔥</span>Jak najszybciej</button>
+          <button class="quiz-option" data-field="urgency" data-value="W ciągu 2-4 tygodni"><span class="qo-emoji">📅</span>W ciągu 2–4 tygodni</button>
+          <button class="quiz-option" data-field="urgency" data-value="Jeszcze się rozglądamy"><span class="qo-emoji">🔎</span>Jeszcze się rozglądamy</button>`;
+      } else {
+        urgencyQuestionEl.textContent = 'Kiedy masz egzamin?';
+        urgencyOptionsEl.innerHTML = `
+          <button class="quiz-option" data-field="urgency" data-value="W tym roku szkolnym"><span class="qo-emoji">⏰</span>W tym roku szkolnym</button>
+          <button class="quiz-option" data-field="urgency" data-value="Za rok"><span class="qo-emoji">📅</span>Za rok</button>
+          <button class="quiz-option" data-field="urgency" data-value="Jeszcze nie wiem dokładnie"><span class="qo-emoji">🔎</span>Jeszcze nie wiem dokładnie</button>`;
+      }
+      urgencyOptionsEl.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
+    }
+
     function showStepId(id) {
       steps.forEach(s => s.classList.toggle('active', s.dataset.step === id));
       currentStepId = id;
@@ -455,7 +530,10 @@
       const pct = idx >= 0 ? ((idx + 1) / order.length) * 100 : 100;
       progressFill.style.width = Math.min(pct, 100) + '%';
       backBtn.classList.toggle('show', idx > 0);
-      if (id === 'contact') renderSummary();
+      if (id === 'contact') {
+        renderSummary();
+        proofBanner.style.display = getExamType() === 'none' ? 'none' : 'flex';
+      }
     }
 
     function goToNextStep() {
@@ -463,11 +541,13 @@
       const idx = order.indexOf(currentStepId);
       const nextId = order[idx + 1];
       if (nextId === 'grade-detail') renderClassNumberOptions();
+      if (nextId === 'subject') renderSubjectOptions();
+      if (nextId === 'urgency') renderUrgencyOptions();
       showStepId(nextId);
     }
 
     function renderSummary() {
-      const chips = [answers.grade, answers.classNumber, answers.subject, answers.goal, answers.urgency, answers.format].filter(Boolean);
+      const chips = [answers.grade, answers.classNumber, answers.subject, answers.poziom, answers.goal, answers.urgency, answers.format].filter(Boolean);
       summaryEl.innerHTML = chips.map(c => `<span class="quiz-chip">${c}</span>`).join('');
     }
 
@@ -506,7 +586,9 @@
         telefon: answers.phone,
         klasa: answers.classNumber || answers.grade,
         etap: answers.grade,
+        typEgzaminu: getExamType(),
         przedmiot: answers.subject,
+        poziom: answers.poziom,
         cel: answers.goal,
         pilnosc: answers.urgency,
         forma: answers.format,
