@@ -1,6 +1,45 @@
 # Status projektu
 
-## Ostatni etap: Etap 2 — Strony egzaminacyjne (zaimplementowany i wdrożony)
+## Ostatni etap: Etap 3 — Dopracowanie stron korepetycji przedmiotowych (zaimplementowany i wdrożony)
+
+Data: 2026-07-14
+
+**Zakres:** dopracowanie 8 istniejących stron `korepetycje-*.html` (matematyka, angielski, polski, biologia, chemia, hiszpański, geografia, WOS) pod kątem intencji: poprawa ocen, nadrabianie zaległości, przygotowanie do sprawdzianów, bieżąca nauka — bez konkurowania ze stronami kursów egzaminacyjnych z Etapu 2.
+
+**Zmiany wspólne dla wszystkich 8 stron:**
+- Dodano „Wyszków” do `<title>` (oraz `og:title`/`twitter:title`) — każda strona miała już przedmiot w title, ale nie miasto.
+- Dodano krótki, jednakowy dla wszystkich stron proces zapisu (3 kroki: formularz/telefon → oddzwonienie w 24h → dobór formy i terminu) w sekcji formularza — wcześniej proces nie był wypisany explicite.
+
+**Zmiany specyficzne dla matematyki/angielskiego/polskiego (partia 1):**
+- Sekcja crosssell przy cenniku linkowała wcześniej do starych stron wyboru egzaminu (`kurs-matematyka.html` itd.). Zamieniono na dwa bezpośrednie linki do dedykowanych stron z Etapu 2: kurs maturalny i kurs E8 (np. `/kurs-maturalny-matematyka.html`, `/kurs-e8-matematyka.html`). Gwarancja 70%+ wspomniana wyłącznie przy matematyce, zgodnie z wcześniejszym ustaleniem zakresu gwarancji.
+
+**Biologia/chemia/geografia/WOS (partie 2–3):** strony już zawierały dwie opcje oferty na tej samej stronie (zajęcia indywidualne + kurs stacjonarny maturalny w Wyszkowie z linkiem do zapisu) — wymóg „link do właściwego kursu maturalnego" był już spełniony przez istniejący offer-box, więc nie dodano dodatkowych linków. Brak dedykowanych stron maturalnych dla tych przedmiotów pozostaje znanym ograniczeniem z Etapu 2 (kandydat na kolejny etap, nie w zakresie tego).
+
+**Hiszpański (partia 2):** brak osobnego kursu egzaminacyjnego w ofercie serwisu — strona łączy naukę bieżącą i przygotowanie maturalne w jednej ofercie indywidualnej, bez zmiany tego modelu (brak wystarczająco unikalnej oferty na osobną podstronę, zgodnie z zasadą 17/instrukcją właściciela).
+
+**Nie utworzono żadnych nowych podstron** — zgodnie z poleceniem właściciela ograniczono się do dopracowania istniejących 8 stron.
+
+**Testy wykonane (każda partia osobno):**
+- `node scripts/build-components.js` — wszystkie strony zgłaszają „bez zmian (już zbudowane)” po każdej partii, brak regresji w mechanizmie budowania.
+- Walidacja HTML (`html.parser`) — wszystkie zmienione pliki parsują się bez błędów.
+- Weryfikacja linków wewnętrznych (`grep href`) — brak odniesień do nieistniejących plików.
+- Weryfikacja wizualna w przeglądarce (localhost:3456) po każdej partii: title poprawny, crosssell z dwoma przyciskami (matematyka/angielski/polski) renderuje się poprawnie i zawija na wąskich ekranach, lista kroków procesu zapisu widoczna w sekcji formularza.
+- Formularze leadowe NIE zostały faktycznie wysłane podczas testów.
+
+**Wdrożenie (3 partie, każda osobno):**
+1. Partia 1 (matematyka/angielski/polski) — commit `c91b274`, zweryfikowano HTTP 200 i poprawny title „w Wyszkowie” na produkcji.
+2. Partia 2 (biologia/chemia/hiszpański) — commit `52a5223`, zweryfikowano HTTP 200 i poprawny title na produkcji, brak regresji na wcześniej wdrożonych stronach.
+3. Partia 3 (geografia/WOS) — commit `f782e3a`, zweryfikowano HTTP 200 i poprawny title na produkcji, brak regresji.
+
+**Adres wdrożenia:** https://burza-mozgow-korepetycje.pl
+**Gałąź:** `main`
+**Finalny hash commita:** `f782e3a` (poprzednie w tym etapie: `52a5223`, `c91b274`)
+
+**Następny etap:** nierozpoczęty, oczekuje na polecenie właściciela.
+
+---
+
+## Etap 2 — Strony egzaminacyjne (zaimplementowany i wdrożony)
 
 Data: 2026-07-14
 

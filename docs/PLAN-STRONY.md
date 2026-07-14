@@ -110,7 +110,8 @@ Pełne tabele URL, szczegóły techniczne i proponowany plan wdrożenia (etapy 1
 
 - **Etap 0 — Audyt:** wyłącznie dokumentacja. Zero zmian w kodzie produkcyjnym. Wynik: `docs/AUDYT-SEO.md`.
 - **Etap 1 — Wspólny system komponentów:** zaimplementowany, oczekuje na wdrożenie. Szczegóły: `docs/STATUS.md`.
-- **Etap 2 — Strony egzaminacyjne:** zaimplementowany, oczekuje na wdrożenie. Szczegóły: `docs/STATUS.md`.
+- **Etap 2 — Strony egzaminacyjne:** zaimplementowany i wdrożony. Szczegóły: `docs/STATUS.md`.
+- **Etap 3 — Dopracowanie stron korepetycji przedmiotowych:** zaimplementowany i wdrożony (3 partie po 2-3 przedmioty). Szczegóły: `docs/STATUS.md`.
 - **Kolejne etapy:** do zaplanowania i zatwierdzenia przez właściciela, jeden po drugim, każdy z osobnym zestawem plików do zmiany, testami i commitem po zakończeniu.
 
 Nie tworzymy wszystkich stron docelowej struktury od razu — każdy etap obejmuje wąski, uzgodniony zakres.
@@ -123,5 +124,6 @@ Nie tworzymy wszystkich stron docelowej struktury od razu — każdy etap obejmu
 
 ## Log decyzji
 
+- **2026-07-14 (Etap 3, dopracowanie korepetycji przedmiotowych):** dopracowano 8 istniejących stron `korepetycje-*.html` w 3 partiach (matematyka/angielski/polski; biologia/chemia/hiszpański; geografia/WOS), testując i wdrażając każdą partię osobno. Dodano „Wyszków” do title, krótki proces zapisu (3 kroki) oraz — dla matematyki/angielskiego/polskiego — bezpośrednie linki crosssell do dedykowanych stron kursu maturalnego/E8 z Etapu 2 zamiast do starych stron wyboru egzaminu. Nie utworzono nowych podstron (brak wystarczająco unikalnej oferty dla hiszpańskiego; biologia/chemia/geografia/WOS mają już dwuwariantową ofertę na tej samej stronie). Szczegóły: `docs/STATUS.md`.
 - **2026-07-14 (Etap 2, strony egzaminacyjne):** utworzono 8 stron rozdzielających intencję matura/E8 (2 huby + 6 stron przedmiotowych: matematyka, angielski, polski). Adresy płaskie (`/kursy-maturalne`, `/kurs-maturalny-matematyka` itd.), nie zagnieżdżone jak w szkicu „docelowa struktura” powyżej — witryna jest statyczna bez routingu obsługującego podkatalogi. `kurs-matematyka.html`, `kurs-angielski.html`, `kurs-polski.html` pozostają nietknięte jako strony wyboru egzaminu (zgodnie z poleceniem), z dodanym linkiem do stron dedykowanych. Gwarancja 70%+ dodana wyłącznie na stronach matematyki (matura i E8) — potwierdzone w istniejącej treści serwisu, że dotyczy wyłącznie tego przedmiotu. Biologia, chemia, geografia i WOS nie mają jeszcze stron maturalnych — pozostają w `kursy.html`; naturalny zakres kolejnego etapu. Szczegóły i pełna lista testów: `docs/STATUS.md`.
 - **2026-07-14 (Etap 1, wspólny system komponentów):** zakres ograniczony do 12 stron "prostych" (bez `index.html`, `korepetycje-online.html`, `zapisz-sie.html`, `privacy-policy.html` — różne systemy designu, patrz `docs/STATUS.md`). Mechanizm: build-time include w czystym Node, zero zależności, zamiast wspólnego pliku CSS/JS bez generatora — właściciel wybrał opcję z automatycznym wstrzykiwaniem HTML nagłówka/stopki z `/partials`, żeby tworzenie nowych stron nie wymagało ręcznego kopiowania nawigacji.
