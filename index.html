@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Burza Mózgów Korepetycje — Wyszków | Kursy maturalne i ósmoklasisty</title>
-  <meta name="description" content="Burza Mózgów Korepetycje w Wyszkowie. Nr 1 na Google, ponad 100 opinii 5★. Kursy maturalne i przygotowanie do egzaminu ósmoklasisty. Średni wynik uczniów: 80%. Zajęcia indywidualne, w dwójkach, w grupach i online. Od 40 zł/h." />
+  <meta name="description" content="Burza Mózgów Korepetycje – Wyszków. Nr 1 na Google, 100+ opinii 5★. Kursy maturalne i ósmoklasisty: matematyka, polski, angielski i więcej. Od 40 zł/h." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://burza-mozgow-korepetycje.pl/" />
 
@@ -67,6 +67,47 @@
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Korepetycje z WOS"}}
       ]
     }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Czy prowadzicie korepetycje z matematyki w Wyszkowie?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tak, korepetycje z matematyki w Wyszkowie to nasz najczęściej wybierany przedmiot — prowadzimy je stacjonarnie (ul. Prosta 3 i ul. Sowińskiego 38) oraz online, w ramach kursów maturalnych i przygotowania do egzaminu ósmoklasisty."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Czy uczycie języka angielskiego w Wyszkowie?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tak, korepetycje z angielskiego w Wyszkowie prowadzimy indywidualnie, w dwójkach, w grupach lub online — z naciskiem na wymagania matury i egzaminu ósmoklasisty."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Jak wygląda przygotowanie do matury w Wyszkowie?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Program matury w Wyszkowie budujemy wokół aktualnych wymagań CKE: regularne zajęcia, praca na arkuszach maturalnych i bieżące sprawdzanie postępów. Średni wynik naszych maturzystów to 80%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Czy pomagacie w przygotowaniu do egzaminu ósmoklasisty w Wyszkowie?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tak, przygotowanie do egzaminu ósmoklasisty w Wyszkowie prowadzimy z matematyki, języka polskiego i angielskiego — dopasowując tempo i poziom trudności do konkretnego ucznia."
+        }
+      }
+    ]
   }
   </script>
 
@@ -881,6 +922,27 @@
     .location-val { font-family: var(--body); font-size: 0.95rem; color: var(--dark); }
     .location-val a { color: var(--dark); text-decoration: none; border-bottom: 1px solid var(--blush); transition: color 0.2s; }
     .location-val a:hover { color: var(--blush-deep); }
+
+    /* ─── FAQ ─── */
+    #faq { background: var(--cream); }
+    .faq-list { max-width: 800px; margin: 0 auto; display: grid; gap: 1rem; }
+    .faq-item { background: var(--white); border: 1px solid var(--gray); border-radius: 4px; padding: 1.75rem 2rem; }
+    .faq-q {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--dark);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after { content: '+'; color: var(--blush-deep); font-size: 1.4rem; flex-shrink: 0; }
+    .faq-item[open] .faq-q::after { content: '−'; }
+    .faq-a { font-family: var(--body); font-size: 0.95rem; color: var(--dark); opacity: 0.65; line-height: 1.7; margin-top: 1rem; }
 
     /* ─── Contact ─── */
     #contact { background: var(--dark); padding: 7rem 2.5rem; position: relative; overflow: hidden; }
@@ -1708,6 +1770,32 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section id="faq" class="section">
+    <div class="section-inner">
+      <p class="section-label fade-in" style="text-align: center;">Najczęstsze pytania</p>
+      <h2 class="section-title fade-in fade-in-delay-1" style="text-align: center; margin-bottom: 3rem;">Wszystko, co warto<br />wiedzieć przed zapisem.</h2>
+      <div class="faq-list">
+        <details class="faq-item fade-in">
+          <summary class="faq-q">Czy prowadzicie korepetycje z matematyki w Wyszkowie?</summary>
+          <p class="faq-a">Tak, korepetycje z matematyki w Wyszkowie to nasz najczęściej wybierany przedmiot — prowadzimy je stacjonarnie (ul. Prosta 3 i ul. Sowińskiego 38) oraz online, w ramach kursów maturalnych i przygotowania do egzaminu ósmoklasisty.</p>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-1">
+          <summary class="faq-q">Czy uczycie języka angielskiego w Wyszkowie?</summary>
+          <p class="faq-a">Tak, korepetycje z angielskiego w Wyszkowie prowadzimy indywidualnie, w dwójkach, w grupach lub online — z naciskiem na wymagania matury i egzaminu ósmoklasisty.</p>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-2">
+          <summary class="faq-q">Jak wygląda przygotowanie do matury w Wyszkowie?</summary>
+          <p class="faq-a">Program matury w Wyszkowie budujemy wokół aktualnych wymagań CKE: regularne zajęcia, praca na arkuszach maturalnych i bieżące sprawdzanie postępów. Średni wynik naszych maturzystów to 80%.</p>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-3">
+          <summary class="faq-q">Czy pomagacie w przygotowaniu do egzaminu ósmoklasisty w Wyszkowie?</summary>
+          <p class="faq-a">Tak, przygotowanie do egzaminu ósmoklasisty w Wyszkowie prowadzimy z matematyki, języka polskiego i angielskiego — dopasowując tempo i poziom trudności do konkretnego ucznia.</p>
+        </details>
       </div>
     </div>
   </section>
