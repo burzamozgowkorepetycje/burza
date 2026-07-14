@@ -1,6 +1,6 @@
 # Status projektu
 
-## Ostatni etap: Etap 2 — Strony egzaminacyjne (zaimplementowany, oczekuje na wdrożenie)
+## Ostatni etap: Etap 2 — Strony egzaminacyjne (zaimplementowany i wdrożony)
 
 Data: 2026-07-14
 
@@ -35,7 +35,14 @@ Data: 2026-07-14
 
 **Znane ograniczenie (do świadomej decyzji, nie blokuje wdrożenia):** biologia, chemia, geografia i WOS nie mają jeszcze osobnych stron maturalnych — `kursy-maturalne.html` linkuje do nich przez istniejący `kursy.html` (zajęcia stacjonarne w Wyszkowie), zgodnie z zakresem tego etapu (8 stron wymienionych w poleceniu). Dodanie dedykowanych stron dla tych 4 przedmiotów to naturalny kandydat na kolejny etap.
 
-**Wdrożenie:** niewykonane — oczekuje na polecenie właściciela (commit → push → weryfikacja na Vercel/produkcji, zgodnie z zasadą 19). Etap 1 (`d70f252`) również wciąż oczekuje na wdrożenie na produkcję — do potwierdzenia z właścicielem, czy wdrożyć oba etapy razem czy osobno.
+**Wdrożenie:**
+1. Podczas pobierania zdalnych zmian przed pushem wykryto commit `b04e88a` ("Wymagaj imienia i telefonu w formularzu", tylko `zapisz-sie.html`) — wypchnięty bezpośrednio przez właściciela w trakcie tej sesji, poza zakresem Etapu 2. Zweryfikowano brak konfliktu, zrebase'owano bez konfliktów.
+2. Commit `fe567e0` (Etap 2) wypchnięty na `main` — wraz z nim wdrożony na produkcję również Etap 1 (`d70f252`), który wcześniej czekał na wdrożenie.
+3. Po redeployu Vercel zweryfikowano na produkcji (curl, kody HTTP): wszystkie 8 nowych stron → **200** (`/kursy-maturalne`, `/kursy-egzamin-osmoklasisty`, `/kurs-maturalny-matematyka`, `/kurs-maturalny-angielski`, `/kurs-maturalny-polski`, `/kurs-e8-matematyka`, `/kurs-e8-angielski`, `/kurs-e8-polski`); strony zmienione (`/kurs-matematyka`, `/kurs-angielski`, `/kurs-polski`, `/kursy`) → **200**, brak regresji; `/zapisz-sie` i `/privacy-policy` (poza zakresem) → **200**, potwierdzone brak wpływu na inne strony.
+
+**Adres wdrożenia:** https://burza-mozgow-korepetycje.pl
+**Gałąź:** `main`
+**Finalny hash commita:** `fe567e0` (poprzedni: `b04e88a`, `d70f252`)
 
 **Następny etap:** nierozpoczęty, oczekuje na polecenie właściciela.
 
