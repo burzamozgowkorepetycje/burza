@@ -1,6 +1,8 @@
 # Status projektu
 
-## Ostatni etap: Etap 5 — Strony lokalizacji (zaimplementowany i wdrożony)
+## Ostatni etap: Etap 5 — Strony lokalizacji (zaimplementowany, wdrożony i zweryfikowany na produkcji)
+
+**Weryfikacja produkcyjna (po `git push`, commit `00f3742`):** `/lokalizacje`, `/lokalizacja-prosta-3-wyszkow`, `/lokalizacja-sowinskiego-38-wyszkow` zwracają HTTP 200 na `https://burza-mozgow-korepetycje.pl`. Na żywo potwierdzono: mapy Google (embed po adresie tekstowym) renderują się i zawierają poprawny adres w URL, każda strona ma 3 poprawne bloki JSON-LD, telefon/adresy spójne na wszystkich stronach, wzajemne linki (hub ↔ obie strony placówek, linki do `/kursy.html` i stron przedmiotowych) obecne i poprawne.
 
 Data: 2026-07-14
 
