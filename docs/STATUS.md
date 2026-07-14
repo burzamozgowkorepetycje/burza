@@ -1,6 +1,47 @@
 # Status projektu
 
-## Ostatni etap: Etap 1 — Wspólny system komponentów (zaimplementowany, oczekuje na wdrożenie)
+## Ostatni etap: Etap 2 — Strony egzaminacyjne (zaimplementowany, oczekuje na wdrożenie)
+
+Data: 2026-07-14
+
+**Zakres:** 8 nowych stron rozdzielających intencję matura/E8, zgodnie z głównym problemem strukturalnym z audytu (sekcja 19 `AUDYT-SEO.md`):
+- 2 huby: `kursy-maturalne.html`, `kursy-egzamin-osmoklasisty.html`.
+- 6 stron przedmiotowych: `kurs-maturalny-matematyka.html`, `kurs-maturalny-angielski.html`, `kurs-maturalny-polski.html`, `kurs-e8-matematyka.html`, `kurs-e8-angielski.html`, `kurs-e8-polski.html`.
+
+**Adresy — decyzja:** płaskie, zgodnie z dosłownym brzmieniem polecenia właściciela (`/kursy-maturalne`, `/kurs-maturalny-matematyka` itd.), a nie zagnieżdżona struktura katalogów z `docelowa struktura` w `PLAN-STRONY.md` — witryna jest statyczna, bez routingu obsługującego zagnieżdżone katalogi, więc płaska struktura jest spójna z resztą repo (brak podkatalogów przy `kurs-matematyka.html` itd.).
+
+**Treść — zasady zastosowane:**
+- Każda strona ma osobny `<title>`, `description`, H1, opis grupy docelowej, listę problemów ucznia, program, sposób prowadzenia zajęć, wyniki, cenę, formularz z automatycznie ustawionym ukrytym polem `exam`/`subject`, FAQ, breadcrumbs (z linkiem do huba nadrzędnego) oraz linki do powiązanych usług (bieżące korepetycje, strona siostrzana matura/E8, hub nadrzędny).
+- Gwarancja wyniku 70%+ dodana wyłącznie na stronach matematyki (`kurs-maturalny-matematyka`, `kurs-e8-matematyka`) — potwierdzone w istniejącej treści serwisu (`kursy.html`, `korepetycje-matematyka.html`), że gwarancja dotyczy wyłącznie tego przedmiotu; nie dodano jej do angielskiego ani polskiego.
+- Treść nie jest kopiowana między stronami z samą zamianą nazwy przedmiotu — każda strona ma osobno napisane sekcje problemów, cech kursu i FAQ dopasowane do przedmiotu i etapu (matura vs. E8), rozdzielone z istniejącej zawartości `kurs-matematyka.html`/`kurs-angielski.html`/`kurs-polski.html` (zakładki matura/E8), a nie wygenerowane od zera.
+- Opinie/wyniki: wykorzystano wyłącznie dane już istniejące w serwisie (np. cytat Zofii K. — matura z matematyki 84%, cytat Małgorzaty W. — E8 z angielskiego 91%, wskaźniki 80%/85%/91%/100+ opinii). Nie wymyślono żadnych nowych opinii, wyników ani danych nauczycieli. Wielkość grup nie jest nigdzie podana — pominięto (brak potwierdzonych danych), zgodnie z zasadą 17.
+- Sekcja „Informacje dla rodzica” na `kursy-egzamin-osmoklasisty.html` opisuje wyłącznie proces (kontakt, nagrania, punkt startowy) — bez wymyślonych statystyk.
+
+**Strony wyboru egzaminu (`kurs-matematyka.html`, `kurs-angielski.html`, `kurs-polski.html`):** pozostawione bez zmian merytorycznych, zgodnie z poleceniem właściciela — dodano wyłącznie jedną linię z linkami do nowych stron dedykowanych (matura/E8) w hero, bez usuwania istniejącej zawartości ani przełącznika zakładek.
+
+**`kursy.html`:** dodano linię z linkami do `kursy-maturalne.html` i `kursy-egzamin-osmoklasisty.html` w hero oraz przekierowano linki w siatce „Kursy egzaminacyjne” (zakładki matura/E8) na nowe strony dedykowane zamiast na strony wyboru egzaminu.
+
+**Mechanizm:** nowe strony napisane bezpośrednio w formie „zbudowanej” (z osadzonym `/assets/shared.css`, `/assets/shared.js`, tym samym wzorcem header/mobile-menu/breadcrumbs/stopki co reszta serwisu) — nie dodano ich do `PAGES` w `scripts/build-components.js`, analogicznie jak już zbudowane strony z Etapu 1 (skrypt jest idempotentny i pomija strony zawierające `/assets/shared.js`).
+
+**Testy wykonane:**
+- Walidacja HTML (`html.parser`) — wszystkich 8 nowych stron parsuje się bez błędów.
+- Walidacja JSON-LD (`json.loads`) — wszystkie bloki `Course`/`FAQPage`/`BreadcrumbList` (3 na stronie przedmiotowej, 2 na hubie) parsują się poprawnie.
+- Weryfikacja linków wewnętrznych (`href="/*.html"`) na wszystkich 12 zmienionych/nowych plików — brak odniesień do nieistniejących plików.
+- `node scripts/build-components.js` — 12 stron z Etapu 1 zgłasza „bez zmian (już zbudowane)”, potwierdzone brak regresji w mechanizmie budowania.
+- Weryfikacja wizualna w przeglądarce (localhost:3456) na `kurs-maturalny-matematyka.html` (768px): hero, breadcrumbs, nawigacja, program i sekcja wyników renderują się zgodnie z resztą serwisu.
+- Weryfikacja JS na żywo: `menu-toggle` poprawnie przełącza `aria-expanded`/klasę `open` na `kursy-maturalne.html`; przycisk FAQ poprawnie przełącza klasę `open` na `kurs-e8-matematyka.html`; `window.Shared` zdefiniowany na obu stronach.
+- Formularze leadowe NIE zostały faktycznie wysłane podczas testów (uniknięcie fałszywych wpisów w arkuszu Google i fałszywych eventów Meta Pixel na produkcji).
+- `git status` przed rozpoczęciem pracy — czyste repo, zweryfikowano że etap 1 (`d70f252`) jest już scommitowany i wypchnięty przed rozpoczęciem etapu 2.
+
+**Znane ograniczenie (do świadomej decyzji, nie blokuje wdrożenia):** biologia, chemia, geografia i WOS nie mają jeszcze osobnych stron maturalnych — `kursy-maturalne.html` linkuje do nich przez istniejący `kursy.html` (zajęcia stacjonarne w Wyszkowie), zgodnie z zakresem tego etapu (8 stron wymienionych w poleceniu). Dodanie dedykowanych stron dla tych 4 przedmiotów to naturalny kandydat na kolejny etap.
+
+**Wdrożenie:** niewykonane — oczekuje na polecenie właściciela (commit → push → weryfikacja na Vercel/produkcji, zgodnie z zasadą 19). Etap 1 (`d70f252`) również wciąż oczekuje na wdrożenie na produkcję — do potwierdzenia z właścicielem, czy wdrożyć oba etapy razem czy osobno.
+
+**Następny etap:** nierozpoczęty, oczekuje na polecenie właściciela.
+
+---
+
+## Etap 1 — Wspólny system komponentów (zaimplementowany, oczekuje na wdrożenie)
 
 Data: 2026-07-14
 
