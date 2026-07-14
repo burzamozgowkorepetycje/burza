@@ -1,6 +1,78 @@
 # Status projektu
 
-## Ostatni etap: Etap 5 — Strony lokalizacji (zaimplementowany, wdrożony i zweryfikowany na produkcji)
+## Ostatni etap: Etap 7 — Blog (partia 1/2: system + 3 artykuły, zaimplementowany i wdrożony)
+
+Data: 2026-07-15
+
+**Zakres:** utworzenie systemu bloga (`/blog` — strona zbiorcza) i pierwszej partii 3 artykułów (maksymalnie 3 na partię, zgodnie z poleceniem):
+1. „Jak przygotować się do matury z matematyki?"
+2. „Jak zdobyć 70% z matury z matematyki?"
+3. „Kurs grupowy czy korepetycje indywidualne?"
+
+Pozostałe 3 tematy (przygotowanie dziecka do E8, najczęstsze błędy na E8 z matematyki, kiedy warto zapisać dziecko na korepetycje) czekają na kolejną partię — nie zostały wygenerowane razem, zgodnie z jawnym poleceniem "nie generuj od razu kilkudziesięciu artykułów" i limitem 3 artykułów na partię.
+
+**System bloga:** flaty URL-e (`/blog-nazwa-artykulu`, zgodnie z konwencją całego serwisu — strona statyczna bez routingu po katalogach, ustalone w Etapie 2). Wspólny szablon wizualny (te same zmienne CSS co pozostałe strony), własny styl treści artykułu (`.article-body` — nagłówki, listy, cytaty, blok CTA). `/blog.html` — hub z kartami artykułów, `Blog`+`BreadcrumbList` JSON-LD.
+
+**Weryfikacja faktów egzaminacyjnych w oficjalnych źródłach (zgodnie z poleceniem):** przed napisaniem treści sprawdzono aktualne dane o maturze z matematyki (formuła 2023) przez wyszukiwanie — potwierdzono: czas trwania 180 minut, maksymalnie 50 punktów, próg zdawalności 30% = 15 punktów (bez zaokrąglania), dozwolone przybory (kalkulator prosty, linijka, cyrkiel, karta wzorów). Te liczby wykorzystano w artykułach 1 i 2 (m.in. przeliczenie 70% = 35 punktów). Źródła: rankingedukacji.pl, otouczelnie.pl, superprof.pl i inne wyniki wyszukiwania z lipca 2026.
+
+**Każdy artykuł zawiera:** unikalny tytuł/H1 odpowiadający wprost na pytanie z briefu, unikalną treść (bez duplikacji między artykułami), byline „Redakcja Burza Mózgów Korepetycje" (nazwa organizacji, nie wymyślona osoba — w repozytorium nie ma potwierdzonych nazwisk nauczycieli/redaktorów, więc zgodnie z zasadą 16 użyto nazwy redakcyjnej zamiast fikcyjnego imienia), datę publikacji i aktualizacji (15 lipca 2026 — dzień utworzenia), breadcrumbs (Strona główna → Blog → artykuł) oraz `Article` JSON-LD (headline, author jako `Organization`, publisher, datePublished/dateModified, mainEntityOfPage). Każdy artykuł prowadzi do jednej, dopasowanej usługi: artykuły 1–2 → `/kurs-maturalny-matematyka.html`, artykuł 3 → `/cennik.html`.
+
+**Zdjęcia w artykułach:** wykorzystano istniejące zasoby (`upload/matematyka.jpg`, `upload/wyniki-matura.jpg`) jako obrazy og/twitter — bez tworzenia nowych, wymyślonych grafik.
+
+**Testy wykonane:**
+- Walidacja HTML (`html.parser`) wszystkich 4 nowych plików (`blog.html` + 3 artykuły) — bez błędów.
+- Walidacja wszystkich bloków JSON-LD (8 łącznie) — poprawny JSON.
+- `node scripts/build-components.js` — 12 stron z `PAGES` bez zmian, brak regresji.
+- Weryfikacja linków wewnętrznych (Python/regex) — wszystkie `href` wskazują na istniejące pliki.
+- Weryfikacja wizualna w przeglądarce (desktop i mobile 375×812) — hero, karty artykułów, treść artykułu, blok CTA — renderują się poprawnie.
+- `sitemap.xml` zaktualizowany o 4 nowe adresy URL.
+- Formularze na `/blog.html` nie dotyczy (strona bloga nie ma własnego formularza — CTA prowadzą do formularzy na stronach docelowych).
+
+**Status wdrożenia:** instrukcja Etapu 7 zawierała wyraźne polecenie „Po każdej partii przetestuj linkowanie, mobile i build oraz wykonaj wdrożenie" — commit i push wykonane od razu po testach tej partii.
+
+**Kolejny krok (nie rozpoczęty bez polecenia):** partia 2/2 — pozostałe 3 artykuły (E8: przygotowanie dziecka, najczęstsze błędy z matematyki; kiedy warto zapisać dziecko na korepetycje).
+
+## Etap 6 — Zaufanie i konwersja (zaimplementowany, oczekuje na wdrożenie)
+
+Data: 2026-07-14
+
+**Zakres:** utworzenie 5 nowych stron: `/wyniki`, `/cennik`, `/opinie`, `/o-nas`, `/kontakt`. Ten sam szablon wizualny co pozostałe "proste" strony (identyczny z Etapem 5). Instrukcja nie zawierała słowa „wdróż"/„deploy" — zgodnie z zasadą 20 i precedensem z Etapu 1/4, zmiany zaimplementowano i przetestowano lokalnie, ale nie scommitowano do czasu wyraźnego polecenia.
+
+**Audyt danych (przed pisaniem treści) — kluczowe ustalenia:**
+- **Prawdziwy zrzut wyników matury** znaleziony w `upload/wyniki-matura.jpg` i `upload/wyniki-zbiorcze.jpg` — rzeczywiste, pojedyncze wyniki procentowe z matematyki, języka polskiego i języka angielskiego (już używane sitewide jako "Zbiorcze wyniki maturzystów"). Użyty na `/wyniki` bez zmian, z tą samą etykietą co gdzie indziej w serwisie — bez dopisywania własnych, nowo wyliczonych średnich (uniknięcie konfliktu z już opublikowaną liczbą "80%").
+- **Jedyny potwierdzony wskaźnik zbiorczy:** średni wynik maturzystów 80% (z `index.html`, FAQ i sekcji stats) — jednoznacznie przypisany do matury, nie do E8. Dla E8 nie istnieje żadna zbiorcza średnia w repozytorium — jest tylko pojedynczy potwierdzony przypadek (Małgorzata W., syn, język angielski, 91%). Na `/wyniki` te dwie liczby są celowo rozdzielone na osobne sekcje ("Egzamin maturalny" / "Egzamin ósmoklasisty"), zgodnie z poleceniem "nie mieszaj średnich z różnych egzaminów bez wyjaśnienia".
+- **Tylko 3 prawdziwe opinie istnieją w całym repozytorium** (Zofia K., Małgorzata W., Mikołaj T. — wszystkie z `index.html`). Użyte dosłownie, bez zmian w treści, na `/wyniki` i `/opinie`. Nie wymyślono żadnych dodatkowych nazwisk, wyników ani wypowiedzi.
+- **Cennik — potwierdzone stawki:** indywidualnie (wszystkie 8 przedmiotów, stacjonarnie lub online) — od 40 zł/h; kursy grupowe (maturalne i E8 dla matematyki/angielskiego/polskiego oraz stacjonarny kurs dla biologii/chemii/geografii/WOS) — od 60 zł/tydzień. Potwierdzone w wielu plikach `korepetycje-*.html`, `kurs-maturalny-*.html`, `kurs-e8-*.html`.
+- **Cennik — luki, których nie wymyślono:** cena zajęć w parach (nigdzie nie podana — na stronie widnieje jako "wycena indywidualna, zapytaj", nie fabrykowana kwota) oraz dokładny czas trwania pojedynczej lekcji w minutach (nigdzie nie podany — strona opisuje proces ustalania, bez podawania konkretnej liczby minut).
+- **`/o-nas` — brak historii firmy, zespołu, kwalifikacji nauczycieli i zdjęć budynku/zespołu** w całym repozytorium (poza danymi rejestrowymi z `privacy-policy.html`: nazwa "Szymon Godleś Korepetycje", NIP 7622025309, REGON 541800138, adres Prosta 3). Zgodnie z jawnym poleceniem "jeśli brakuje danych, przygotuj strukturę i poproś o uzupełnienie" — strona zawiera widoczne, wyraźnie oznaczone placeholdery (historia firmy w ramce z opisem, 3 puste karty profili nauczycieli) zamiast wymyślonych treści.
+- **Brak dedykowanej strony `/cennik` istniejącej wcześniej** — teraz utworzona; linki z Etapu 5 (`lokalizacja-*.html`, `lokalizacje.html`) nadal wskazują na `/kursy.html` w nawigacji (niezmienione — poza zakresem tego etapu), ale nowe strony (`/cennik`, `/wyniki`, `/opinie`, `/kontakt`, `/o-nas`) linkują do siebie nawzajem oraz do `/kursy.html`, `/korepetycje-online.html`, `/lokalizacje.html`, stron przedmiotowych i `/privacy-policy.html`.
+
+**Strony utworzone:**
+- **`/wyniki.html`** — średni wynik matury (80%, źródło: `index.html`), zbiorczy zrzut prawdziwych wyników (`wyniki-zbiorcze.jpg`), osobna sekcja E8 (pojedynczy potwierdzony przypadek, bez średniej), 3 prawdziwe historie poprawy, FAQ, `BreadcrumbList`+`EducationalOrganization`(z `review`)+`FAQPage` JSON-LD.
+- **`/cennik.html`** — 6 kategorii cenowych (indywidualnie, w parach, grupowo, online, kurs maturalny, kurs E8) z jednoznacznym rozbiciem jednostki (za godzinę / za tydzień), `OfferCatalog`+`BreadcrumbList`+`FAQPage` JSON-LD.
+- **`/opinie.html`** — 3 prawdziwe opinie w pełnej treści + link do profilu Google z pełną listą, `EducationalOrganization`(z `review`+`aggregateRating`)+`BreadcrumbList` JSON-LD.
+- **`/o-nas.html`** — sposób pracy i wartości (reużyte z już potwierdzonych treści `index.html`), dane firmy (NIP/REGON/adres), jawnie oznaczone placeholdery na historię firmy i profile 3 nauczycieli, `AboutPage`+`BreadcrumbList` JSON-LD.
+- **`/kontakt.html`** — oba adresy z mapami (Google Maps embed, ten sam wzorzec co Etap 5), potwierdzone godziny, telefon, dane firmy, formularz z wyborem lokalizacji, `ContactPage`(z adresami obu placówek)+`BreadcrumbList`+`FAQPage` JSON-LD.
+
+**Zachowane bez zmian:** mechanizm formularzy (`Shared.sendLead`, ten sam URL Google Apps Script), Meta Pixel, GA4/GTM, `/assets/shared.css`+`/assets/shared.js`, wszystkie istniejące strony.
+
+**Testy wykonane:**
+- Walidacja HTML (`html.parser`) wszystkich 5 nowych plików — bez błędów.
+- Walidacja wszystkich bloków JSON-LD (13 łącznie) — poprawny JSON.
+- `node scripts/build-components.js` — 12 stron z `PAGES` bez zmian, brak regresji.
+- Weryfikacja linków wewnętrznych (Python/regex) — wszystkie `href` wskazują na istniejące pliki.
+- Weryfikacja wizualna w przeglądarce (localhost:3456) i widoku mobilnym (375×812) — hero, sekcje cenowe/wyników/opinii/placeholderów, mapy na `/kontakt`, formularz, menu mobilne — wszystko renderuje się poprawnie.
+- `sitemap.xml` zaktualizowany o 5 nowych adresów URL.
+- Formularze leadowe NIE zostały faktycznie wysłane podczas testów.
+
+**Pytania do właściciela (repozytorium nie daje jednoznacznej odpowiedzi):**
+1. Historia firmy — kiedy i dlaczego powstała Burza Mózgów? Sekcja na `/o-nas` czeka na tekst.
+2. Zespół nauczycieli — imiona, przedmioty, kwalifikacje i zdjęcia do 3 przygotowanych profili na `/o-nas`.
+3. Rok i dokładna metodologia zbierania danych do zbiorczego zrzutu wyników matury na `/wyniki` (obecnie pokazujemy same liczby bez podpisanego roku).
+4. Cena zajęć w parach — czy istnieje konkretna stawka, czy rzeczywiście ustalana indywidualnie (obecnie tak przedstawiona)?
+5. Dokładny czas trwania pojedynczej lekcji (w minutach) — do potwierdzenia dla `/cennik`.
+
+## Etap 5 — Strony lokalizacji (zaimplementowany, wdrożony i zweryfikowany na produkcji)
 
 **Weryfikacja produkcyjna (po `git push`, commit `00f3742`):** `/lokalizacje`, `/lokalizacja-prosta-3-wyszkow`, `/lokalizacja-sowinskiego-38-wyszkow` zwracają HTTP 200 na `https://burza-mozgow-korepetycje.pl`. Na żywo potwierdzono: mapy Google (embed po adresie tekstowym) renderują się i zawierają poprawny adres w URL, każda strona ma 3 poprawne bloki JSON-LD, telefon/adresy spójne na wszystkich stronach, wzajemne linki (hub ↔ obie strony placówek, linki do `/kursy.html` i stron przedmiotowych) obecne i poprawne.
 

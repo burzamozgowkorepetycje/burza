@@ -151,6 +151,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://burza-mozgow-korepetycje.pl/blog</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/blog-jak-przygotowac-sie-do-matury-z-matematyki</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/blog-jak-zdobyc-70-procent-z-matury-z-matematyki</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/blog-kurs-grupowy-czy-korepetycje-indywidualne</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://burza-mozgow-korepetycje.pl/privacy-policy</loc>
     <lastmod>2026-07-14</lastmod>
     <changefreq>yearly</changefreq>
