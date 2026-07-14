@@ -110,7 +110,34 @@
           "@type": "Answer",
           "text": "Nie, zajęcia indywidualne online kosztują tyle samo co stacjonarne w Wyszkowie — od 40 zł/h, w zależności od przedmiotu i formy zajęć."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Czy zajęcia grupowe są dostępne online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tak, dla matematyki, angielskiego i polskiego — kursy maturalne i do egzaminu ósmoklasisty prowadzimy grupowo zarówno online, jak i stacjonarnie w Wyszkowie. Biologia, chemia, geografia i WOS mają grupę wyłącznie stacjonarną — zajęcia indywidualne z tych przedmiotów są dostępne online bez zmian."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Jakiej technologii używacie do zajęć online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Korzystamy z platformy wideokonferencyjnej z udostępnianiem ekranu i tablicą online, na której na żywo rozwiązujemy zadania — zarówno na zajęciach indywidualnych, jak i grupowych. Link do zajęć wysyłamy przed każdą lekcją, a przed pierwszym spotkaniem pomożemy się połączyć."
+        }
       }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://burza-mozgow-korepetycje.pl/"},
+      {"@type": "ListItem", "position": 2, "name": "Korepetycje online", "item": "https://burza-mozgow-korepetycje.pl/korepetycje-online"}
     ]
   }
   </script>
@@ -590,13 +617,16 @@
       gap: 1.25rem;
     }
     .subject-card {
+      display: block;
       background: rgba(255,255,255,0.62);
       backdrop-filter: blur(16px) saturate(140%);
       -webkit-backdrop-filter: blur(16px) saturate(140%);
       border: 1px solid rgba(255,255,255,0.75);
       box-shadow: 0 8px 30px rgba(32,28,26,0.06), inset 0 1px 0 rgba(255,255,255,0.7);
       padding: 2.1rem 1.75rem;
-      cursor: default;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
       transition: box-shadow 0.4s cubic-bezier(.16,1,.3,1), transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.4s;
     }
     .subject-card:hover {
@@ -1449,15 +1479,22 @@
     </div>
   </div>
 
+  <!-- ─── BREADCRUMBS ─── -->
+  <nav class="ol-breadcrumbs" aria-label="Okruszki" style="position:relative;z-index:1;padding:6.25rem 2.5rem 0;font-family:var(--body);font-size:0.8rem;color:var(--dark);opacity:0.55;display:flex;gap:0.5rem;align-items:center;background:var(--cream);">
+    <a href="/" style="color:inherit;text-decoration:underline;">Strona główna</a>
+    <span aria-hidden="true">→</span>
+    <span aria-current="page">Korepetycje online</span>
+  </nav>
+
   <!-- ─── HERO ─── -->
-  <section id="hero" aria-label="Nagłówek główny">
+  <section id="hero" aria-label="Nagłówek główny" style="padding-top:1.5rem;">
     <div class="blob blob-blush animate" style="width:520px;height:520px;top:-120px;right:-80px;" aria-hidden="true"></div>
     <div class="blob blob-warm animate" style="width:420px;height:420px;bottom:-140px;left:-100px;animation-delay:-6s;" aria-hidden="true"></div>
     <div class="hero-watermark" id="hero-watermark" aria-hidden="true">80%</div>
     <div class="hero-inner">
       <p class="hero-eyebrow fade-in">Korepetycje online · cała Polska</p>
       <h1 class="hero-headline fade-in fade-in-delay-1">
-        Średni wynik<br />naszych uczniów<br />to <span class="grad-text">80%</span>.
+        Ci sami nauczyciele<br />co w Wyszkowie.<br />Zajęcia <span class="grad-text">online</span>.
       </h1>
       <p class="hero-sub fade-in fade-in-delay-2">Zajęcia indywidualne online z matematyki, angielskiego i polskiego — z tymi samymi nauczycielami, którzy dają 80% średniego wyniku w Wyszkowie. Bez wychodzenia z domu, z dowolnego miejsca w Polsce.</p>
       <p class="hero-offer fade-in fade-in-delay-3">Zajęcia online od 40 zł/h · Gwarancja wyniku 70%+</p>
@@ -1494,65 +1531,65 @@
     <div class="blob blob-blush animate" style="width:480px;height:480px;top:8%;right:-160px;animation-delay:-3s;" aria-hidden="true"></div>
     <div class="blob blob-warm animate" style="width:380px;height:380px;top:30%;left:-140px;animation-delay:-9s;" aria-hidden="true"></div>
     <div class="section-inner">
-      <p class="section-label fade-in">Przedmioty</p>
-      <h2 class="section-title fade-in fade-in-delay-1">Uczymy tego,<br />co naprawdę liczy się na egzaminie.</h2>
-      <p class="section-sub fade-in fade-in-delay-2">Osiem przedmiotów, doświadczeni nauczyciele i konkretny program oparty na aktualnych wymaganiach egzaminacyjnych.</p>
+      <p class="section-label fade-in">Przedmioty online</p>
+      <h2 class="section-title fade-in fade-in-delay-1">Osiem przedmiotów.<br />Sprawdź, w jakiej formie online.</h2>
+      <p class="section-sub fade-in fade-in-delay-2">Indywidualnie online uczymy wszystkich ośmiu przedmiotów. Zajęcia grupowe online prowadzimy dla matematyki, angielskiego i polskiego — pozostałe przedmioty mają grupę wyłącznie stacjonarną w Wyszkowie (zajęcia indywidualne online zostają bez zmian).</p>
       <div class="subjects-grid">
-        <div class="subject-card fade-in">
+        <a class="subject-card fade-in" href="/korepetycje-matematyka.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 V20 H20"/><path d="M4 16 Q11 5 20 8"/></svg></div>
           <h3 class="subject-name">Matematyka</h3>
-          <p class="subject-desc">Matura · Ósmoklasista</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-1">
+          <p class="subject-desc">Indywidualnie i grupowo online</p>
+        </a>
+        <a class="subject-card fade-in fade-in-delay-1" href="/korepetycje-angielski.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 h14 a1 1 0 0 1 1 1 v8 a1 1 0 0 1-1 1 H10 l-4 4 v-4 H5 a1 1 0 0 1-1-1 V6 a1 1 0 0 1 1-1 Z"/></svg></div>
           <h3 class="subject-name">Język angielski</h3>
-          <p class="subject-desc">Matura · Ósmoklasista</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-2">
-          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 C5 10 12 5 19 5 C19 14 12 19 5 19 Z"/><path d="M5 19 C9 15 13 12 17 9"/></svg></div>
-          <h3 class="subject-name">Biologia</h3>
-          <p class="subject-desc">Matura rozszerzona</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-3">
-          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 h6 M10 3 v6 l-5 9 a1 1 0 0 0 1 2 h12 a1 1 0 0 0 1-2 l-5-9 V3"/><path d="M7.5 15 h9"/></svg></div>
-          <h3 class="subject-name">Chemia</h3>
-          <p class="subject-desc">Matura rozszerzona</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-4">
+          <p class="subject-desc">Indywidualnie i grupowo online</p>
+        </a>
+        <a class="subject-card fade-in fade-in-delay-2" href="/korepetycje-polski.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L7 12 L15.5 3.5 a1.5 1.5 0 0 1 2 2 L9 14 Z"/><path d="M13 6 L16 9"/><path d="M5 19 L8.5 15.5"/></svg></div>
           <h3 class="subject-name">Język polski</h3>
-          <p class="subject-desc">Matura · Ósmoklasista</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-5">
-          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2 v2 M12 20 v2 M2 12 h2 M20 12 h2 M5 5 l1.5 1.5 M17.5 17.5 L19 19 M19 5 l-1.5 1.5 M6.5 17.5 L5 19"/></svg></div>
-          <h3 class="subject-name">Język hiszpański</h3>
-          <p class="subject-desc">Matura podst. i rozsz.</p>
-        </div>
-        <div class="subject-card fade-in">
+          <p class="subject-desc">Indywidualnie i grupowo online</p>
+        </a>
+        <a class="subject-card fade-in fade-in-delay-3" href="/korepetycje-biologia.html">
+          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 C5 10 12 5 19 5 C19 14 12 19 5 19 Z"/><path d="M5 19 C9 15 13 12 17 9"/></svg></div>
+          <h3 class="subject-name">Biologia</h3>
+          <p class="subject-desc">Indywidualnie online · grupa stacjonarnie</p>
+        </a>
+        <a class="subject-card fade-in fade-in-delay-4" href="/korepetycje-chemia.html">
+          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 h6 M10 3 v6 l-5 9 a1 1 0 0 0 1 2 h12 a1 1 0 0 0 1-2 l-5-9 V3"/><path d="M7.5 15 h9"/></svg></div>
+          <h3 class="subject-name">Chemia</h3>
+          <p class="subject-desc">Indywidualnie online · grupa stacjonarnie</p>
+        </a>
+        <a class="subject-card fade-in fade-in-delay-5" href="/korepetycje-geografia.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12 h18"/><path d="M12 3 a14 14 0 0 1 0 18 a14 14 0 0 1 0-18"/></svg></div>
           <h3 class="subject-name">Geografia</h3>
-          <p class="subject-desc">Matura rozszerzona</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-1">
+          <p class="subject-desc">Indywidualnie online · grupa stacjonarnie</p>
+        </a>
+        <a class="subject-card fade-in" href="/korepetycje-wos.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9 L12 4 L20 9 Z"/><path d="M6 9 v8 M10 9 v8 M14 9 v8 M18 9 v8"/><path d="M3 19 h18"/></svg></div>
           <h3 class="subject-name">WOS</h3>
-          <p class="subject-desc">Matura rozszerzona</p>
-        </div>
+          <p class="subject-desc">Indywidualnie online · grupa stacjonarnie</p>
+        </a>
+        <a class="subject-card fade-in fade-in-delay-1" href="/korepetycje-hiszpanski.html">
+          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2 v2 M12 20 v2 M2 12 h2 M20 12 h2 M5 5 l1.5 1.5 M17.5 17.5 L19 19 M19 5 l-1.5 1.5 M6.5 17.5 L5 19"/></svg></div>
+          <h3 class="subject-name">Język hiszpański</h3>
+          <p class="subject-desc">Indywidualnie online</p>
+        </a>
       </div>
 
       <!-- Formats band -->
       <div class="formats fade-in">
         <div class="format-item">
-          <div class="format-name">Indywidualnie</div>
-          <p class="format-desc">Pełna uwaga nauczyciela i tempo skrojone pod ucznia.</p>
+          <div class="format-name">Indywidualnie<span class="fmt-accent"> ·</span></div>
+          <p class="format-desc">Dostępne online ze wszystkich 8 przedmiotów — pełna uwaga nauczyciela, tempo skrojone pod ucznia.</p>
         </div>
         <div class="format-item">
-          <div class="format-name">W dwójkach</div>
-          <p class="format-desc">Nauka w parze — motywacja i niższy koszt zajęć.</p>
+          <div class="format-name">Grupowo online</div>
+          <p class="format-desc">Matematyka, angielski i polski — <a href="/kursy-maturalne.html" style="color:inherit;border-bottom:1px solid currentColor;text-decoration:none;">kursy maturalne</a> i <a href="/kursy-egzamin-osmoklasisty.html" style="color:inherit;border-bottom:1px solid currentColor;text-decoration:none;">kursy E8</a>.</p>
         </div>
         <div class="format-item">
-          <div class="format-name">W grupach</div>
-          <p class="format-desc">Małe grupy, konkretny program, najlepsza cena.</p>
+          <div class="format-name">Grupowo stacjonarnie</div>
+          <p class="format-desc">Biologia, chemia, geografia i WOS — grupa maturalna wyłącznie w Wyszkowie, <a href="/kursy.html" style="color:inherit;border-bottom:1px solid currentColor;text-decoration:none;">zobacz ofertę</a>.</p>
         </div>
         <div class="format-item">
           <div class="format-name">Online<span class="fmt-accent"> ·</span></div>
@@ -1582,8 +1619,8 @@
         <p class="stat-label">Dostępnych przedmiotów</p>
       </div>
       <div class="stat-item fade-in fade-in-delay-3">
-        <div class="stat-number"><span class="count" data-target="2">2</span></div>
-        <p class="stat-label">Lokalizacje w Wyszkowie</p>
+        <div class="stat-number"><span class="count" data-target="3">3</span></div>
+        <p class="stat-label">Przedmioty z grupą online<br />(matematyka, angielski, polski)</p>
       </div>
     </div>
   </section>
@@ -1671,7 +1708,7 @@
       <div class="testimonials-head">
         <div>
           <p class="section-label fade-in">Opinie</p>
-          <h2 class="section-title fade-in fade-in-delay-1" style="margin-bottom: 0;">Co mówią<br />nasi uczniowie.</h2>
+          <h2 class="section-title fade-in fade-in-delay-1" style="margin-bottom: 0;">Opinie uczniów<br />online i stacjonarnych.</h2>
         </div>
         <div class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii">
           <span class="gp-logo"><span class="b">G</span>oogle</span>
@@ -1766,6 +1803,36 @@
             </div>
           </div>
         </div>
+        <div class="location-card fade-in fade-in-delay-3">
+          <span class="location-badge">Zajęcia grupowe online</span>
+          <h3 class="location-name">Kursy maturalne i E8</h3>
+          <p class="location-city">Matematyka, angielski i polski — cykliczne zajęcia grupowe na żywo, na tej samej platformie wideo co zajęcia indywidualne.</p>
+          <div class="location-detail">
+            <div class="location-row">
+              <span class="location-key">Harmonogram</span>
+              <span class="location-val">Stały termin w tygodniu, ustalany przy zapisie</span>
+            </div>
+            <div class="location-row">
+              <span class="location-key">Pozostałe przedmioty</span>
+              <span class="location-val">Grupa wyłącznie stacjonarnie w Wyszkowie</span>
+            </div>
+          </div>
+        </div>
+        <div class="location-card fade-in fade-in-delay-4">
+          <span class="location-badge">Kontakt z nauczycielem</span>
+          <h3 class="location-name">Między zajęciami</h3>
+          <p class="location-city">Pytania dotyczące zadania czy materiału możesz zadać na kolejnej lekcji, a w pilnych sprawach organizacyjnych — zadzwonić na numer sekretariatu.</p>
+          <div class="location-detail">
+            <div class="location-row">
+              <span class="location-key">Sprawy organizacyjne</span>
+              <span class="location-val"><a href="tel:+48605947803">605 947 803</a></span>
+            </div>
+            <div class="location-row">
+              <span class="location-key">Pytania merytoryczne</span>
+              <span class="location-val">Na bieżąco podczas zajęć z nauczycielem</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1791,6 +1858,14 @@
         <details class="faq-item fade-in fade-in-delay-3">
           <summary class="faq-q">Czy cena zajęć online różni się od stacjonarnych?</summary>
           <p class="faq-a">Nie, zajęcia indywidualne online kosztują tyle samo co stacjonarne w Wyszkowie — od 40 zł/h, w zależności od przedmiotu i formy zajęć.</p>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-4">
+          <summary class="faq-q">Czy zajęcia grupowe są dostępne online?</summary>
+          <p class="faq-a">Tak, dla matematyki, angielskiego i polskiego — kursy maturalne i do egzaminu ósmoklasisty prowadzimy grupowo zarówno online, jak i stacjonarnie w Wyszkowie. Biologia, chemia, geografia i WOS mają grupę wyłącznie stacjonarną — zajęcia indywidualne z tych przedmiotów są dostępne online bez zmian.</p>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-5">
+          <summary class="faq-q">Jakiej technologii używacie do zajęć online?</summary>
+          <p class="faq-a">Korzystamy z platformy wideokonferencyjnej z udostępnianiem ekranu i tablicą online, na której na żywo rozwiązujemy zadania — zarówno na zajęciach indywidualnych, jak i grupowych. Link do zajęć wysyłamy przed każdą lekcją, a przed pierwszym spotkaniem pomożemy się połączyć.</p>
         </details>
       </div>
     </div>
@@ -1848,6 +1923,7 @@
               </select>
             </div>
           </div>
+          <p style="font-family:var(--body);font-size:0.78rem;color:var(--cream);opacity:0.45;line-height:1.5;margin-top:-0.5rem;">Zajęcia grupowe online dostępne obecnie dla matematyki, angielskiego i polskiego. Pozostałe przedmioty mają grupę wyłącznie stacjonarną w Wyszkowie — indywidualnie online zostają bez zmian.</p>
           <div class="form-group">
             <label class="form-label" for="message">Wiadomość (opcjonalnie)</label>
             <textarea class="form-textarea" id="message" name="message" placeholder="Klasa, cel, pytania — napisz co chcesz..."></textarea>
