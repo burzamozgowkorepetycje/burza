@@ -1,6 +1,50 @@
 # Status projektu
 
-## Ostatni etap: Etap 7 — Blog (partia 1/2: system + 3 artykuły, zaimplementowany i wdrożony)
+## Ostatni etap: Etap 8 — SEO techniczne (zaimplementowany, przetestowany, wdrożony)
+
+Data: 2026-07-15
+
+**Zakres:** audyt i poprawki SEO technicznego na wszystkich 36 istniejących stronach HTML (bez zmiany treści oferty). Pełny audyt zlecony i wykonany (title/meta description/H1/canonical/OG/JSON-LD/linki `.html`/alt/robots/404/sitemap/linkowanie wewnętrzne) — wyniki i zastosowane poprawki poniżej.
+
+**Stan przed poprawkami (audyt):**
+- Title, meta description, canonical: wszystkie 36 stron unikalne i poprawne — bez zmian.
+- H1: każda strona miała dokładnie 1 H1, ale 3 pary stron miały **identyczny tekst H1** (`kurs-matematyka.html`/`kurs-maturalny-matematyka.html`, analogicznie angielski i polski) — bo strony "wyboru egzaminu" (matura/E8 pod jednym adresem, zakładki JS) domyślnie pokazują dokładnie tę samą treść matura co nowa, dedykowana strona z Etapu 2.
+- Linki wewnętrzne: **wszystkie 36 plików** zawierały linki z jawnym `.html` (nawigacja/stopka duplikowana per plik, bo strona jest statyczna bez współdzielonego layoutu na czas budowy) — niepotrzebny dodatkowy przeskok przez przekierowanie 308 z `cleanUrls`.
+- Open Graph: brakowało `og:image`/`twitter:card` na `index.html`, `korepetycje-online.html`, `zapisz-sie.html`, a `privacy-policy.html` nie miał żadnych tagów OG ani żadnego JSON-LD (w tym `BreadcrumbList`).
+- Martwe kotwice na `privacy-policy.html`: `/#przedmioty` i `/#kontakt` (prawdziwe ID na `index.html` to `#subjects`/`#contact`) — znany problem z audytu początkowego (`PLAN-STRONY.md`, sekcja "Dodatkowe potwierdzone ustalenia").
+- Brak własnej strony 404 (żaden plik `404.html` w repo).
+- **Znaleziono żywy błąd:** 4 strony bloga (`/blog` + 3 artykuły, wdrożone w Etapie 7) linkowały w nawigacji/CTA do `/cennik` i `/kontakt` — stron z Etapu 6, które nadal nie są wdrożone. Zweryfikowano na produkcji: oba adresy zwracają HTTP 404. To były jedyne martwe linki wychodzące z jakiejkolwiek już wdrożonej strony.
+- `zapisz-sie.html` ma `noindex, nofollow` i zero linków przychodzących — zweryfikowano, że to zamierzone (landing kampanii płatnych, celowo poza nawigacją i sitemapą, opisane już w `PLAN-STRONY.md`), nie przypadkowy noindex.
+- 5 stron Etapu 6 (`cennik.html`, `wyniki.html`, `opinie.html`, `o-nas.html`, `kontakt.html`) nadal nie są w git (nieścieżkowane), więc świadomie pominięte w `sitemap.xml` — sitemapa musi odzwierciedlać wyłącznie faktycznie opublikowane adresy.
+
+**Wykonane poprawki:**
+1. **Sitewide usunięcie `.html` z linków wewnętrznych** — automatyczna podmiana `href="/adres.html"` → `href="/adres"` (z zachowaniem kotwic `#...`) we wszystkich 36 plikach HTML oraz w `partials/footer.html`. Zweryfikowano skryptem, że nie zostało ani jedno wystąpienie.
+2. **Poprawiono H1 na 3 stronach "wyboru egzaminu"** (`kurs-matematyka.html`, `kurs-angielski.html`, `kurs-polski.html`) — zmieniono na sformułowanie odzwierciedlające realną, dwuegzaminową treść strony (np. „Kurs z matematyki. Matura albo egzamin ósmoklasisty.” zamiast „Kurs maturalny z matematyki. Z gwarancją wyniku.”, które duplikowało H1 nowej dedykowanej strony maturalnej). To poprawka zgodności treści ze strukturą strony (strona ma zakładki Matura/E8), nie zmiana oferty.
+3. **Dodano brakujące `og:image`/`twitter:image`** na `index.html` i `korepetycje-online.html` (logo firmy, realne zdjęcie z `/upload`), oraz pełny zestaw OG/Twitter na `privacy-policy.html` i `zapisz-sie.html`.
+4. **Dodano `BreadcrumbList` JSON-LD na `privacy-policy.html`** (wcześniej strona nie miała żadnego JSON-LD).
+5. **Naprawiono martwe kotwice** na `privacy-policy.html`: `/#przedmioty` → `/#subjects`, `/#kontakt` → `/#contact`.
+6. **Naprawiono żywy błąd 404** na 4 stronach bloga — linki do niewdrożonego `/cennik` i `/kontakt` zamieniono na istniejące, wdrożone sekcje: `/kursy-maturalne#cena` (cennik) i `/kursy-maturalne#zapis` (formularz kontaktowy/zapis). Zweryfikowano brak innych żywych stron linkujących do niewdrożonych adresów Etapu 6.
+7. **Utworzono `404.html`** — własna strona błędu w tym samym systemie wizualnym (te same zmienne CSS, header/stopka, tracking GA/GTM/Pixel), `meta robots noindex, follow`, canonical na `/404`, linki do strony głównej, telefonu i najpopularniejszych podstron. Vercel (`cleanUrls: true`) serwuje ją automatycznie dla nieistniejących adresów.
+8. **Wzmocniono linkowanie między klastrami** (punkt „linkowanie wewnętrzne między klastrami”): dodano linki z `kurs-maturalny-matematyka.html` do obu artykułów o matematyce maturalnej, oraz z `kursy-maturalne.html` do artykułu „Kurs grupowy czy korepetycje indywidualne?” (wcześniej miał tylko 1 link przychodzący, z `/blog`).
+9. **Przekierowania 301:** żaden istniejący, opublikowany adres nie został w tym etapie zmieniony ani usunięty — więc **nie było czego przekierowywać**. Jedyny mechanizm przekierowań w projekcie to `cleanUrls: true` w `vercel.json` (przekierowanie 308 z `/adres.html` na `/adres`), zweryfikowane wcześniej na produkcji jako działające bez pętli. Gdy w przyszłości zapadnie decyzja o `/privacy-policy` → `/polityka-prywatnosci` (pozycja "Decyzje właściciela oczekujące" w `PLAN-STRONY.md`), będzie to wymagało dodania jawnego przekierowania 301 w `vercel.json` — zanotowane jako zadanie na przyszłość, nie wykonane teraz bez decyzji właściciela.
+10. **Mapa URL-i i przekierowań zapisana w `PLAN-STRONY.md`** (sekcja „Etap 8”).
+
+**Świadomie NIEZMIENIONE (poza zakresem etapu lub zależne od decyzji właściciela):**
+- `sitemap.xml` — nie dodano 5 adresów Etapu 6 (`/cennik`, `/wyniki`, `/opinie`, `/o-nas`, `/kontakt`), bo te strony nie są jeszcze wdrożone; zostaną dodane w commicie, który faktycznie je opublikuje.
+- `zapisz-sie.html` — `noindex` pozostawiony bez zmian (zamierzone dla landing page kampanii płatnych).
+- Menu mobilne brakujące na części stron, kontrast/dostępność, obrazy bez WebP/AVIF — to zakres Etapu 9 (wydajność i dostępność), nie Etapu 8.
+- Pełne rozdzielenie stron "wyboru egzaminu" (`kurs-matematyka.html` itd.) na osobne fizyczne adresy z przekierowaniami — to większa zmiana strukturalna opisana w `PLAN-STRONY.md` jako "Główny problem strukturalny"; w tym etapie naprawiono tylko duplikat H1 (punkt 2 wyżej), bez usuwania/przenoszenia żadnej działającej strony.
+
+**Testy wykonane:**
+- Walidacja JSON-LD (wszystkie bloki, wszystkie 36+1 plików) — brak błędów.
+- Sprawdzenie: dokładnie 1 H1 i `<link rel="canonical">` na każdej stronie — OK.
+- Skrypt weryfikujący wszystkie `href="/..."` wewnętrzne — 0 odniesień do nieistniejących adresów.
+- `node scripts/build-components.js` — 12 stron z `PAGES` bez zmian, brak regresji.
+- Weryfikacja wizualna w przeglądarce (desktop + mobile 375×812): `404.html` (nowa strona) i `privacy-policy.html` (dodane OG/JSON-LD/poprawione kotwice) — renderują się poprawnie, bez błędów w konsoli.
+
+**Status wdrożenia:** instrukcja zawierała polecenie „Wdróż" — commit i push wykonane po testach.
+
+## Etap 7 — Blog (partia 1/2: system + 3 artykuły, zaimplementowany i wdrożony)
 
 Data: 2026-07-15
 
