@@ -264,6 +264,7 @@
     let currentMode='matura';
     function setMode(mode){currentMode=mode;document.querySelectorAll('.exam-tab').forEach(tab=>tab.classList.toggle('active',tab.dataset.mode===mode));document.querySelectorAll('.mode-panel').forEach(panel=>panel.classList.toggle('active',panel.dataset.panel===mode));}
     document.querySelectorAll('.exam-tab').forEach(tab=>tab.addEventListener('click',()=>setMode(tab.dataset.mode)));
+    if(location.hash==='#e8')setMode('e8');
     document.getElementById('szybki-zapis').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const name=document.getElementById('quickName').value.trim();const phone=document.getElementById('quickPhone').value.trim();
       button.disabled=true;button.textContent='Wysyłanie…';

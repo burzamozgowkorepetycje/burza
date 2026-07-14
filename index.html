@@ -624,6 +624,40 @@
       color: var(--dark);
       opacity: 0.45;
     }
+    a.subject-card { display: block; text-decoration: none; color: inherit; }
+    details.subject-card { padding: 0; cursor: default; }
+    details.subject-card > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 2.1rem 1.75rem;
+    }
+    details.subject-card > summary::-webkit-details-marker { display: none; }
+    details.subject-card[open] { background: rgba(255,255,255,0.85); }
+    .subject-desc-expand::after { content: ' \25BE'; }
+    .subject-choice {
+      padding: 0 1.5rem 1.5rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .subject-choice a {
+      display: block;
+      text-align: center;
+      padding: 0.65rem 0.9rem;
+      border-radius: 4px;
+      background: var(--dark);
+      color: var(--cream);
+      text-decoration: none;
+      font-family: var(--body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .subject-choice a:hover { opacity: 0.8; }
+    .subject-choice a.choice-secondary {
+      background: transparent;
+      border: 1px solid rgba(32,28,26,0.3);
+      color: var(--dark);
+    }
 
     /* ─── Formats band ─── */
     .formats {
@@ -1496,46 +1530,67 @@
       <h2 class="section-title fade-in fade-in-delay-1">Uczymy tego,<br />co naprawdę liczy się na egzaminie.</h2>
       <p class="section-sub fade-in fade-in-delay-2">Osiem przedmiotów, doświadczeni nauczyciele i konkretny program oparty na aktualnych wymaganiach egzaminacyjnych.</p>
       <div class="subjects-grid">
-        <div class="subject-card fade-in">
-          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 V20 H20"/><path d="M4 16 Q11 5 20 8"/></svg></div>
-          <h3 class="subject-name">Matematyka</h3>
-          <p class="subject-desc">Matura · Ósmoklasista</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-1">
-          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 h14 a1 1 0 0 1 1 1 v8 a1 1 0 0 1-1 1 H10 l-4 4 v-4 H5 a1 1 0 0 1-1-1 V6 a1 1 0 0 1 1-1 Z"/></svg></div>
-          <h3 class="subject-name">Język angielski</h3>
-          <p class="subject-desc">Matura · Ósmoklasista</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-2">
+        <details class="subject-card fade-in">
+          <summary>
+            <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4 V20 H20"/><path d="M4 16 Q11 5 20 8"/></svg></div>
+            <h3 class="subject-name">Matematyka</h3>
+            <p class="subject-desc subject-desc-expand">Matura · Ósmoklasista · Bieżące</p>
+          </summary>
+          <div class="subject-choice">
+            <a href="/kurs-matematyka.html">Kurs maturalny</a>
+            <a href="/kurs-matematyka.html#e8">Kurs do egzaminu ósmoklasisty</a>
+            <a href="/korepetycje-matematyka.html" class="choice-secondary">Bieżące przygotowanie</a>
+          </div>
+        </details>
+        <details class="subject-card fade-in fade-in-delay-1">
+          <summary>
+            <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 h14 a1 1 0 0 1 1 1 v8 a1 1 0 0 1-1 1 H10 l-4 4 v-4 H5 a1 1 0 0 1-1-1 V6 a1 1 0 0 1 1-1 Z"/></svg></div>
+            <h3 class="subject-name">Język angielski</h3>
+            <p class="subject-desc subject-desc-expand">Matura · Ósmoklasista · Bieżące</p>
+          </summary>
+          <div class="subject-choice">
+            <a href="/kurs-angielski.html">Kurs maturalny</a>
+            <a href="/kurs-angielski.html#e8">Kurs do egzaminu ósmoklasisty</a>
+            <a href="/korepetycje-angielski.html" class="choice-secondary">Bieżące przygotowanie</a>
+          </div>
+        </details>
+        <a class="subject-card fade-in fade-in-delay-2" href="/korepetycje-biologia.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 C5 10 12 5 19 5 C19 14 12 19 5 19 Z"/><path d="M5 19 C9 15 13 12 17 9"/></svg></div>
           <h3 class="subject-name">Biologia</h3>
           <p class="subject-desc">Matura rozszerzona</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-3">
+        </a>
+        <a class="subject-card fade-in fade-in-delay-3" href="/korepetycje-chemia.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 h6 M10 3 v6 l-5 9 a1 1 0 0 0 1 2 h12 a1 1 0 0 0 1-2 l-5-9 V3"/><path d="M7.5 15 h9"/></svg></div>
           <h3 class="subject-name">Chemia</h3>
           <p class="subject-desc">Matura rozszerzona</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-4">
-          <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L7 12 L15.5 3.5 a1.5 1.5 0 0 1 2 2 L9 14 Z"/><path d="M13 6 L16 9"/><path d="M5 19 L8.5 15.5"/></svg></div>
-          <h3 class="subject-name">Język polski</h3>
-          <p class="subject-desc">Matura · Ósmoklasista</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-5">
+        </a>
+        <details class="subject-card fade-in fade-in-delay-4">
+          <summary>
+            <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L7 12 L15.5 3.5 a1.5 1.5 0 0 1 2 2 L9 14 Z"/><path d="M13 6 L16 9"/><path d="M5 19 L8.5 15.5"/></svg></div>
+            <h3 class="subject-name">Język polski</h3>
+            <p class="subject-desc subject-desc-expand">Matura · Ósmoklasista · Bieżące</p>
+          </summary>
+          <div class="subject-choice">
+            <a href="/kurs-polski.html">Kurs maturalny</a>
+            <a href="/kurs-polski.html#e8">Kurs do egzaminu ósmoklasisty</a>
+            <a href="/korepetycje-polski.html" class="choice-secondary">Bieżące przygotowanie</a>
+          </div>
+        </details>
+        <a class="subject-card fade-in fade-in-delay-5" href="/korepetycje-hiszpanski.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2 v2 M12 20 v2 M2 12 h2 M20 12 h2 M5 5 l1.5 1.5 M17.5 17.5 L19 19 M19 5 l-1.5 1.5 M6.5 17.5 L5 19"/></svg></div>
           <h3 class="subject-name">Język hiszpański</h3>
           <p class="subject-desc">Matura podst. i rozsz.</p>
-        </div>
-        <div class="subject-card fade-in">
+        </a>
+        <a class="subject-card fade-in" href="/korepetycje-geografia.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12 h18"/><path d="M12 3 a14 14 0 0 1 0 18 a14 14 0 0 1 0-18"/></svg></div>
           <h3 class="subject-name">Geografia</h3>
           <p class="subject-desc">Matura rozszerzona</p>
-        </div>
-        <div class="subject-card fade-in fade-in-delay-1">
+        </a>
+        <a class="subject-card fade-in fade-in-delay-1" href="/korepetycje-wos.html">
           <div class="subject-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9 L12 4 L20 9 Z"/><path d="M6 9 v8 M10 9 v8 M14 9 v8 M18 9 v8"/><path d="M3 19 h18"/></svg></div>
           <h3 class="subject-name">WOS</h3>
           <p class="subject-desc">Matura rozszerzona</p>
-        </div>
+        </a>
       </div>
 
       <!-- Formats band -->
