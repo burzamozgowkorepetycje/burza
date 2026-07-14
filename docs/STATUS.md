@@ -1,6 +1,92 @@
 # Status projektu
 
-## Ostatni etap: Etap 3 — Dopracowanie stron korepetycji przedmiotowych (zaimplementowany i wdrożony)
+## Ostatni etap: Etap 5 — Strony lokalizacji (zaimplementowany i wdrożony)
+
+Data: 2026-07-14
+
+**Zakres:** utworzenie 3 nowych stron: `/lokalizacje` (hub zbiorczy), `/lokalizacja-prosta-3-wyszkow`, `/lokalizacja-sowinskiego-38-wyszkow`. Strony korzystają z tego samego szablonu wizualnego co pozostałe 12 "prostych" stron (`korepetycje-*.html`, `kursy.html`, `kurs-*.html`) — te same zmienne CSS, klasy, mechanizm menu mobilnego/breadcrumbs/leadów z `/assets/shared.css`+`/assets/shared.js`. Nie dodano ich do `PAGES` w `scripts/build-components.js`, ponieważ napisano je od razu w formacie "już zbudowanym" (identycznym z wynikiem działania skryptu) — build script poprawnie je ignoruje (nie zawierają starego boilerplate'u do podmiany).
+
+**Audyt źródeł danych (przed pisaniem treści):**
+- **Adresy i telefon:** potwierdzone w wielu miejscach (`index.html` JSON-LD i sekcja #locations, `privacy-policy.html`, `footer.html`, `zapisz-sie.html`) — ul. Prosta 3, 07-200 Wyszków (siedziba rejestrowa wg `privacy-policy.html`) i ul. Sowińskiego 38, 07-200 Wyszków; telefon 605 947 803 wspólny dla obu.
+- **Godziny otwarcia:** potwierdzone w `index.html` sekcja `#locations` — Prosta 3: Pon–Pt 14:00–20:00, Sob 9:00–14:00, Niedz. nieczynne; Sowińskiego 38: Pon–Pt 15:00–20:00, Sob 10:00–14:00, Niedz. nieczynne. Użyte bez zmian na nowych stronach.
+- **Współrzędne geograficzne:** w `index.html` schema org istnieje jeden zestaw (`52.5936, 21.4589`), przypisany w tym samym bloku do adresu Sowińskiego 38 — użyty wyłącznie na stronie Sowińskiego 38. Dla Prosta 3 brak potwierdzonych współrzędnych w repozytorium — **nie wymyślono ich**, pole `geo` pominięte w schemacie tej strony.
+- **Parking:** brak jakiejkolwiek wzmianki w całym repozytorium (grep po "parking" — 0 wyników) — zgodnie z jawnym poleceniem "Nie wymyślaj danych o parkingu" sekcja o parkingu została **całkowicie pominięta** na obu stronach placówek, zamiast wyświetlać niepotwierdzone informacje. Pytanie do właściciela poniżej.
+- **Zdjęcia budynku/wejścia/sal:** w `/upload` istnieją wyłącznie zdjęcia przedmiotowe i wyników (`matematyka.jpg`, `angielski.jpg`, `polski.jpg`, `wyniki-*.jpg`, `logo.jpg`) — **brak jakichkolwiek zdjęć budynków/wejść/sal**. Zgodnie z zasadą 16/17 nie wstawiono zdjęć zastępczych ani nie zasugerowano innych zdjęć z serwisu jako namiastki — sekcja galerii została pominięta. Pytanie do właściciela poniżej.
+- **Oferta przedmiotowa per lokalizacja:** brak w repozytorium jakiegokolwiek rozróżnienia, które przedmioty są nauczane w której konkretnie placówce — obie strony pokazują identyczną, pełną listę 8 przedmiotów (spójne z resztą serwisu, bez wymyślania podziału).
+- **Cennik:** w repozytorium nie istnieje dedykowana strona `/cennik` (jeszcze nienapisana, widnieje tylko w szkicu "docelowa struktura" w `PLAN-STRONY.md`). Link "cennik" na nowych stronach kieruje do `/kursy.html`, który zawiera najszerszy przegląd cen w serwisie — decyzja tymczasowa do czasu utworzenia dedykowanej strony cennika w kolejnym etapie.
+
+**Strony utworzone:**
+- **`/lokalizacje.html`** — hub: hero, pasek statystyk (2 lokalizacje / wspólny telefon / 8 przedmiotów / Nr 1), dwie karty lokalizacji z osadzoną mapą Google (`output=embed` po adresie tekstowym — bez wymyślonych współrzędnych), godzinami, przyciskiem do strony placówki i telefonem, FAQ (4 pytania), formularz z wyborem lokalizacji i przedmiotu, `CollectionPage`+`BreadcrumbList`+`FAQPage` JSON-LD.
+- **`/lokalizacja-prosta-3-wyszkow.html`** — pełny adres, potwierdzone godziny, telefon, mapa (embed), przycisk "Wyznacz trasę" (link do Google Maps Directions po adresie tekstowym, bez zmyślonych wskazówek dojazdu), siatka 8 przedmiotów (linki do `korepetycje-*.html`), FAQ (4 pytania), formularz z ukrytym polem lokalizacji, linki do strony głównej i `/kursy.html` (cennik), `LocalBusiness`+`BreadcrumbList`+`FAQPage` JSON-LD (bez `geo` — brak potwierdzonych współrzędnych).
+- **`/lokalizacja-sowinskiego-38-wyszkow.html`** — analogicznie, z własnym adresem/godzinami i `geo` (współrzędne potwierdzone w `index.html`).
+- **Nie utworzono** stron dla Legionowa, Jabłonny ani innych miast — w repozytorium nie ma żadnej wzmianki o rzeczywistej placówce poza Wyszkowem.
+
+**Spójność NAP:** telefon (605 947 803 / `tel:+48605947803`), oba adresy i format zapisu ("ul. Prosta 3, 07-200 Wyszków", "ul. Sowińskiego 38, 07-200 Wyszków") są identyczne z wersjami już używanymi w `index.html`, `footer.html`, `privacy-policy.html` i `zapisz-sie.html` — bez żadnych rozbieżności.
+
+**Poza zakresem (celowo nietknięte):** globalna nawigacja pozostałych ~20 istniejących stron (nie dodano linku "Lokalizacje" do ich menu — wymagałoby zmiany wielu plików niezwiązanej wprost z treścią tego etapu; do rozważenia w kolejnym etapie), sekcja `#locations` na `index.html` (mogłaby linkować do nowego huba, ale nie było to częścią polecenia), utworzenie dedykowanej strony `/cennik`.
+
+**Testy wykonane:**
+- Walidacja HTML (`html.parser`) wszystkich 3 nowych plików — bez błędów.
+- Walidacja wszystkich bloków JSON-LD (9 łącznie: `LocalBusiness`×2, `CollectionPage`, `BreadcrumbList`×3, `FAQPage`×3) — poprawny JSON.
+- `node scripts/build-components.js` — wszystkie 12 stron z `PAGES` bez zmian (brak regresji), nowe strony poprawnie pominięte (nie są w tablicy, nie wymagają przebudowy).
+- Weryfikacja linków wewnętrznych (`grep`/Python) — wszystkie `href` z nowych stron wskazują na istniejące pliki.
+- Weryfikacja wizualna w przeglądarce (localhost:3456): hub, obie strony placówek — hero, mapy (Google Maps embed renderuje się poprawnie, przycisk "Otwórz w Mapach"), sekcja godzin, siatka przedmiotów, FAQ, formularz — wszystko renderuje się poprawnie.
+- Widok mobilny (375×812): menu hamburgera otwiera się i zamyka poprawnie, wszystkie linki nawigacyjne widoczne, treść czytelna bez poziomego przewijania.
+- Konsola przeglądarki — brak błędów JS.
+- `sitemap.xml` zaktualizowany o 3 nowe adresy URL.
+- Formularze leadowe NIE zostały faktycznie wysłane podczas testów.
+
+**Pytania do właściciela (repozytorium nie daje jednoznacznej odpowiedzi):**
+1. Czy przy którejkolwiek z lokalizacji jest dostępny parking (własny/uliczny/płatny)? Obecnie strony nie wspominają o parkingu w ogóle, bo nigdzie w repozytorium nie ma takiej informacji.
+2. Czy możecie przesłać zdjęcia budynku, wejścia i sal dla obu lokalizacji? W `/upload` nie ma żadnych zdjęć poza materiałami przedmiotowymi/wynikami — strony placówek obecnie nie mają galerii zdjęć.
+3. Czy chcecie, żebyśmy stworzyli dedykowaną stronę `/cennik` w kolejnym etapie? Obecnie link "cennik" na nowych stronach prowadzi do `/kursy.html` (najszerszy istniejący przegląd cen), bo osobna strona cennika jeszcze nie istnieje.
+
+## Etap 4 — Przebudowa /korepetycje-online (zaimplementowany, oczekuje na wdrożenie)
+
+Data: 2026-07-14
+
+**Zakres:** przebudowa treści `korepetycje-online.html` (design/CSS/nav/quiz-modal — "flagowy" system współdzielony z `index.html` — pozostawiony bez zmian, poza zakresem), tak aby strona nie była kopią strony głównej i odpowiadała na 11 wymaganych tematów: zasięg (cała Polska), technologia prowadzenia lekcji, tablica online, przekazywanie materiałów, sprawdzanie prac domowych, komunikacja z nauczycielem, zajęcia indywidualne i grupowe, wymagania techniczne, pierwsze spotkanie, opinie uczniów online, dostępne przedmioty online.
+
+**Audyt oferty (indywidualnie online / grupowo online / wyłącznie stacjonarnie) — ustalenia z repozytorium:**
+- Matematyka, angielski, polski: zajęcia indywidualne **online** — tak (`korepetycje-*.html`); zajęcia grupowe (kursy maturalne/E8) **online i stacjonarnie** — potwierdzone wprost w `kurs-maturalny-*.html`/`kurs-e8-*.html` ("zajęcia live... online dla maturzystów z całej Polski, a dodatkowo stacjonarnie w Wyszkowie").
+- Biologia, chemia, geografia, WOS: zajęcia indywidualne **online** — tak; grupa (kurs stacjonarny) — **wyłącznie stacjonarnie w Wyszkowie**, potwierdzone wprost w `korepetycje-biologia/chemia/geografia/wos.html` ("Wyłącznie stacjonarnie w Wyszkowie").
+- Hiszpański: zajęcia indywidualne **online** — tak; forma "w dwójkach"/"w małej grupie" — **niejednoznaczne** w repozytorium (brak wzmianki, czy odbywają się online czy tylko stacjonarnie) — patrz „Pytania do właściciela” niżej.
+
+**Zmiany wykonane:**
+- **Breadcrumbs:** dodano pasek okruszków (`Strona główna → Korepetycje online`) — strona wcześniej nie miała ich wcale (wyłączona z mechanizmu partiali w Etapie 1 jako strona o odrębnym, „flagowym” designie). Dodano też `BreadcrumbList` JSON-LD w `<head>`.
+- **H1:** zmieniony z identycznego jak na `index.html` ("Średni wynik naszych uczniów to 80%.") na unikalny, specyficzny dla strony online: "Ci sami nauczyciele co w Wyszkowie. Zajęcia online."
+- **Sekcja Przedmioty:** przebudowana z płaskiej siatki 8 identycznych kart na siatkę z jawnym opisem formy dostępności przy każdym przedmiocie ("Indywidualnie i grupowo online" dla matematyki/angielskiego/polskiego; "Indywidualnie online · grupa stacjonarnie" dla biologii/chemii/geografii/WOS; "Indywidualnie online" dla hiszpańskiego) — karty są teraz linkami do właściwych stron `korepetycje-*.html`. Pasek formatów rozbudowany o jawny podział: indywidualnie online (8 przedmiotów) / grupowo online (3 przedmioty, link do `kursy-maturalne.html` i `kursy-egzamin-osmoklasisty.html`) / grupowo stacjonarnie (4 przedmioty, link do `kursy.html`).
+- **Sekcja "Jak wyglądają zajęcia":** rozbudowana z 2 do 4 kart, pokrywających wszystkie wymagane tematy: technologia i tablica online + materiały + prace domowe (karta 1), wymagania techniczne + pierwsze spotkanie (karta 2), zajęcia grupowe online (karta 3 — nowa), komunikacja z nauczycielem między zajęciami (karta 4 — nowa, bez wymyślania konkretnego kanału poza już istniejącym numerem telefonu).
+- **FAQ:** dodano 2 nowe pytania ("Czy zajęcia grupowe są dostępne online?", "Jakiej technologii używacie do zajęć online?"), zsynchronizowane z `FAQPage` JSON-LD w `<head>` (6 pytań łącznie).
+- **Formularz:** dodano notatkę informacyjną pod polem "Forma zajęć" o ograniczonej dostępności grup online (matematyka/angielski/polski) — bez zmiany mechanizmu wysyłki (`Shared.sendLead`, ten sam URL Google Apps Script).
+- **Statystyki:** zmieniono nieistotny dla strony online wskaźnik "2 Lokalizacje w Wyszkowie" na "3 Przedmioty z grupą online (matematyka, angielski, polski)" — trafniejszy dla kontekstu strony.
+- **Opinie:** nagłówek sekcji zmieniony na "Opinie uczniów online i stacjonarnych" (dokładniejszy niż identyczny z `index.html` "Co mówią nasi uczniowie") — żadna opinia nie jest fałszywie oznaczona jako online; jedyna opinia z potwierdzoną online modalnością (Mikołaj T., biologia, "z drugiego końca Polski") pozostaje wyeksponowana jako główna.
+- **Linki:** dodano/potwierdzono linki do wszystkich 8 stron `korepetycje-*.html`, `kursy-maturalne.html`, `kursy-egzamin-osmoklasisty.html`, `kursy.html`.
+- Nie wymyślono nazwy konkretnej platformy wideokonferencyjnej (Zoom/Meet/Teams) — opisano generycznie ("platforma wideokonferencyjna z udostępnianiem ekranu i tablicą online"), zgodnie z zasadą 16/17 (brak takich danych w repozytorium).
+
+**Poza zakresem (celowo nietknięte):** `index.html` (osobna strona, nie była częścią polecenia), design/CSS/JS mechanizm (nav, quiz-modal, animacje) — zachowany bez zmian zgodnie z zasadą 9 (identyfikacja wizualna).
+
+**Testy wykonane:**
+- Walidacja HTML (`html.parser`) — bez błędów.
+- Walidacja wszystkich 3 bloków JSON-LD (`EducationalOrganization`+`hasOfferCatalog`, `FAQPage`, `BreadcrumbList`) — parsują się poprawnie, `FAQPage` zsynchronizowany z widocznymi pytaniami.
+- `node scripts/build-components.js` — `korepetycje-online.html` poprawnie pominięty (nie jest w `PAGES`, własny design), brak regresji na pozostałych stronach.
+- Weryfikacja wizualna w przeglądarce (localhost:3456, viewport mobile ~702px): breadcrumbs czytelne pod nawigacją (poprawiono nakładanie się z fixed nav przez wydzielenie paska okruszków poza wyśrodkowaną pionowo sekcję hero), siatka przedmiotów, sekcja "Jak wyglądają zajęcia" (4 karty), FAQ, formularz z notatką — wszystko renderuje się poprawnie.
+- Konsola przeglądarki — brak błędów JS.
+- Weryfikacja linków wewnętrznych (`grep href`) — brak odniesień do nieistniejących plików.
+- Formularz leadowy NIE został faktycznie wysłany podczas testów.
+
+**Pytania do właściciela (repozytorium nie daje jednoznacznej odpowiedzi):**
+1. Hiszpański — czy forma "w dwójkach" / "w małej grupie" jest dostępna online, czy wyłącznie stacjonarnie w Wyszkowie? Obecnie strona online pokazuje hiszpański tylko jako "indywidualnie online", bez wzmianki o grupach, żeby nie publikować niepotwierdzonej informacji.
+2. Czy chcecie, żeby strona podawała konkretną nazwę technologii/platformy do zajęć online (np. Zoom, Google Meet, Microsoft Teams)? Obecnie opisana jest generycznie ("platforma wideokonferencyjna z tablicą online"), bo żadna nazwa nie występuje nigdzie w repozytorium.
+3. Czy istnieje dedykowany kanał komunikacji z nauczycielem między zajęciami (e-mail, WhatsApp, dziennik elektroniczny), czy kontakt organizacyjny ograniczony jest do telefonu sekretariatu (605 947 803), jak opisano obecnie?
+
+**Wdrożenie:** niewykonane — oczekuje na polecenie właściciela (commit → push → weryfikacja na Vercel/produkcji, zgodnie z zasadą 19). Instrukcja Etapu 4 nie zawierała słowa „wdróż”/„deploy”, więc zgodnie z zasadą 20 zmiany pozostają niescommitowane do czasu wyraźnego polecenia.
+
+**Następny etap:** nierozpoczęty, oczekuje na polecenie właściciela.
+
+---
+
+## Etap 3 — Dopracowanie stron korepetycji przedmiotowych (zaimplementowany i wdrożony)
 
 Data: 2026-07-14
 
