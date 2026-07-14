@@ -1,0 +1,35 @@
+/*
+ * Wspólne, DODATKOWE style dla podstron Burza Mózgów Korepetycje.
+ * Nie nadpisuje istniejących reguł strony — dokłada menu mobilne i breadcrumbs,
+ * których wcześniej brakowało na większości podstron.
+ * Kolory dziedziczone ze zmiennych --ink/--muted/--white/--line/--green2 zdefiniowanych
+ * w <style> każdej strony, więc wygląd dopasowuje się do lokalnej identyfikacji strony.
+ */
+.menu-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--white);cursor:pointer;padding:0}
+.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{content:"";display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+.menu-toggle span{position:relative}
+.menu-toggle span:before{position:absolute;top:-6px}
+.menu-toggle span:after{position:absolute;top:6px}
+.menu-toggle[aria-expanded="true"] span{background:transparent}
+.menu-toggle[aria-expanded="true"] span:before{top:0;transform:rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span:after{top:0;transform:rotate(-45deg)}
+.mobile-menu{display:none}
+body.menu-open{overflow:hidden}
+.breadcrumbs{padding:14px 0 0}
+.breadcrumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;font-size:13px;color:var(--muted)}
+.breadcrumbs li{display:flex;align-items:center;gap:6px}
+.breadcrumbs li:not(:last-child):after{content:"/";color:var(--line)}
+.breadcrumbs a{color:var(--muted);text-decoration:none}
+.breadcrumbs a:hover{text-decoration:underline}
+.breadcrumbs li[aria-current="page"]{color:var(--ink);font-weight:700}
+
+@media(max-width:900px){
+  .menu-toggle{display:inline-flex}
+  .mobile-menu{display:block;position:fixed;inset:76px 0 0 0;background:var(--white);z-index:40;padding:22px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.18s;overflow-y:auto}
+  .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .mobile-menu a{display:block;padding:15px 4px;font:800 17px inherit;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+  .mobile-menu a.btn{border:0;margin-top:14px;text-align:center}
+}
+@media(max-width:620px){
+  .mobile-menu{inset:72px 0 0 0}
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "echo 'Static site — no build step'",
+  "buildCommand": "node scripts/build-components.js",
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,

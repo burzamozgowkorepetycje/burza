@@ -121,4 +121,4 @@ Nie tworzymy wszystkich stron docelowej struktury od razu — każdy etap obejmu
 
 ## Log decyzji
 
-_(brak decyzji podjętych jeszcze — sekcja do uzupełniania po każdej rozmowie z właścicielem)_
+- **2026-07-14 (Etap 1, wspólny system komponentów):** zakres ograniczony do 12 stron "prostych" (bez `index.html`, `korepetycje-online.html`, `zapisz-sie.html`, `privacy-policy.html` — różne systemy designu, patrz `docs/STATUS.md`). Mechanizm: build-time include w czystym Node, zero zależności, zamiast wspólnego pliku CSS/JS bez generatora — właściciel wybrał opcję z automatycznym wstrzykiwaniem HTML nagłówka/stopki z `/partials`, żeby tworzenie nowych stron nie wymagało ręcznego kopiowania nawigacji.

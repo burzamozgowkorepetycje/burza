@@ -4,7 +4,7 @@
   "private": true,
   "description": "Burza Mózgów Korepetycje — strona centrum korepetycji w Wyszkowie (statyczny HTML)",
   "scripts": {
-    "build": "echo \"Strona statyczna — krok budowania nie jest potrzebny.\"",
+    "build": "node scripts/build-components.js",
     "dev": "npx --yes serve .",
     "start": "npx --yes serve ."
   }
