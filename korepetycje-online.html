@@ -1056,7 +1056,10 @@
     .footer-phone a { color: var(--cream); text-decoration: none; }
     .footer-phone a:hover { color: var(--blush); }
     .footer-copy { font-family: var(--body); font-size: 0.72rem; color: var(--cream); opacity: 0.3; line-height: 1.6; }
-    .footer-guarantee { max-width: 1200px; margin: 2.5rem auto 0; padding-top: 1.75rem; border-top: 1px solid rgba(247,244,239,0.08); }
+    .footer-links { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.75rem; border-top: 1px solid rgba(247,244,239,0.08); display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; }
+    .footer-links a { font-family: var(--body); font-size: 0.78rem; color: var(--cream); opacity: 0.55; text-decoration: none; transition: opacity 0.15s ease-out, color 0.15s ease-out; }
+    .footer-links a:hover { opacity: 1; color: var(--blush); }
+    .footer-guarantee { max-width: 1200px; margin: 1.5rem auto 0; }
     .footer-guarantee p { font-family: var(--body); font-size: 0.72rem; color: var(--cream); opacity: 0.3; line-height: 1.65; }
 
     /* ─── Mobile nav overlay (premium) ─── */
@@ -1475,6 +1478,8 @@
       <li><a href="#why" class="mobile-link"><span class="mnl-num">03</span>Dlaczego my</a></li>
       <li><a href="#how" class="mobile-link"><span class="mnl-num">04</span>Jak to działa</a></li>
       <li><a href="#locations" class="mobile-link"><span class="mnl-num">05</span>Jak wyglądają zajęcia</a></li>
+      <li><a href="/cennik" class="mobile-link"><span class="mnl-num">06</span>Cennik</a></li>
+      <li><a href="/opinie" class="mobile-link"><span class="mnl-num">07</span>Opinie</a></li>
     </ul>
     <div class="mobile-nav-foot">
       <a href="#contact" class="mobile-nav-cta mobile-link">Umów bezpłatną konsultację</a>
@@ -1963,6 +1968,15 @@
         <p class="footer-phone"><a href="tel:+48605947803">605 947 803</a></p>
         <p class="footer-copy">© 2026 Burza Mózgów Korepetycje<br />Wyszków · Wszelkie prawa zastrzeżone.<br /><a href="/privacy-policy" style="color: rgba(247,244,239,0.65); text-decoration: none; font-size: 0.8rem;">Polityka prywatności</a></p>
       </div>
+    </div>
+    <div class="footer-links" role="navigation" aria-label="Dodatkowe strony">
+      <a href="/lokalizacje">Lokalizacje</a>
+      <a href="/wyniki">Wyniki</a>
+      <a href="/cennik">Cennik</a>
+      <a href="/opinie">Opinie</a>
+      <a href="/o-nas">O nas</a>
+      <a href="/kontakt">Kontakt</a>
+      <a href="/blog">Blog</a>
     </div>
     <div class="footer-guarantee">
       <p>*Gwarancja wyniku 70%+ obowiązuje pod warunkiem spełnienia warunków umowy — m.in. regularnego uczestnictwa w zajęciach przez minimum 3 miesiące przed egzaminem oraz odrabiania zadanych prac domowych. Szczegółowe warunki określa umowa.</p>
