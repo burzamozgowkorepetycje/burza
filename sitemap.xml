@@ -151,6 +151,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://burza-mozgow-korepetycje.pl/cennik</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/wyniki</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/opinie</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/o-nas</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/kontakt</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://burza-mozgow-korepetycje.pl/blog</loc>
     <lastmod>2026-07-15</lastmod>
     <changefreq>weekly</changefreq>

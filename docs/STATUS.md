@@ -167,9 +167,11 @@ Pozostałe 3 tematy (przygotowanie dziecka do E8, najczęstsze błędy na E8 z m
 
 **Kolejny krok (nie rozpoczęty bez polecenia):** partia 2/2 — pozostałe 3 artykuły (E8: przygotowanie dziecka, najczęstsze błędy z matematyki; kiedy warto zapisać dziecko na korepetycje).
 
-## Etap 6 — Zaufanie i konwersja (zaimplementowany, oczekuje na wdrożenie)
+## Etap 6 — Zaufanie i konwersja (zaimplementowany i wdrożony)
 
-Data: 2026-07-14
+Data: 2026-07-14 (implementacja) / 2026-07-15 (wdrożenie, na wyraźne polecenie „commit etap 6”)
+
+**Wdrożenie:** `/wyniki`, `/cennik`, `/opinie`, `/o-nas`, `/kontakt` scommitowane i wypchnięte. Dodano 5 adresów do `sitemap.xml`. Przywrócono docelowe linki `/cennik` i `/kontakt` w nawigacji i CTA 4 stron bloga (Etap 7) — podczas Etapu 8 wskazywały tymczasowo na `/kursy-maturalne#cena`/`#zapis`, bo te strony nie były jeszcze wdrożone; teraz wskazują na właściwe, docelowe strony. Lista 5 pytań do właściciela (poniżej) pozostaje otwarta — `/o-nas` pokazuje na żywo widoczne placeholdery (historia firmy, 3 profile nauczycieli) do czasu uzupełnienia danych.
 
 **Zakres:** utworzenie 5 nowych stron: `/wyniki`, `/cennik`, `/opinie`, `/o-nas`, `/kontakt`. Ten sam szablon wizualny co pozostałe "proste" strony (identyczny z Etapem 5). Instrukcja nie zawierała słowa „wdróż"/„deploy" — zgodnie z zasadą 20 i precedensem z Etapu 1/4, zmiany zaimplementowano i przetestowano lokalnie, ale nie scommitowano do czasu wyraźnego polecenia.
 
