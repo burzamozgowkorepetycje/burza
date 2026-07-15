@@ -118,7 +118,28 @@ Pełne tabele URL, szczegóły techniczne i proponowany plan wdrożenia (etapy 1
 - **Etap 7 — Blog:** partia 1/2 zaimplementowana i wdrożona (`/blog` + 3 artykuły o maturze z matematyki i wyborze formy zajęć). Partia 2/2 (pozostałe 3 tematy: E8 i decyzja o korepetycjach) czeka na kolejne polecenie. Szczegóły: `docs/STATUS.md`.
 - **Etap 8 — SEO techniczne:** zaimplementowany, przetestowany i wdrożony. Poprawki na wszystkich 36 stronach (usunięcie linków `.html`, brakujące OG/breadcrumbs na `privacy-policy`/`zapisz-sie`/`index`/`korepetycje-online`, naprawa duplikatu H1 na stronach wyboru egzaminu, naprawa martwych kotwic i żywego błędu 404 w linkach bloga do niewdrożonego Etapu 6, nowa strona `/404`, wzmocnione linkowanie międzyklastrowe). Mapa URL-i i przekierowań poniżej. Szczegóły: `docs/STATUS.md`.
 - **Etap 9 — Wydajność i dostępność:** zaimplementowany, przetestowany i wdrożony. WebP dla obrazów treści (logo, wyniki maturalne/zbiorcze) z fallbackiem JPG, usunięcie nieużywanego `wyniki-zbiorcze.png` (1,6 MB), naprawa realnego nakładania się paska CTA na przyciski hero na mobile (sticky-cta pokazywany dopiero po przewinięciu za hero, jak na `index.html`), naprawa 111 pól formularzy bez powiązanych etykiet (`for`/`id`), widoczny focus na polach quizu. Szczegóły: `docs/STATUS.md`.
+- **Etap 10 — Analityka i konwersje:** zaimplementowany, przetestowany i wdrożony. Naprawiono błędne wysyłanie zdarzenia „Lead” na samo kliknięcie (otwarcie quizu, przycisk „Umów konsultację”) na `index.html`/`korepetycje-online.html`/`zapisz-sie.html` oraz usunięto zdublowany listener wysyłający Lead z numerem telefonu do analityki. Dodano honeypot + minimalny czas do wysyłki (ochrona przed spamem bez CAPTCHA) na wszystkich formularzach. Lista zdarzeń i warunków poniżej. Szczegóły: `docs/STATUS.md`.
+- **Etap 11 — QA i odbiór:** wykonany. Znalezione i naprawione: niespójny wynik 88%/83% zamiast potwierdzonych 80% na `zapisz-sie.html`, gwarancja 70%+ pokazywana dla wszystkich przedmiotów zamiast wyłącznie matematyki na `zapisz-sie.html`, nieaktualny rok w stopce (© 2025 zamiast © 2026) na `index.html`/`korepetycje-online.html`. Pełne wyniki testów, zmienione pliki i finalne URL-e: `docs/STATUS.md`.
 - **Kolejne etapy:** do zaplanowania i zatwierdzenia przez właściciela, jeden po drugim, każdy z osobnym zestawem plików do zmiany, testami i commitem po zakończeniu.
+
+## Etap 10 — lista zdarzeń analitycznych i warunków wysyłki
+
+Wszystkie zdarzenia trafiają do Meta Pixel (`fbq('track', ...)`) i Google Analytics 4 (`gtag('event', ...)`) — obie analityki otrzymują ten sam zestaw zdarzeń od Etapu 10 (wcześniej `assets/shared.js` wysyłał tylko do Pixela). Żadne zdarzenie nie zawiera imienia, telefonu ani e-maila — wyłącznie kategorie wyboru (przedmiot, poziom, forma) i etykiety typu leada.
+
+| Zdarzenie | Kiedy się wysyła | Warunek |
+|---|---|---|
+| `Lead` | Formularz zapisu/kontaktu wysłany **skutecznie** (po `await fetch(...)` bez błędu) | Nigdy na samo kliknięcie „Wyślij”/„Submit”; nigdy przy błędzie sieci; honeypot pusty i czas od załadowania/otwarcia formularza ≥ 1,5 s |
+| `Contact` | Kliknięcie linku `tel:` lub `mailto:` | Zawsze przy kliknięciu — to jest rzeczywista intencja kontaktu, nie wymaga potwierdzenia sukcesu |
+| `ViewContent` | Otwarcie quizu/modala, kliknięcie CTA „Umów konsultację”, kliknięcie linku „Kursy”, głębokość przewinięcia 25/50/75/100% | Samo zdarzenie UI — świadomie **nie** `Lead`, żeby nie zawyżać liczby leadów w raportach reklamowych |
+| `FormStart` (nowe) | Pierwsze wejście w dowolne pole formularza (`focusin`) | Tylko raz na formularz na wizytę (flaga `started`) |
+| `SelectContent` (nowe) | Wybór przedmiotu lub egzaminu/klasy w formularzu albo w quizie | Tylko gdy wybrana wartość nie jest pusta |
+
+**Ochrona przed spamem (bez CAPTCHA):** każdy formularz otrzymuje niewidoczne pole-pułapkę (`name="website"`, poza ekranem, `tabindex="-1"`, `autocomplete="off"`) wstrzykiwane przez JS. Wysyłka jest cicho blokowana (`event.preventDefault()` + `stopImmediatePropagation()` na `document`, faza capture — zanim handler strony w ogóle się wykona), jeśli: pole-pułapka ma wartość, LUB od załadowania strony (formularze proste) / otwarcia quizu (`index.html`, `korepetycje-online.html`) / załadowania strony (`zapisz-sie.html`) minęło mniej niż 1,5 sekundy. Brak dodatkowego kroku dla prawdziwego użytkownika — zero wpływu na konwersję.
+
+**Naprawione błędy (przed Etapem 10):**
+- `index.html`, `korepetycje-online.html`: otwarcie quizu i kliknięcie „Umów konsultację” wysyłały `Lead` na samo kliknięcie — zmienione na `ViewContent`.
+- `zapisz-sie.html`: otwarcie quizu (2 miejsca — przycisk startowy i kafelki wyboru) wysyłało `Lead` na kliknięcie — zmienione na `ViewContent`.
+- `index.html`, `korepetycje-online.html`: zdublowany, niezależny listener na `submit` głównego formularza wysyłał `Lead` **niezależnie od powodzenia wysyłki** i dołączał numer telefonu (`phone: this.telefon?.value`) do zdarzenia analitycznego — usunięty; `Lead` przeniesiony do gałęzi sukcesu właściwego handlera, bez danych osobowych.
 
 Nie tworzymy wszystkich stron docelowej struktury od razu — każdy etap obejmuje wąski, uzgodniony zakres.
 

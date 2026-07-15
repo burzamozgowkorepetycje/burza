@@ -1946,7 +1946,7 @@
       </div>
       <div class="footer-right">
         <p class="footer-phone"><a href="tel:+48605947803">605 947 803</a></p>
-        <p class="footer-copy">© 2025 Burza Mózgów Korepetycje<br />Wyszków · Wszelkie prawa zastrzeżone.<br /><a href="/privacy-policy" style="color: rgba(247,244,239,0.65); text-decoration: none; font-size: 0.8rem;">Polityka prywatności</a></p>
+        <p class="footer-copy">© 2026 Burza Mózgów Korepetycje<br />Wyszków · Wszelkie prawa zastrzeżone.<br /><a href="/privacy-policy" style="color: rgba(247,244,239,0.65); text-decoration: none; font-size: 0.8rem;">Polityka prywatności</a></p>
       </div>
     </div>
     <div class="footer-guarantee">
@@ -2146,6 +2146,41 @@
       sel.addEventListener('change', () => sel.classList.toggle('has-value', sel.value !== ''));
     });
 
+    // ─── Tracking: rozpoczęcie formularza + wybór przedmiotu (bez danych osobowych) ───
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (!form) return;
+      let started = false;
+      form.addEventListener('focusin', () => {
+        if (started) return;
+        started = true;
+        if (typeof trackPixelEvent === 'function') trackPixelEvent('FormStart', { form: 'contact-form' });
+      });
+      const subjectSelect = form.querySelector('select[name="subject"]');
+      if (subjectSelect) {
+        subjectSelect.addEventListener('change', () => {
+          if (!subjectSelect.value || typeof trackPixelEvent !== 'function') return;
+          trackPixelEvent('SelectContent', { content_type: 'subject', value: subjectSelect.value });
+        });
+      }
+    })();
+
+    // ─── Podstawowa ochrona przed spamem (honeypot + minimalny czas), bez CAPTCHA ───
+    const contactFormLoadTime = Date.now();
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (!form || form.querySelector('.hp-field')) return;
+      const hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = 'website';
+      hp.autocomplete = 'off';
+      hp.tabIndex = -1;
+      hp.className = 'hp-field';
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+      form.appendChild(hp);
+    })();
+
     // ─── Form submit ───
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyAgf3UccAXC7QAohp3tZOb-px3c8bcm-YxRXVCvORw-YtW7Ui8XFkiTxPVXqAuQ_KcBg/exec';
 
@@ -2153,6 +2188,9 @@
       e.preventDefault();
       const btn = this.querySelector('.btn-submit');
       const form = this;
+
+      const hp = form.querySelector('.hp-field');
+      if ((hp && hp.value) || (Date.now() - contactFormLoadTime < 1500)) return;
 
       btn.textContent = 'Wysyłanie…';
       btn.disabled = true;
@@ -2179,6 +2217,9 @@
         btn.style.color = 'var(--blush)';
         form.reset();
         form.querySelectorAll('.form-select').forEach(s => s.classList.remove('has-value'));
+        if (typeof trackPixelEvent === 'function') {
+          trackPixelEvent('Lead', { lead_type: 'contact_form', subject: data.przedmiot });
+        }
       } catch (err) {
         btn.textContent = 'Błąd — spróbuj ponownie';
         btn.disabled = false;
@@ -2254,6 +2295,8 @@
       summaryEl.innerHTML = chips.map(c => `<span class="quiz-chip">${c}</span>`).join('');
     }
 
+    let quizOpenTime = 0;
+
     function openQuiz() {
       answers.grade = answers.classNumber = answers.subject = answers.format = answers.name = answers.email = answers.phone = '';
       contactForm.reset();
@@ -2263,7 +2306,21 @@
       showStepId('intro');
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
-      if (typeof trackPixelEvent === 'function') trackPixelEvent('Lead', { lead_type: 'quiz_open' });
+      quizOpenTime = Date.now();
+      if (typeof trackPixelEvent === 'function') trackPixelEvent('ViewContent', { content_type: 'quiz_open' });
+    }
+
+    // Podstawowa ochrona przed spamem (honeypot), bez CAPTCHA
+    if (contactForm && !contactForm.querySelector('.hp-field')) {
+      const hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = 'website';
+      hp.autocomplete = 'off';
+      hp.tabIndex = -1;
+      hp.className = 'hp-field';
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+      contactForm.appendChild(hp);
     }
 
     document.getElementById('quiz-start-btn').addEventListener('click', goToNextStep);
@@ -2303,6 +2360,9 @@
       const opt = e.currentTarget;
       const field = opt.dataset.field;
       answers[field] = opt.dataset.value;
+      if ((field === 'subject' || field === 'grade') && typeof trackPixelEvent === 'function') {
+        trackPixelEvent('SelectContent', { content_type: field, value: opt.dataset.value });
+      }
       goToNextStep();
     }
 
@@ -2310,6 +2370,8 @@
 
     contactForm.addEventListener('submit', async function (e) {
       e.preventDefault();
+      const hp = contactForm.querySelector('.hp-field');
+      if ((hp && hp.value) || (quizOpenTime && Date.now() - quizOpenTime < 1500)) return;
       answers.name = contactForm.name.value.trim();
       answers.email = contactForm.email.value.trim();
       answers.phone = contactForm.phone.value.trim();
@@ -2378,11 +2440,12 @@
     });
   });
 
-  // Track "Umów konsultację" button clicks
+  // Track "Umów konsultację" button clicks (samo kliknięcie nie jest leadem —
+  // otwiera tylko formularz/quiz, więc śledzimy jako ViewContent, nie Lead)
   document.querySelectorAll('.btn-primary, .nav-cta, .mobile-nav-cta').forEach(btn => {
     btn.addEventListener('click', (e) => {
       if (e.target.textContent.includes('Umów') || e.target.textContent.includes('konsultacja')) {
-        trackPixelEvent('Lead', { lead_type: 'consultation_booking' });
+        trackPixelEvent('ViewContent', { content_type: 'consultation_cta_click' });
       }
     });
   });
@@ -2394,18 +2457,10 @@
     });
   });
 
-  // Track form submission
-  const contactForm = document.querySelector('form');
-  if (contactForm) {
-    const originalSubmit = contactForm.onsubmit;
-    contactForm.addEventListener('submit', function(e) {
-      trackPixelEvent('Lead', {
-        lead_type: 'form_submission',
-        subject: this.subject?.value,
-        phone: this.telefon?.value
-      });
-    });
-  }
+  // Uwaga: Lead dla #contact-form jest wysyłany wyłącznie po skutecznej wysyłce
+  // (patrz handler submit formularza wyżej, gałąź sukcesu) — nie tutaj i nie na
+  // samo zdarzenie submit, żeby nie liczyć nieudanych/niewalidowanych prób jako leada
+  // i nie wysyłać numeru telefonu/imienia do analityki.
 
   // Track scroll depth (25%, 50%, 75%, 100%)
   let scrollTracked = { '25': false, '50': false, '75': false, '100': false };

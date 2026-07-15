@@ -333,7 +333,7 @@
           <p>Odpowiedz na kilka pytań, a dobierzemy przedmiot, formę zajęć i termin. Bez zobowiązań.</p>
           <div class="quiz-pillars">
             <div class="quiz-pillar"><span class="qp-icon">📝</span><span class="qp-text">Wszystkie typy zadań</span></div>
-            <div class="quiz-pillar"><span class="qp-icon">📊</span><span class="qp-text">Średni wynik: E8 88%, matura 83%</span></div>
+            <div class="quiz-pillar"><span class="qp-icon">📊</span><span class="qp-text">Średni wynik naszych uczniów: 80%</span></div>
             <div class="quiz-pillar"><span class="qp-icon">🛡️</span><span class="qp-text">Gwarancja wyniku 70%+*</span></div>
             <div class="quiz-pillar"><span class="qp-icon">💻</span><span class="qp-text">Dostęp do platformy edukacyjnej</span></div>
             <div class="quiz-pillar"><span class="qp-icon">🤖</span><span class="qp-text">Asystent 24/7</span></div>
@@ -460,6 +460,7 @@
   <script>
   (function () {
     const QUIZ_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyAgf3UccAXC7QAohp3tZOb-px3c8bcm-YxRXVCvORw-YtW7Ui8XFkiTxPVXqAuQ_KcBg/exec';
+    const pageOpenTime = Date.now();
 
     const steps = Array.from(document.querySelectorAll('.quiz-step'));
     const progressFill = document.getElementById('quiz-progress-fill');
@@ -565,8 +566,10 @@
         if (examType === 'none') {
           proofBanner.style.display = 'none';
         } else {
-          const pct = examType === 'e8' ? '88%' : '83%';
-          proofTextEl.innerHTML = `<strong>${pct}</strong> średni wynik naszych uczniów na egzaminie · <strong>Gwarancja wyniku 70%+</strong>*`;
+          const isMath = answers.subject === 'Matematyka';
+          proofTextEl.innerHTML = isMath
+            ? `<strong>80%</strong> średni wynik naszych uczniów na egzaminie · <strong>Gwarancja wyniku 70%+</strong>*`
+            : `<strong>80%</strong> średni wynik naszych uczniów na egzaminie`;
           proofBanner.style.display = 'flex';
         }
       }
@@ -589,13 +592,13 @@
 
     document.getElementById('quiz-start-btn').addEventListener('click', () => {
       goToNextStep();
-      if (typeof trackPixelEvent === 'function') trackPixelEvent('Lead', { lead_type: 'quiz_open' });
+      if (typeof trackPixelEvent === 'function') trackPixelEvent('ViewContent', { content_type: 'quiz_open' });
     });
 
     document.querySelectorAll('.quiz-pillar').forEach(pillar => {
       pillar.addEventListener('click', () => {
         goToNextStep();
-        if (typeof trackPixelEvent === 'function') trackPixelEvent('Lead', { lead_type: 'quiz_open' });
+        if (typeof trackPixelEvent === 'function') trackPixelEvent('ViewContent', { content_type: 'quiz_open' });
       });
     });
 
@@ -609,13 +612,41 @@
       const opt = e.currentTarget;
       const field = opt.dataset.field;
       answers[field] = opt.dataset.value;
+      if ((field === 'subject' || field === 'grade') && typeof trackPixelEvent === 'function') {
+        trackPixelEvent('SelectContent', { content_type: field, value: opt.dataset.value });
+      }
       goToNextStep();
     }
 
     document.querySelectorAll('.quiz-option').forEach(opt => opt.addEventListener('click', handleOptionClick));
 
+    // Tracking rozpoczęcia wypełniania danych kontaktowych (raz, bez danych osobowych)
+    (function () {
+      let started = false;
+      contactForm.addEventListener('focusin', () => {
+        if (started) return;
+        started = true;
+        if (typeof trackPixelEvent === 'function') trackPixelEvent('FormStart', { form: 'quiz-contact-form' });
+      });
+    })();
+
+    // Podstawowa ochrona przed spamem (honeypot + minimalny czas), bez CAPTCHA
+    if (contactForm && !contactForm.querySelector('.hp-field')) {
+      const hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = 'website';
+      hp.autocomplete = 'off';
+      hp.tabIndex = -1;
+      hp.className = 'hp-field';
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+      contactForm.appendChild(hp);
+    }
+
     contactForm.addEventListener('submit', async function (e) {
       e.preventDefault();
+      const hp = contactForm.querySelector('.hp-field');
+      if ((hp && hp.value) || (Date.now() - pageOpenTime < 1500)) return;
       answers.name = contactForm.name.value.trim();
       answers.email = contactForm.email.value.trim();
       answers.phone = contactForm.phone.value.trim();

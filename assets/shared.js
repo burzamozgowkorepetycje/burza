@@ -33,6 +33,7 @@
 
   function track(event, data) {
     if (typeof fbq !== 'undefined') fbq('track', event, data || {});
+    if (typeof gtag !== 'undefined') gtag('event', event, data || {});
   }
 
   function initFaq() {
@@ -73,6 +74,56 @@
     document.body.classList.remove('menu-open');
   }
 
+  var pageLoadTime = Date.now();
+
+  // Podstawowa ochrona przed spamem (bez CAPTCHA): honeypot wstrzykiwany do każdego
+  // formularza + minimalny czas od załadowania strony do wysyłki. Blokuje wysyłkę
+  // (capture-phase na document, przed handlerem strony) bez żadnego dodatkowego
+  // kroku dla prawdziwego użytkownika.
+  function initSpamGuard() {
+    document.querySelectorAll('form').forEach(function (form) {
+      if (form.querySelector('.hp-field')) return;
+      var hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = 'website';
+      hp.autocomplete = 'off';
+      hp.tabIndex = -1;
+      hp.className = 'hp-field';
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;';
+      form.appendChild(hp);
+    });
+    document.addEventListener('submit', function (event) {
+      var form = event.target;
+      if (!(form instanceof HTMLFormElement)) return;
+      var hp = form.querySelector('.hp-field');
+      var tooFast = Date.now() - pageLoadTime < 1500;
+      if ((hp && hp.value) || tooFast) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }, true);
+  }
+
+  // Tracking mikro-etapów formularza (bez danych osobowych): rozpoczęcie wypełniania
+  // (raz na formularz) oraz wybór przedmiotu/egzaminu w polach select.
+  function initFormTracking() {
+    document.querySelectorAll('form').forEach(function (form) {
+      var started = false;
+      form.addEventListener('focusin', function () {
+        if (started) return;
+        started = true;
+        track('FormStart', { form: form.id || 'form' });
+      });
+      form.querySelectorAll('select[name="subject"], select[name="exam"]').forEach(function (select) {
+        select.addEventListener('change', function () {
+          if (!select.value) return;
+          track('SelectContent', { content_type: select.name, value: select.value });
+        });
+      });
+    });
+  }
+
   function initStickyCta() {
     var bar = document.querySelector('.sticky-cta');
     var hero = document.querySelector('.hero');
@@ -107,5 +158,7 @@
     initTelTracking();
     initMobileMenu();
     initStickyCta();
+    initSpamGuard();
+    initFormTracking();
   });
 })();

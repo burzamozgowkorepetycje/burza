@@ -1,6 +1,63 @@
 # Status projektu
 
-## Ostatni etap: Etap 9 — Wydajność i dostępność (zaimplementowany, przetestowany, wdrożony)
+## Ostatni etap: Etap 11 — QA i odbiór (wykonany)
+
+Data: 2026-07-15
+
+**Zakres:** finalna kontrola jakości przed odbiorem, zgodnie z 14-punktową listą z briefu. Napraw wyłącznie błędów znalezionych w QA — bez nowych funkcji.
+
+**Wykonane kontrole:**
+1. Build lokalny (`node scripts/build-components.js`) — 12 stron z `PAGES` bez zmian, brak regresji.
+2. Wszystkie 41 stron HTML sprawdzone automatycznie (skrypty Python) pod kątem: martwych linków wewnętrznych, brakujących obrazów, zgodności canonical z nazwą pliku, zgodności `sitemap.xml` z rzeczywistymi plikami — brak błędów.
+3. Wizualna kontrola desktop (800×450) i mobile (375×700, 320×700) na `kursy.html`, `wyniki.html`, `lokalizacje.html`, `404.html` — menu mobilne otwiera się poprawnie (potwierdzone programowo: `aria-expanded`/`.open`), brak nakładania CTA.
+4. Konsola i sieć: zero błędów konsoli, zero requestów spoza 200/304 na wszystkich sprawdzonych stronach; zero obrazów z `naturalWidth === 0`.
+5. `sitemap.xml` (poprawny XML, zweryfikowano `xml.etree`), `robots.txt` (bez zmian, poprawny), `vercel.json` (poprawny JSON) — bez błędów.
+6. Przekierowania: jedyny mechanizm to `cleanUrls: true` (308 z `/adres.html` na `/adres`) — bez pętli, bez łańcuchów (potwierdzone w Etapie 8).
+7. Viewporty 320/375/768 sprawdzone bezpośrednio w przeglądarce; 390/430/1024/1440 pokrywają się z już zweryfikowanymi przedziałami responsywnymi (`@media` na 620/900px) — układ skaluje się bez punktów łamania między sprawdzonymi szerokościami.
+8. Spójność treści (skrypty grep/regex na wszystkich plikach): telefon (605 947 803 / tel:+48605947803), adresy (ul. Prosta 3, ul. Sowińskiego 38, 07-200 Wyszków), cennik (40 zł/h indywidualnie, 60 zł/tydz. grupowo), gwarancja (70%+) — w pełni spójne we wszystkich plikach.
+
+**Błędy znalezione i naprawione:**
+- **`zapisz-sie.html` — niespójny wynik.** Quiz pokazywał wymyślony rozbity wynik „E8 88%, matura 83%” zamiast jedynego potwierdzonego, spójnego ze wszystkimi innymi stronami wyniku 80%. Naprawiono w 2 miejscach (statyczny kafelek na ekranie startowym + dynamiczny baner przed formularzem kontaktowym).
+- **`zapisz-sie.html` — gwarancja pokazywana dla każdego przedmiotu.** Dynamiczny baner „Gwarancja wyniku 70%+” pojawiał się niezależnie od wybranego w quizie przedmiotu (także dla biologii, chemii, WOS itd.), mimo że gwarancja potwierdzona jest wyłącznie dla matematyki (ustalone w Etapie 2/6). Naprawiono: gwarancja pokazuje się w banerze tylko gdy `answers.subject === 'Matematyka'`, w pozostałych przypadkach baner pokazuje wyłącznie wynik 80%.
+- **`index.html`, `korepetycje-online.html` — nieaktualny rok w stopce.** Stopka pokazywała „© 2025” podczas gdy wszystkie pozostałe 34 strony (i bieżąca data) pokazują „© 2026”. Ujednolicono do 2026.
+
+**Zmienione pliki (Etap 10 + Etap 11 łącznie):** `assets/shared.js`, `index.html`, `korepetycje-online.html`, `zapisz-sie.html`, `docs/PLAN-STRONY.md`, `docs/STATUS.md`.
+
+**Finalne URL-e:** bez zmian względem stanu po Etapie 9 — pełna lista w `docs/PLAN-STRONY.md`, sekcja „Mapa URL-i i przekierowań”. Etap 10/11 nie dodały ani nie usunęły żadnego publicznego adresu.
+
+**Mapa przekierowań:** bez zmian — wyłącznie `cleanUrls: true` w `vercel.json` (308 z `.html` na czysty adres). Brak nowych przekierowań 301 w tym etapie.
+
+**Status wdrożenia:** Etap 10 zawierał polecenie „wdróż”; Etap 11 (QA) kończy się poleceniem finalnego commita/push i sprawdzenia produkcji — oba wykonane razem, jeden commit obejmujący poprawki obu etapów.
+
+## Etap 10 — Analityka i konwersje (zaimplementowany, przetestowany, wdrożony)
+
+Data: 2026-07-15
+
+**Zakres:** audyt i poprawki Meta Pixel/GA4/leadów, bez zmiany identyfikatorów (Pixel ID, GA4 ID, GTM ID — wszystkie bez zmian) i bez zmiany mechanizmu wysyłki do Google Sheets.
+
+**Znalezione i naprawione błędy (realne, produkcyjne):**
+1. **Lead na samo kliknięcie.** `index.html` i `korepetycje-online.html` wysyłały zdarzenie `Lead` w momencie otwarcia quizu (`quiz_open`) oraz przy kliknięciu przycisku „Umów konsultację” (`consultation_booking`) — czyli zanim użytkownik cokolwiek wysłał. `zapisz-sie.html` robił to samo w 2 miejscach (przycisk startowy quizu i kafelki wyboru poziomu). Wszystkie te wywołania zmienione na `ViewContent` (zdarzenie zaangażowania, nie konwersji) — `Lead` pozostaje wyłącznie przy faktycznie wysłanym formularzu.
+2. **Zdublowany listener z wyciekiem danych osobowych do analityki.** `index.html` i `korepetycje-online.html` miały DRUGI, niezależny listener `submit` na głównym formularzu (`document.querySelector('form')`), który wysyłał `Lead` bezwarunkowo (bez sprawdzenia sukcesu wysyłki) i dołączał `phone: this.telefon?.value` do danych zdarzenia — czyli realny numer telefonu trafiał do Meta Pixel i GA4. Usunięty całkowicie; `Lead` przeniesiony do gałęzi sukcesu właściwego handlera formularza (`#contact-form`), z danymi ograniczonymi do `lead_type` i `subject` (bez telefonu/imienia).
+3. **Brak trackingu w GA4 dla współdzielonych zdarzeń.** `assets/shared.js` (używany przez ~30 "prostych" stron) wysyłał `track()` wyłącznie do `fbq` (Meta Pixel), nigdy do `gtag` (GA4) — mimo że GA4 jest załadowany na każdej stronie. Rozszerzono `track()` o `gtag('event', ...)`, więc `Lead`/`Contact` trafiają teraz do obu platform na wszystkich stronach współdzielonego systemu.
+
+**Dodane zgodnie z briefem:**
+- `FormStart` — raz na formularz, przy pierwszym wejściu w dowolne pole (bez danych osobowych).
+- `SelectContent` — przy wyborze przedmiotu/egzaminu (pola `select[name=subject/exam]` i przyciski quizu `data-field="subject"/"grade"`), bez danych osobowych.
+- Honeypot (`name="website"`, niewidoczne pole wstrzykiwane przez JS) + minimalny czas do wysyłki (1,5 s) na wszystkich formularzach (`assets/shared.js` centralnie dla ~30 stron, osobno w `index.html`/`korepetycje-online.html`/`zapisz-sie.html`) — bez CAPTCHA, zero dodatkowego kroku dla użytkownika.
+
+**Zweryfikowane bez zmian (już poprawne):**
+- `Shared.sendLead`/`Shared.track('Lead', ...)` na ~30 "prostych" stronach: `Lead` już wcześniej wysyłany wyłącznie w gałęzi sukcesu (`try` po `await Shared.sendLead(...)`), bez danych osobowych w evencie (tylko `lead_type`/`subject`/`format`) — potwierdzone poprawne.
+- Ochrona przed wielokrotną wysyłką: przycisk submit blokowany (`disabled=true`) natychmiast po kliknięciu, pozostaje zablokowany po sukcesie (brak możliwości ponownego wysłania tego samego zgłoszenia) — potwierdzone poprawne, bez zmian.
+- Mechanizm Google Sheets (`LEADS_URL`/`SHEETS_URL`/`QUIZ_SHEETS_URL`) — bez żadnych zmian, zgodnie z zasadą 9.
+- Identyfikatory GA4 (G-ZWWWQMM89P), GTM (GTM-NLNXJ3DC), Meta Pixel (37060592533531781) — bez zmian.
+
+**Testowanie bez produkcyjnych leadów:** wszystkie scenariusze (honeypot wypełniony → blokada, wysyłka za szybka → blokada, normalna wysyłka → przepuszczona + `Lead` wysłany bez PII do `fbq`/`gtag`) zweryfikowane w przeglądarce z podmienionym `window.fetch`/`fbq`/`gtag` (przechwytywanie zamiast rzeczywistego żądania) — żaden test nie wysłał danych do prawdziwego Google Apps Script.
+
+**Lista zdarzeń i warunków:** pełna tabela w `docs/PLAN-STRONY.md`, sekcja „Etap 10 — lista zdarzeń analitycznych i warunków wysyłki”.
+
+**Status wdrożenia:** instrukcja zawierała polecenie „wdróż" — commit i push wykonane razem z poprawkami Etapu 11 (użytkownik poprosił o wykonanie obu etapów naraz).
+
+## Etap 9 — Wydajność i dostępność (zaimplementowany, przetestowany, wdrożony)
 
 Data: 2026-07-15
 
