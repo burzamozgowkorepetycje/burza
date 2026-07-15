@@ -118,7 +118,7 @@
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLNXJ3DC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="wrap nav">
-    <a class="brand" href="/"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"><span>Burza Mózgów Korepetycje</span></a>
+    <a class="brand" href="/"><picture><source srcset="upload/logo.webp" type="image/webp"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"></picture><span>Burza Mózgów Korepetycje</span></a>
     <nav class="nav-links"><a href="/">Strona główna</a><a href="/kursy-maturalne">Kursy maturalne</a><a href="#program">Program</a><a href="#wyniki">Wyniki</a><a href="#cena">Cena</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Sprawdź miejsca →</a></nav>
     <button class="menu-toggle" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
   </header>
@@ -195,7 +195,7 @@
     <section id="wyniki"><div class="wrap">
       <div class="results-showcase">
         <div><span class="kicker">Nasze wyniki</span><h2 style="font-size:clamp(38px,5vw,58px);line-height:1;letter-spacing:-.045em;margin:14px 0">Wyniki matury z matematyki, które mówią same za siebie.</h2><p class="lead">Nie pokazujemy pustych obietnic. To przykładowe rezultaty naszych maturzystów z kursu matematyki.</p><div class="results-badges"><div class="result-badge"><strong>80%</strong><span>średni wynik matury</span></div><div class="result-badge"><strong>70%+</strong><span>gwarancja wyniku</span></div><div class="result-badge"><strong>100+</strong><span>opinii 5★ w Google</span></div><div class="result-badge"><strong>od 60 zł</strong><span>za tydzień zajęć</span></div></div><p class="photo-note">Fragmenty wyników uczniów; dane osobowe zostały ukryte.</p></div>
-        <figure class="results-combined"><img src="upload/wyniki-matura.jpg" width="1684" height="770" loading="lazy" alt="Zbiorcze wyniki maturzystów Burzy Mózgów z matematyki"></figure>
+        <figure class="results-combined"><picture><source srcset="upload/wyniki-matura.webp" type="image/webp"><img src="upload/wyniki-matura.jpg" width="1684" height="770" loading="lazy" alt="Zbiorcze wyniki maturzystów Burzy Mózgów z matematyki"></picture></figure>
       </div>
       <div class="quote" style="margin-top:24px"><span class="stars">★★★★★</span><blockquote>Przed Burzą Mózgów bałam się matury z matematyki. Po roku zajęć zdałam z wynikiem 84%. Nigdy bym nie uwierzyła, że to możliwe. Podejście nauczyciela było zupełnie inne niż w szkole — w końcu rozumiałam, dlaczego, a nie tylko jak.</blockquote><cite>Zofia K. · Maturzystka, 2024</cite></div>
     </div></section>
@@ -227,11 +227,11 @@
       <form class="form" id="leadForm">
         <input type="hidden" name="subject" value="Matematyka (online lub Wyszków)">
         <input type="hidden" name="exam" value="Matura">
-        <div class="field"><label>Imię i nazwisko</label><input required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
-        <div class="field"><label>Numer telefonu</label><input required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
-        <div class="field"><label>Obecna klasa</label><select required name="grade"><option value="">Wybierz</option><option>Klasa 3 liceum</option><option>Klasa 4 liceum / 5 technikum</option><option>Poprawiam maturę</option></select></div>
-        <div class="field"><label>Poziom matury</label><select required name="poziom"><option value="">Wybierz</option><option>Podstawowy</option><option>Rozszerzony</option><option>Nie wiem</option></select></div>
-        <div class="field full"><label>Aktualny wynik z arkusza</label><select required name="score"><option value="">Wybierz</option><option>Poniżej 30%</option><option>30–49%</option><option>50–69%</option><option>70% lub więcej</option><option>Nie wiem</option></select></div>
+        <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
+        <div class="field"><label for="f-phone">Numer telefonu</label><input id="f-phone" required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
+        <div class="field"><label for="f-grade">Obecna klasa</label><select id="f-grade" required name="grade"><option value="">Wybierz</option><option>Klasa 3 liceum</option><option>Klasa 4 liceum / 5 technikum</option><option>Poprawiam maturę</option></select></div>
+        <div class="field"><label for="f-poziom">Poziom matury</label><select id="f-poziom" required name="poziom"><option value="">Wybierz</option><option>Podstawowy</option><option>Rozszerzony</option><option>Nie wiem</option></select></div>
+        <div class="field full"><label for="f-score">Aktualny wynik z arkusza</label><select id="f-score" required name="score"><option value="">Wybierz</option><option>Poniżej 30%</option><option>30–49%</option><option>50–69%</option><option>70% lub więcej</option><option>Nie wiem</option></select></div>
         <button class="btn" type="submit">Wyślij zgłoszenie →</button>
         <div class="form-status" id="leadStatus" role="status"></div>
         <div class="legal">Wysyłając formularz, zgadzasz się na kontakt w sprawie kursu. Zobacz <a href="/privacy-policy" target="_blank" rel="noopener">politykę prywatności</a>.</div>

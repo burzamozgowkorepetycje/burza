@@ -33,3 +33,14 @@ body.menu-open{overflow:hidden}
 @media(max-width:620px){
   .mobile-menu{inset:72px 0 0 0}
 }
+
+/*
+ * Pasek .sticky-cta na "prostych" stronach jest domyślnie widoczny w CSS każdej strony
+ * na całej szerokości <=900px, co potrafi zasłaniać własne przyciski hero na krótszych
+ * ekranach. Ta reguła (późniejsza w kaskadzie, ta sama specyficzność) pokazuje pasek
+ * dopiero po przewinięciu za sekcję .hero — klasę .visible dodaje shared.js.
+ */
+@media(max-width:900px){
+  .sticky-cta{display:none}
+  .sticky-cta.visible{display:grid}
+}

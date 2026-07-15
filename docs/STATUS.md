@@ -1,6 +1,40 @@
 # Status projektu
 
-## Ostatni etap: Etap 8 — SEO techniczne (zaimplementowany, przetestowany, wdrożony)
+## Ostatni etap: Etap 9 — Wydajność i dostępność (zaimplementowany, przetestowany, wdrożony)
+
+Data: 2026-07-15
+
+**Zakres:** poprawki wydajności i dostępności na całej stronie, bez zmiany oferty ani identyfikacji wizualnej.
+
+**Obrazy (WebP + lazy-loading):**
+- Skonwertowano 3 realnie renderowane obrazy treści do WebP (Pillow, jakość 82): `logo.jpg` (35 KB → 15 KB), `wyniki-matura.jpg` (271 KB → 92 KB, -66%), `wyniki-zbiorcze.jpg` (349 KB → 117 KB, -66%). Każdy `<img>` owinięto w `<picture>` z `<source type="image/webp">` i oryginalnym JPG jako fallback — bez utraty jakości na przeglądarkach bez wsparcia WebP.
+- `matematyka.jpg`/`angielski.jpg`/`polski.jpg` **nie** skonwertowano — używane wyłącznie jako `og:image`/`twitter:image` (karty social media), gdzie WebP ma niespójne wsparcie (Facebook/Twitter) — JPG zostaje jedynym formatem tam, gdzie chodzi o social sharing.
+- Usunięto `upload/wyniki-zbiorcze.png` (1,6 MB, nieużywany — zastąpiony przez `wyniki-zbiorcze.jpg`/`.webp`, zero odniesień w kodzie, zweryfikowano przed usunięciem).
+- Logo w nagłówku ma stałe wymiary w CSS (`.brand-logo{width;height}`), więc nie generuje CLS mimo braku atrybutów `width`/`height` na `<img>`. Obrazy `wyniki-*` już wcześniej miały `width`/`height`/`loading="lazy"` (Etap 6/7) — potwierdzono, że żaden z nich nie jest głównym obrazem LCP (hero na żadnej stronie nie zawiera `<img>`, tylko gradienty/tekst), więc `loading="lazy"` na nich jest poprawne.
+
+**CSS/JS:** strona już wcześniej nie ładowała żadnych zbędnych bibliotek (czysty HTML/CSS/JS, tylko wymagane GA/GTM/Meta Pixel). "Proste" strony szablonowe nie ładują Google Fonts w ogóle (deklarują `Inter` w `font-family`, ale bez `<link>` do Google Fonts — zero dodatkowego żądania sieciowego, fallback na fonty systemowe; to już było optymalne, bez zmian). `index.html`/`korepetycje-online.html`/`privacy-policy.html`/`zapisz-sie.html` ładują Google Fonts z `&display=swap` (zapobiega FOIT) — już zgodne z dobrą praktyką, bez zmian. Duplikacja CSS per plik (brak wspólnego arkusza dla "prostych" stron poza `shared.css`) to świadoma decyzja architektoniczna z Etapu 1 (statyczna strona bez build pipeline) — pozostawiona bez zmian jako większa, osobna zmiana strukturalna wykraczająca poza ten etap.
+
+**Naprawiono realny błąd: CTA zasłaniające treść na mobile.** Na 15 "prostych" stronach (`kursy.html` i pochodne) pasek `.sticky-cta` (telefon + CTA) był pokazywany zawsze na ≤900px czystym CSS (`display:grid` bez warunku), co na krótszych ekranach (np. 320×700) nakładał się na własne przyciski hero (`hero-actions`), tworząc wizualny duplikat i zasłaniając część treści. `index.html`/`korepetycje-online.html` miały już poprawny wzorzec (pokazywanie paska dopiero po przewinięciu za hero, przez `IntersectionObserver`) — ten sam wzorzec dodano do `assets/shared.js` (`initStickyCta`) i `assets/shared.css` (`.sticky-cta` domyślnie ukryty na ≤900px, pokazywany dopiero przez klasę `.visible`). Telefon pozostaje klikalny niezależnie od tego paska — w nagłówku (chowany dopiero ≤620px) oraz zawsze widoczny przycisk „Zadzwoń teraz” w `hero-actions` i stopce.
+
+**Naprawiono realny błąd dostępności: formularze bez powiązanych etykiet.** 111 pól formularzy w 27 plikach miało `<label>tekst</label><input name="...">` bez atrybutów `for`/`id` — etykieta nie była programowo powiązana z polem (błąd WCAG 1.3.1/4.1.2, czytniki ekranu nie odczytują poprawnie pola, kliknięcie etykiety nie fokusuje pola). Wygenerowano unikalne `id`/`for` dla każdego pola na podstawie atrybutu `name` (z licznikiem przy duplikatach na tej samej stronie) — zweryfikowano brak kolizji `id` w żadnym pliku.
+
+**Focus states:** dodano brakujący `:focus-visible` (widoczny outline) na polach quizu (`.quiz-modal .form-input`, `zapisz-sie.html` `.form-input`) w `index.html`, `korepetycje-online.html`, `zapisz-sie.html` — wcześniej usuwały domyślny outline (`outline:none`) i pokazywały tylko subtelną zmianę koloru obramowania przy fokusie, co jest słabym wskaźnikiem dla nawigacji klawiaturą.
+
+**Prefers-reduced-motion:** `index.html`/`korepetycje-online.html` (jedyne strony z animacjami innymi niż hover) już obsługują `@media(prefers-reduced-motion:reduce)` w kilku miejscach — zweryfikowano, bez zmian. "Proste" strony nie mają animacji poza hover/transition, więc nie wymagają tej obsługi.
+
+**Sprawdzone szerokości:** 320, 375, 390, 430, 768, 1024, 1440 px na `kursy.html`/`wyniki.html` (przedstawiciele szablonu) — menu mobilne, formularz, sticky-cta i CTA renderują się poprawnie bez nakładania na żadnej sprawdzonej szerokości po poprawce sticky-cta.
+
+**Testy wykonane:**
+- Walidacja JSON-LD (wszystkie pliki) — brak błędów.
+- Sprawdzenie zbalansowania `<picture>`/`</picture>` we wszystkich plikach — OK.
+- Sprawdzenie unikalności nowych `id` formularzy w każdym pliku — brak kolizji.
+- `node scripts/build-components.js` — 12 stron z `PAGES` bez zmian, brak regresji.
+- Weryfikacja wizualna w przeglądarce: `kursy.html` (320px — brak nakładania hero na sticky-cta po poprawce), `wyniki.html` (768px — układ poprawny, telefon i CTA klikalne).
+- Zweryfikowano logikę `IntersectionObserver` przez porównanie z już działającym wzorcem na `index.html` (identyczna implementacja) — środowisko podglądu lokalnego nie odświeżało zasobów statycznych między edycjami (znany caching artefakt narzędzia deweloperskiego), obejście przez wymuszone przeładowanie zasobu potwierdziło poprawność reguły CSS.
+
+**Status wdrożenia:** instrukcja zawierała polecenie „Wdróż" — commit i push wykonane po testach.
+
+## Etap 8 — SEO techniczne (zaimplementowany, przetestowany, wdrożony)
 
 Data: 2026-07-15
 

@@ -110,7 +110,7 @@
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLNXJ3DC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="wrap nav">
-    <a class="brand" href="/"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"><span>Burza Mózgów Korepetycje</span></a>
+    <a class="brand" href="/"><picture><source srcset="upload/logo.webp" type="image/webp"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"></picture><span>Burza Mózgów Korepetycje</span></a>
     <nav class="nav-links"><a href="/">Strona główna</a><a href="/kurs-matematyka">Kurs maturalny →</a><a href="#program">Dla kogo</a><a href="#cena">Cena</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Zapytaj o termin →</a></nav>
     <button class="menu-toggle" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
   </header>
@@ -211,10 +211,10 @@
       <div><span class="kicker">Pierwszy krok</span><h2>Sprawdźmy, jak możemy pomóc.</h2><p>Wypełnij krótki formularz. Oddzwonimy, ocenimy aktualny poziom i dobierzemy formę zajęć — bez zobowiązań.</p><ol style="margin:18px 0;padding-left:20px;color:#bec9c5;font-size:14px;display:grid;gap:6px"><li>Wypełniasz formularz lub dzwonisz.</li><li>Oddzwaniamy w ciągu 24h i ustalamy poziom.</li><li>Wybieramy formę i termin pierwszych zajęć.</li></ol><div class="contact">Wolisz zadzwonić?<br><a href="tel:+48605947803">605 947 803</a></div></div>
       <form class="form" id="leadForm">
         <input type="hidden" name="subject" value="Matematyka">
-        <div class="field"><label>Imię i nazwisko</label><input required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
-        <div class="field"><label>Numer telefonu</label><input required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
-        <div class="field"><label>Obecna klasa</label><select required name="grade"><option value="">Wybierz</option><option>Szkoła podstawowa (kl. 4–6)</option><option>Szkoła podstawowa (kl. 7–8)</option><option>Liceum / technikum</option><option>Poprawka / braki</option></select></div>
-        <div class="field"><label>Forma zajęć</label><select required name="format"><option value="">Wybierz</option><option>Indywidualnie</option><option>W dwójkach</option><option>W grupach</option><option>Online</option></select></div>
+        <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
+        <div class="field"><label for="f-phone">Numer telefonu</label><input id="f-phone" required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
+        <div class="field"><label for="f-grade">Obecna klasa</label><select id="f-grade" required name="grade"><option value="">Wybierz</option><option>Szkoła podstawowa (kl. 4–6)</option><option>Szkoła podstawowa (kl. 7–8)</option><option>Liceum / technikum</option><option>Poprawka / braki</option></select></div>
+        <div class="field"><label for="f-format">Forma zajęć</label><select id="f-format" required name="format"><option value="">Wybierz</option><option>Indywidualnie</option><option>W dwójkach</option><option>W grupach</option><option>Online</option></select></div>
         <div class="field full"><label>Wiadomość (opcjonalnie)</label><textarea name="message" rows="3" placeholder="Klasa, cel, pytania — napisz co chcesz..."></textarea></div>
         <button class="btn" type="submit">Wyślij zapytanie →</button>
         <div class="form-status" id="leadStatus" role="status"></div>

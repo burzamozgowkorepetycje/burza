@@ -73,6 +73,15 @@
     document.body.classList.remove('menu-open');
   }
 
+  function initStickyCta() {
+    var bar = document.querySelector('.sticky-cta');
+    var hero = document.querySelector('.hero');
+    if (!bar || !hero || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      bar.classList.toggle('visible', !entries[0].isIntersecting);
+    }, { threshold: 0 }).observe(hero);
+  }
+
   function initMobileMenu() {
     var toggle = document.querySelector('.menu-toggle');
     var panel = document.getElementById('mobileMenu');
@@ -97,5 +106,6 @@
     initSmoothScroll();
     initTelTracking();
     initMobileMenu();
+    initStickyCta();
   });
 })();

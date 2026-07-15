@@ -61,7 +61,7 @@
 <body data-zrodlo="Landing korepetycje wos" data-tel-source="subject_landing">
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLNXJ3DC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="wrap nav">
-    <a class="brand" href="/"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"><span>Burza Mózgów Korepetycje</span></a>
+    <a class="brand" href="/"><picture><source srcset="upload/logo.webp" type="image/webp"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"></picture><span>Burza Mózgów Korepetycje</span></a>
     <nav class="nav-links"><a href="/">Strona główna</a><a href="/kursy">Wszystkie kursy</a><a href="#oferta">Oferta</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Zapytaj o termin →</a></nav>
     <button class="menu-toggle" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
   </header>
@@ -148,9 +148,9 @@
       <div><span class="kicker">Pierwszy krok</span><h2>Sprawdźmy, która forma pasuje.</h2><p>Wypełnij krótki formularz. Oddzwonimy i dobierzemy formę zajęć — bez zobowiązań.</p><ol style="margin:18px 0;padding-left:20px;color:#bec9c5;font-size:14px;display:grid;gap:6px"><li>Wypełniasz formularz lub dzwonisz.</li><li>Oddzwaniamy w ciągu 24h i ustalamy poziom.</li><li>Wybieramy formę (indywidualnie/grupa) i termin.</li></ol><div class="contact">Wolisz zadzwonić?<br><a href="tel:+48605947803">605 947 803</a></div></div>
       <form class="form" id="leadForm">
         <input type="hidden" name="subject" value="WOS">
-        <div class="field"><label>Imię i nazwisko</label><input required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
-        <div class="field"><label>Numer telefonu</label><input required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
-        <div class="field full"><label>Forma zajęć</label><select required name="format"><option value="">Wybierz</option><option>Zajęcia indywidualne (online)</option><option>Zajęcia indywidualne (Wyszków)</option><option>Kurs stacjonarny w Wyszkowie</option></select></div>
+        <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
+        <div class="field"><label for="f-phone">Numer telefonu</label><input id="f-phone" required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
+        <div class="field full"><label for="f-format">Forma zajęć</label><select id="f-format" required name="format"><option value="">Wybierz</option><option>Zajęcia indywidualne (online)</option><option>Zajęcia indywidualne (Wyszków)</option><option>Kurs stacjonarny w Wyszkowie</option></select></div>
         <div class="field full"><label>Wiadomość (opcjonalnie)</label><textarea name="message" rows="3" placeholder="Klasa, cel, pytania — napisz co chcesz..."></textarea></div>
         <button class="btn" type="submit">Wyślij zapytanie →</button>
         <div class="form-status" id="leadStatus" role="status"></div>
