@@ -43,6 +43,9 @@ h1 em,.section-head h2 em{font-style:italic;font-weight:400;color:var(--wine)}
 /* ─── Sekcje alternatywne / karty: krem-głęboki zamiast chłodnej szarości ─── */
 .dark{background:var(--gray)}
 .offer-card,.quote,.price-card,.result-badge,.problem,.feature,.month,a.month,.related a,.guarantee,.crosssell{box-shadow:none;border-color:var(--line)}
+a.month{text-decoration:none;color:inherit;cursor:pointer;transition:border-color .2s}
+a.month:hover{border-color:var(--wine)}
+a.month:hover b,a.month:hover small{color:var(--wine)}
 .offer-card{box-shadow:0 24px 55px rgba(27,21,17,.09)}
 
 /* ─── Breadcrumbs ─── */
