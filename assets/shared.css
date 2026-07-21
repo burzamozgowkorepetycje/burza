@@ -1,12 +1,62 @@
 /*
- * Wspólne, DODATKOWE style dla podstron Burza Mózgów Korepetycje.
- * Nie nadpisuje istniejących reguł strony — dokłada menu mobilne i breadcrumbs,
- * których wcześniej brakowało na większości podstron.
- * Kolory dziedziczone ze zmiennych --ink/--muted/--white/--line/--green2 zdefiniowanych
- * w <style> każdej strony, więc wygląd dopasowuje się do lokalnej identyfikacji strony.
+ * System Editorial II „Atelier" — warstwa nadrzędna dla wszystkich podstron.
+ * Ładowana ZAWSZE po page-*.css, więc przy tej samej specyficzności wygrywa
+ * i re-tematyzuje całą siatkę szablonów (subject/course/blog/simple/lokalizacja)
+ * bez dotykania HTML-a stron. Jedno źródło prawdy dla wizualnej tożsamości.
+ * Paleta i tokeny spójne z index.html (--ink/--cream/--wine).
  */
-.menu-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--white);cursor:pointer;padding:0}
-.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{content:"";display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+
+:root{
+  --dark:#1B1511;
+  --cream:#F7F3EC;
+  --gray:#EFE8DC;
+  --blush-deep:#7E3B37;
+  --wine:#7E3B37;
+  --wine-deep:#63302C;
+  --line:rgba(27,21,17,.14);
+}
+
+::selection{background:var(--blush);color:var(--dark)}
+
+/* ─── Typografia / kicker ─── */
+.kicker{display:inline-flex;align-items:baseline;gap:.75rem;color:var(--dark);opacity:.85;letter-spacing:.2em}
+.kicker::after{content:'';flex:0 0 2.8rem;height:1px;background:var(--line);align-self:center}
+h1 em,.section-head h2 em{font-style:italic;font-weight:400;color:var(--wine)}
+
+/* ─── Nawigacja ─── */
+.nav{border-bottom:1px solid var(--line)}
+.brand span{letter-spacing:.01em}
+.nav-links a{position:relative}
+.nav-links a:not(.btn):not(.phone-btn)::after{content:'';position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:var(--wine);transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.nav-links a:not(.btn):not(.phone-btn):hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ─── Przyciski: prymarny = atrament, hover = wino ─── */
+.btn:not(.btn-ghost):not(.phone-btn){background:var(--dark);border:1px solid var(--dark);color:#fff;box-shadow:0 14px 32px rgba(27,21,17,.24)}
+.btn:not(.btn-ghost):not(.phone-btn):hover{background:var(--wine);border-color:var(--wine);color:#fff}
+.btn-ghost,.phone-btn{border-color:rgba(27,21,17,.3)}
+.btn-ghost:hover,.phone-btn:hover{border-color:var(--wine);color:var(--wine)}
+
+/* Ciemne sekcje (form-wrap) — przycisk musi kontrastować z atramentowym tłem */
+.form-wrap .btn:not(.btn-ghost):not(.phone-btn){background:var(--wine);border-color:var(--wine)}
+.form-wrap .btn:not(.btn-ghost):not(.phone-btn):hover{background:var(--blush);border-color:var(--blush);color:var(--dark)}
+
+/* ─── Sekcje alternatywne / karty: krem-głęboki zamiast chłodnej szarości ─── */
+.dark{background:var(--gray)}
+.offer-card,.quote,.price-card,.result-badge,.problem,.feature,.month,a.month,.related a,.guarantee,.crosssell{box-shadow:none;border-color:var(--line)}
+.offer-card{box-shadow:0 24px 55px rgba(27,21,17,.09)}
+
+/* ─── Breadcrumbs ─── */
+.breadcrumbs{padding:14px 0 0}
+.breadcrumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;font-size:13px;color:var(--muted)}
+.breadcrumbs li{display:flex;align-items:center;gap:6px}
+.breadcrumbs li:not(:last-child):after{content:"/";color:var(--line)}
+.breadcrumbs a{color:var(--muted);text-decoration:none}
+.breadcrumbs a:hover{color:var(--wine);text-decoration:underline}
+.breadcrumbs li[aria-current="page"]{color:var(--dark);font-weight:700}
+
+/* ─── Menu mobilne / hamburger ─── */
+.menu-toggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);border-radius:0;background:var(--white);cursor:pointer;padding:0}
+.menu-toggle span,.menu-toggle span:before,.menu-toggle span:after{content:"";display:block;width:20px;height:2px;background:var(--dark);border-radius:2px;transition:.2s}
 .menu-toggle span{position:relative}
 .menu-toggle span:before{position:absolute;top:-6px}
 .menu-toggle span:after{position:absolute;top:6px}
@@ -15,32 +65,37 @@
 .menu-toggle[aria-expanded="true"] span:after{top:0;transform:rotate(-45deg)}
 .mobile-menu{display:none}
 body.menu-open{overflow:hidden}
-.breadcrumbs{padding:14px 0 0}
-.breadcrumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;font-size:13px;color:var(--muted)}
-.breadcrumbs li{display:flex;align-items:center;gap:6px}
-.breadcrumbs li:not(:last-child):after{content:"/";color:var(--line)}
-.breadcrumbs a{color:var(--muted);text-decoration:none}
-.breadcrumbs a:hover{text-decoration:underline}
-.breadcrumbs li[aria-current="page"]{color:var(--ink);font-weight:700}
 
 @media(max-width:900px){
   .menu-toggle{display:inline-flex}
-  .mobile-menu{display:block;position:fixed;inset:76px 0 0 0;background:var(--white);z-index:40;padding:22px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.18s;overflow-y:auto}
+  .mobile-menu{display:block;position:fixed;inset:76px 0 0 0;background:var(--cream);z-index:40;padding:22px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:.18s;overflow-y:auto}
   .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:auto}
-  .mobile-menu a{display:block;padding:15px 4px;font:800 17px inherit;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
-  .mobile-menu a.btn{border:0;margin-top:14px;text-align:center}
+  .mobile-menu a{display:block;padding:15px 4px;font:600 17px var(--display),serif;color:var(--dark);text-decoration:none;border-bottom:1px solid var(--line)}
+  .mobile-menu a.btn{border:0;margin-top:14px;text-align:center;background:var(--dark);color:#fff}
 }
 @media(max-width:620px){
   .mobile-menu{inset:72px 0 0 0}
 }
 
-/*
- * Pasek .sticky-cta na "prostych" stronach jest domyślnie widoczny w CSS każdej strony
- * na całej szerokości <=900px, co potrafi zasłaniać własne przyciski hero na krótszych
- * ekranach. Ta reguła (późniejsza w kaskadzie, ta sama specyficzność) pokazuje pasek
- * dopiero po przewinięciu za sekcję .hero — klasę .visible dodaje shared.js.
- */
 @media(max-width:900px){
   .sticky-cta{display:none}
   .sticky-cta.visible{display:grid}
+}
+.sticky-cta{box-shadow:0 -8px 30px rgba(27,21,17,.10)}
+
+/* ─── Stopka rozbudowana (sitemap) ─── */
+.footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem;padding-bottom:1.6rem;margin-bottom:1.2rem;border-bottom:1px solid var(--line)}
+.footer-brand{display:flex;flex-direction:column;gap:.4rem}
+.footer-brand b{font-family:var(--display);color:var(--dark);font-weight:600}
+.footer-brand a{color:var(--dark);text-decoration:none}
+.footer-brand a:hover{color:var(--wine)}
+.footer-sitemap{display:flex;flex-wrap:wrap;gap:2rem 2.6rem}
+.footer-col{display:flex;flex-direction:column;gap:.5rem;min-width:120px}
+.footer-col-title{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dark);opacity:.5}
+.footer-col a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-col a:hover{color:var(--wine);text-decoration:underline}
+.footer-row a:hover{color:var(--wine)}
+@media(max-width:620px){
+  .footer-top{flex-direction:column;gap:1.6rem}
+  .footer-sitemap{gap:1.6rem 2rem}
 }
