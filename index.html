@@ -13,7 +13,9 @@
   <meta property="og:url" content="https://burza-mozgow-korepetycje.pl/" />
   <meta property="og:title" content="Burza Mózgów Korepetycje — Wyszków | Nr 1 na Google" />
   <meta property="og:description" content="Nr 1 na Google w Wyszkowie. Ponad 100 opinii 5★. Kursy maturalne i ósmoklasisty. Zajęcia indywidualne, dwójki, grupy, online. Od 40 zł/h." />
-  <meta property="og:image" content="https://burza-mozgow-korepetycje.pl/upload/logo.jpg" />
+  <meta property="og:image" content="https://burza-mozgow-korepetycje.pl/upload/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="pl_PL" />
   <meta property="og:site_name" content="Burza Mózgów Korepetycje" />
 
@@ -21,7 +23,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Burza Mózgów Korepetycje — Wyszków" />
   <meta name="twitter:description" content="Nr 1 na Google w Wyszkowie. Ponad 100 opinii 5★. Kursy maturalne i ósmoklasisty. Od 40 zł/h." />
-  <meta name="twitter:image" content="https://burza-mozgow-korepetycje.pl/upload/logo.jpg" />
+  <meta name="twitter:image" content="https://burza-mozgow-korepetycje.pl/upload/og-image.png" />
 
   <!-- Schema.org LocalBusiness -->
   <script type="application/ld+json">
@@ -37,6 +39,7 @@
       "@type": "PostalAddress",
       "streetAddress": "Sowińskiego 38",
       "addressLocality": "Wyszków",
+      "postalCode": "07-200",
       "addressCountry": "PL"
     },
     "geo": {
@@ -44,13 +47,22 @@
       "latitude": 52.5936,
       "longitude": 21.4589
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "100",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
+    "location": [
+      {
+        "@type": "Place",
+        "name": "Burza Mózgów Korepetycje — ul. Sowińskiego 38",
+        "address": { "@type": "PostalAddress", "streetAddress": "Sowińskiego 38", "addressLocality": "Wyszków", "postalCode": "07-200", "addressCountry": "PL" }
+      },
+      {
+        "@type": "Place",
+        "name": "Burza Mózgów Korepetycje — ul. Prosta 3",
+        "address": { "@type": "PostalAddress", "streetAddress": "Prosta 3", "addressLocality": "Wyszków", "postalCode": "07-200", "addressCountry": "PL" }
+      }
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Wyszków" },
+      { "@type": "Country", "name": "Polska" }
+    ],
     "priceRange": "od 40 zł/h",
     "openingHours": "Mo-Fr 08:00-20:00",
     "sameAs": [
@@ -683,6 +695,7 @@
       letter-spacing: -0.015em;
       margin-bottom: 1.5rem;
     }
+    .hero-headline em { font-style: italic; font-weight: 500; color: var(--wine); }
     .hero-headline .hh-num {
       position: relative;
       display: inline-block;
@@ -2074,8 +2087,8 @@
       <div class="hero-copy">
         <p class="hero-eyebrow fade-in"><span class="he-dot"></span>Nr 1 wśród korepetycji w Wyszkowie<span class="he-dot"></span>5,0 na Google</p>
         <h1 class="hero-headline fade-in fade-in-delay-1" id="hero-headline">
-          <span class="line-reveal"><span>Średni wynik</span></span>
-          <span class="line-reveal"><span>naszych uczniów:</span></span>
+          <span class="line-reveal"><span>Korepetycje <em>w Wyszkowie</em>.</span></span>
+          <span class="line-reveal"><span>Średni wynik uczniów:</span></span>
           <span class="line-reveal"><span><span class="hh-num"><span class="hh-count count" id="hero-count" data-target="80">0</span>%<svg class="hh-ellipse" viewBox="0 0 300 150" preserveAspectRatio="none" aria-hidden="true"><path d="M25,88 C20,44 82,14 156,12 C238,10 288,38 284,76 C280,118 204,142 124,140 C56,138 16,116 22,78 C27,52 62,30 108,22"/></svg></span></span></span>
         </h1>
         <p class="hero-sub fade-in fade-in-delay-2">Kursy maturalne i przygotowanie do egzaminu ósmoklasisty — indywidualnie, w dwójkach i w małych grupach. Stacjonarnie w Wyszkowie, online w całej Polsce.</p>
