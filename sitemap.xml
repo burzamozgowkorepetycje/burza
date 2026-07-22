@@ -109,10 +109,22 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://burza-mozgow-korepetycje.pl/angielski-dla-doroslych-wyszkow</loc>
-    <lastmod>2026-07-21</lastmod>
+    <loc>https://burza-mozgow-korepetycje.pl/angielski-dla-dzieci</loc>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/angielski-dla-mlodziezy</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/angielski-dla-doroslych</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://burza-mozgow-korepetycje.pl/korepetycje-biologia</loc>

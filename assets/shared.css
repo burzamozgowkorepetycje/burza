@@ -22,7 +22,7 @@
 .kicker{display:inline-flex;align-items:baseline;gap:.75rem;color:var(--dark);opacity:.85;letter-spacing:.2em}
 .kicker::after{content:'';flex:0 0 2.8rem;height:1px;background:var(--line);align-self:center}
 h1 em{font-family:var(--body,inherit);font-style:normal;font-weight:700;color:var(--wine)}
-.section-head h2 em{font-style:italic;font-weight:400;color:var(--wine)}
+.section-head h2 em{font-family:var(--body);font-style:normal;font-weight:700;letter-spacing:-.01em;color:var(--wine)}
 
 /* ─── Nawigacja ─── */
 .nav{border-bottom:1px solid var(--line)}

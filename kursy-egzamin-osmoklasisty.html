@@ -64,6 +64,14 @@
           "@type": "Answer",
           "text": "Wyłącznie kursu E8 z matematyki. Nie dotyczy pozostałych przedmiotów. Wymaga regularnej obecności, wykonywania prac domowych i realizowania testów."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Jak wygląda płatność za kurs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Płacisz po każdej lekcji, a nie z góry za cały kurs. Możesz zrezygnować w dowolnym momencie, bez kar i zobowiązań."
+        }
       }
     ]
   }
@@ -72,191 +80,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root{
-      --cream:#F7F4EF;--blush:#EDB1B0;--blush-deep:#D98F8E;--dark:#201C1A;--white:#fff;--gray:#EDEBE7;
-      --display:'Cormorant Garamond',Georgia,serif;--body:'DM Sans',system-ui,sans-serif;
-      --ink:var(--dark);--muted:rgba(32,28,26,.62);--paper:var(--cream);--lime:var(--blush);
-      --green:var(--blush-deep);--green2:var(--dark);--line:var(--gray);--orange:var(--blush-deep);
-      --shadow:0 20px 50px rgba(32,28,26,.10);--radius:2px
-    }
-    *{box-sizing:border-box}html{scroll-behavior:smooth}
-    body{margin:0;font-family:var(--body);color:var(--dark);background:var(--cream);line-height:1.55;-webkit-font-smoothing:antialiased}
-    a{color:inherit}
-    ::selection{background:var(--blush);color:var(--dark)}
-    .wrap{width:min(1160px,calc(100% - 40px));margin:auto}
-    h1,h2,h3,.section-head h2,.offer-card h2,.form-wrap h2,.price-card h3{font-family:var(--display);font-weight:500;line-height:1.05}
-
-    .nav{height:88px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
-    .brand-logo{display:block;width:64px;height:46px;object-fit:contain}
-    .brand span{font-family:var(--display);font-size:1.15rem;font-weight:600;color:var(--dark)}
-    .nav-links{display:flex;align-items:center;gap:1.8rem;font-size:.9rem;font-weight:500}
-    .nav-links a{text-decoration:none;opacity:.7;transition:opacity .2s}
-    .nav-links a:hover{opacity:1}
-    .nav-links a.btn,.nav-links a.phone-btn{opacity:1}
-
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:var(--radius);padding:.85rem 1.5rem;background:var(--blush);color:var(--dark);font:600 .9rem var(--body);text-decoration:none;cursor:pointer;letter-spacing:.01em;box-shadow:0 10px 28px rgba(217,143,142,.4);transition:background .2s,color .2s,transform .2s,box-shadow .2s}
-    .btn:hover{background:var(--blush-deep);color:var(--white);transform:scale(1.03)}
-    .btn-dark{background:var(--dark);color:var(--white);box-shadow:none}
-    .btn-dark:hover{background:var(--blush-deep);color:var(--white)}
-    .btn-ghost,.phone-btn{background:transparent;color:var(--dark);border:2px solid rgba(32,28,26,.25);box-shadow:none}
-    .btn-ghost:hover,.phone-btn:hover{border-color:var(--blush-deep);color:var(--blush-deep)}
-    .phone-btn:before{content:"☎";font-size:15px}
-
-    .hero{position:relative;overflow:hidden;padding:2.5rem 0 5rem}
-    .hero:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(237,177,176,.9),rgba(237,177,176,0) 70%);filter:blur(70px);opacity:.8;right:-160px;top:-200px;pointer-events:none}
-    .hero-grid{position:relative;display:grid;grid-template-columns:1.08fr .92fr;gap:70px;align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:.5rem .9rem;border-radius:100px;background:var(--white);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dark)}
-    .eyebrow i{width:6px;height:6px;background:var(--blush-deep);border-radius:50%}
-    h1{font-size:clamp(2.6rem,5.5vw,4.2rem);letter-spacing:-.01em;margin:1.2rem 0 1.3rem;max-width:780px;font-weight:500}
-    h1 em{font-style:italic;font-weight:400;color:var(--blush-deep)}
-    .lead{font-family:var(--body);font-size:1.1rem;color:rgba(32,28,26,.65);max-width:650px;margin:0 0 1.7rem}
-    .hero-actions{display:flex;gap:.8rem;flex-wrap:wrap}
-    .micro{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1.6rem;font-size:.82rem;font-weight:500;color:rgba(32,28,26,.6)}
-    .micro span:before{content:"✓";margin-right:.4rem;color:var(--blush-deep);font-weight:700}
-
-    .offer-card{position:relative;background:var(--white);border:1px solid var(--gray);padding:2rem;box-shadow:0 20px 50px rgba(32,28,26,.10)}
-    .live{display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:var(--dark);border-radius:100px;padding:.4rem .7rem;font-size:.72rem;font-weight:600;letter-spacing:.04em}
-    .live:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blush-deep)}
-    .offer-card h2{font-size:1.65rem;margin:1rem 0}
-    .quick-form{display:grid;gap:.7rem;margin-top:1rem}
-    .quick-form label{font-size:.75rem;font-weight:600;color:rgba(32,28,26,.6)}
-    .quick-form select,.quick-form input{width:100%;padding:.85rem;border:1px solid var(--gray);border-radius:0;background:var(--cream);font:.95rem var(--body);color:var(--dark)}
-    .quick-form .btn{width:100%}
-    .quick-note{font-size:.72rem;color:rgba(32,28,26,.55);text-align:center}
-
-    .proof{background:var(--white);border-top:1px solid var(--gray);border-bottom:1px solid var(--gray)}
-    .proof-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-    .proof-item{padding:2rem 1.4rem;border-right:1px solid var(--gray)}
-    .proof-item:last-child{border:0}
-    .proof-item strong{display:block;font-family:var(--display);font-size:2rem;font-weight:500;color:var(--dark)}
-    .proof-item span{font-size:.8rem;color:rgba(32,28,26,.6)}
-
-    section{padding:6rem 0}
-    .section-head{max-width:720px;margin-bottom:2.8rem}
-    .kicker{color:var(--blush-deep);font-size:.78rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
-    .section-head h2{font-size:clamp(2.1rem,4vw,3rem);margin:.6rem 0 .8rem}
-    .section-head p{font-size:1.1rem;color:rgba(32,28,26,.62)}
-
-    .feature-grid,.parent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gray);border:1px solid var(--gray)}
-    .feature,.parent-item{background:var(--white);padding:2rem}
-    .feature h3,.parent-item h3{font-size:1.25rem;margin:1rem 0 .5rem;font-weight:500}
-    .feature p,.parent-item p{margin:0;color:rgba(32,28,26,.62);font-size:.95rem}
-    .parent-icon,.feature-icon{font-family:var(--display);font-size:1.4rem;color:var(--blush-deep)}
-    .dark{background:var(--gray)}
-    .dark .kicker{color:var(--blush-deep)}
-
-    .program{display:grid;grid-template-columns:.8fr 1.2fr;gap:3.2rem;align-items:start}
-    .program-copy{position:sticky;top:1.5rem}
-    .months{display:grid;gap:.6rem}
-    .month{display:grid;grid-template-columns:150px 1fr auto;gap:1.2rem;align-items:center;padding:1.3rem;background:var(--white);border:1px solid var(--gray)}
-    .month b{color:var(--blush-deep);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-    .month span{font-weight:500}
-    .month small{color:rgba(32,28,26,.55)}
-    a.month{text-decoration:none;color:inherit;transition:border-color .2s;cursor:pointer}
-    a.month:hover{border-color:var(--blush-deep)}
-    a.month:after{content:"Zobacz kurs →";grid-column:1/-1;font-size:.72rem;font-weight:600;color:var(--blush-deep);margin-top:2px}
-
-    .results-showcase{display:grid;grid-template-columns:.72fr 1.28fr;gap:2.5rem;align-items:center}
-    .results-badges{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1.6rem}
-    .result-badge{padding:1.2rem;background:var(--white);border:1px solid var(--gray)}
-    .result-badge strong{display:block;font-family:var(--display);font-size:1.8rem;color:var(--dark)}
-    .result-badge span{font-size:.8rem;color:rgba(32,28,26,.6)}
-    .photo-note{font-size:.78rem;color:rgba(32,28,26,.55);margin-top:.7rem}
-    .results-combined{margin:0;padding:.6rem;background:var(--white);border:1px solid var(--gray)}
-    .results-combined img{display:block;width:100%;height:auto}
-
-    .pricing{background:var(--gray)}
-    .price-card{display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:center;background:var(--white);border:1px solid var(--gray);padding:2.5rem}
-    .price-card h3{font-size:1.9rem;margin:0 0 .7rem}
-    .checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin:1.4rem 0 0;padding:0;list-style:none;font-size:.92rem}
-    .checklist li:before{content:"✓";margin-right:.5rem;color:var(--blush-deep);font-weight:700}
-    .big-price{text-align:right}
-    .big-price strong{display:block;font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--dark)}
-    .big-price small{color:rgba(32,28,26,.6)}
-    .guarantee{display:flex;align-items:center;gap:1.3rem;margin-top:1.4rem;padding:1.4rem;background:var(--white);border:1px solid var(--gray)}
-    .seal{display:grid;place-items:center;min-width:60px;height:60px;border-radius:50%;background:var(--blush);color:var(--dark);font-weight:700;font-size:.85rem}
-    .guarantee p{margin:.2rem 0;color:rgba(32,28,26,.6);font-size:.88rem}
-
-    .faq-list{display:grid;gap:1px;max-width:850px;background:var(--gray);border:1px solid var(--gray)}
-    .faq{background:var(--white);overflow:hidden}
-    .faq button{width:100%;display:flex;justify-content:space-between;gap:1.2rem;padding:1.2rem;border:0;background:none;text-align:left;font:500 1rem var(--body);color:var(--dark);cursor:pointer}
-    .faq div{display:none;padding:0 1.2rem 1.2rem;color:rgba(32,28,26,.62)}
-    .faq.open div{display:block}
-    .faq.open button span{transform:rotate(45deg);color:var(--blush-deep)}
-
-    .related{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
-    .related a{display:inline-flex;align-items:center;gap:8px;padding:.7rem 1.1rem;background:var(--white);border:1px solid var(--gray);text-decoration:none;font-weight:500;font-size:.85rem;color:var(--dark);transition:border-color .2s,color .2s}
-    .related a:hover{border-color:var(--blush-deep);color:var(--blush-deep)}
-
-    .form-section{padding-top:2rem}
-    .form-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;padding:3rem;background:var(--dark);color:var(--white)}
-    .form-wrap h2{font-size:2.4rem;margin:.7rem 0;color:var(--white)}
-    .form-wrap p{color:rgba(247,244,239,.65)}
-    .contact{margin-top:1.6rem;font-weight:500}
-    .contact a{color:var(--blush);text-decoration:none;font-family:var(--display);font-size:1.4rem}
-    .form{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-    .field{display:grid;gap:.4rem}
-    .field.full{grid-column:1/-1}
-    .field label{font-size:.75rem;color:rgba(247,244,239,.6)}
-    .field input,.field select{width:100%;border:1px solid rgba(247,244,239,.25);border-radius:0;padding:.85rem;background:rgba(247,244,239,.06);color:var(--white);font:.95rem var(--body)}
-    .field select option{color:var(--dark);background:var(--white)}
-    .form .btn{grid-column:1/-1;margin-top:.4rem}
-    .legal{grid-column:1/-1;font-size:.7rem;color:rgba(247,244,239,.5)}
-
-    .form-status{display:none;grid-column:1/-1;padding:.85rem;font-size:.9rem;font-weight:600}
-    .form-status.show{display:block}
-    .form-status.success{background:#E4EFE4;color:#2F5C3A}
-    .form-status.error{background:#F6DEDD;color:#9C3B38}
-
-    .footer{padding:2.5rem 0 6rem;color:rgba(32,28,26,.6);font-size:.85rem}
-    .footer-row{display:flex;justify-content:space-between;gap:1.2rem}
-    .footer-row b{font-family:var(--display);color:var(--dark);font-weight:600}
-    .footer-row a{color:var(--dark);text-decoration:none}
-
-    .sticky-cta{display:none;position:fixed;z-index:20;left:12px;right:12px;bottom:12px;grid-template-columns:1fr 1.35fr;gap:8px}
-    .sticky-cta .btn{width:100%;box-shadow:0 10px 30px rgba(32,28,26,.25)}
-
-    @media(max-width:900px){
-      .nav-links a:not(.btn){display:none}
-      .hero-grid,.program,.results-showcase,.form-wrap{grid-template-columns:1fr}
-      .hero{padding-top:1.5rem}
-      .offer-card{max-width:560px}
-      .proof-grid{grid-template-columns:repeat(2,1fr)}
-      .proof-item:nth-child(2){border-right:0}
-      .feature-grid,.parent-grid{grid-template-columns:1fr 1fr}
-      .program-copy{position:static}
-      .price-card{grid-template-columns:1fr}
-      .big-price{text-align:left}
-      .sticky-cta{display:grid}
-      .footer{padding-bottom:100px}
-    }
-    @media(max-width:620px){
-      .wrap{width:min(100% - 26px,1160px)}
-      .nav{height:76px}
-      .nav .btn{display:none}
-      .brand span{font-size:.95rem}
-      .brand-logo{width:52px;height:38px}
-      h1{font-size:2.3rem}
-      .lead{font-size:1rem}
-      .hero-actions .btn{width:100%}
-      .offer-card{padding:1.4rem}
-      .proof-grid{grid-template-columns:1fr 1fr}
-      .proof-item{padding:1.2rem 1rem}
-      .feature-grid,.parent-grid{grid-template-columns:1fr}
-      section{padding:4rem 0}
-      .month{grid-template-columns:1fr auto;gap:.4rem}
-      .month b{grid-column:1/-1}
-      .month small{display:none}
-      .price-card{padding:1.6rem}
-      .checklist{grid-template-columns:1fr}
-      .form-wrap{padding:1.8rem 1.2rem}
-      .form{grid-template-columns:1fr}
-      .field.full,.form .btn,.legal{grid-column:1}
-      .footer-row{flex-direction:column}
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/page-course.css">
   <link rel="stylesheet" href="/assets/shared.css">
 </head>
 <body data-zrodlo="Landing kursy egzamin osmoklasisty" data-tel-source="course_landing">
@@ -275,15 +99,19 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow"><i></i> Rekrutacja 2026/2027 trwa</span>
+          <div class="badge-row">
+            <span class="pill pill-accent"><i></i> 🚀 Zapisy na 2026/2027 ruszyły!</span>
+            <span class="pill"><span class="pill-stars">★★★★★</span> 5.0 · 100+ opinii w Google</span>
+          </div>
           <h1>Kursy do egzaminu ósmoklasisty. <em>Przygotowanie krok po kroku.</em></h1>
-          <p class="lead">Dla uczniów klasy 8, którzy przygotowują się do egzaminu ósmoklasisty z matematyki, języka polskiego lub angielskiego. Regularne zajęcia live, praca na arkuszach z lat ubiegłych i bieżący kontakt z rodzicem - online z całej Polski albo stacjonarnie w Wyszkowie.</p>
+          <p class="lead"><strong>Nasi ósmoklasiści piszą E8 średnio na 85%.</strong> Regularne zajęcia live, praca na arkuszach z lat ubiegłych i bieżący kontakt z rodzicem - online z całej Polski albo stacjonarnie w Wyszkowie.</p>
           <div class="hero-actions"><a class="btn" href="#szybki-zapis">Zapisz dziecko na kurs →</a><a class="btn phone-btn" href="tel:+48605947803">Zadzwoń teraz</a><a class="btn btn-ghost" href="#przedmioty">Zobacz przedmioty</a></div>
-          <div class="micro"><span>Online lub Wyszków</span><span>Oddzwonimy w 24h</span><span>Start we wrześniu</span></div>
+          <div class="micro"><span>Płatność po lekcji</span><span>Oddzwonimy w 24h</span><span>Start we wrześniu</span></div>
         </div>
         <aside class="offer-card">
           <span class="live">ZAPISY JUŻ TRWAJĄ</span>
           <h2>Wybierz przedmiot i zostaw numer.</h2>
+          <p class="offer-urgency">Nabór na rok 2026/2027 · <strong>ograniczona liczba miejsc</strong> w grupach live. Start we wrześniu.</p>
           <form class="quick-form" id="szybki-zapis">
             <label for="quickSubject">Interesuje mnie kurs E8:</label>
             <select id="quickSubject" required><option value="">Wybierz przedmiot</option><option value="Matematyka (online lub Wyszków)">Matematyka</option><option value="Język polski (online lub Wyszków)">Język polski</option><option value="Język angielski (online lub Wyszków)">Język angielski</option></select>
@@ -302,7 +130,7 @@
     <div class="proof"><div class="wrap proof-grid">
       <div class="proof-item"><strong>85%</strong><span>średni wynik E8</span></div>
       <div class="proof-item"><strong>100+</strong><span>opinii 5★ w Google</span></div>
-      <div class="proof-item"><strong>24/7</strong><span>dostęp do nagrań VOD</span></div>
+      <div class="proof-item"><strong>90-100%</strong><span>wyniki naszych najlepszych uczniów</span></div>
       <div class="proof-item"><strong>od 60 zł</strong><span>za tydzień zajęć</span></div>
     </div></div>
 
@@ -318,19 +146,27 @@
     <section class="dark" id="dla-rodzica"><div class="wrap">
       <div class="section-head"><span class="kicker">Informacje dla rodzica</span><h2>Co warto wiedzieć przed zapisem dziecka.</h2><p>Egzamin ósmoklasisty to pierwszy poważny sprawdzian dla dziecka - chcemy, żeby cały proces był przejrzysty również dla rodzica.</p></div>
       <div class="feature-grid">
-        <article class="feature"><span class="feature-icon">◉</span><h3>Regularny kontakt</h3><p>Przy zapisie i kolejnych ustaleniach informujemy rodzica o aktualnym poziomie dziecka i wynikach arkuszy próbnych.</p></article>
-        <article class="feature"><span class="feature-icon">▶</span><h3>Nagrania na wypadek nieobecności</h3><p>Jeśli dziecko opuści zajęcia (choroba, inne zobowiązania), ma dostęp do nagrania i materiałów z lekcji.</p></article>
-        <article class="feature"><span class="feature-icon">✎</span><h3>Praca na realnych arkuszach</h3><p>Przygotowanie opiera się na arkuszach egzaminacyjnych z lat ubiegłych, nie na przypadkowych zadaniach z internetu.</p></article>
-        <article class="feature"><span class="feature-icon">↗</span><h3>Jasny punkt startowy</h3><p>Przed pierwszymi zajęciami sprawdzamy aktualny poziom dziecka, żeby dobrać odpowiednie tempo pracy.</p></article>
-        <article class="feature"><span class="feature-icon">?</span><h3>Pytania zawsze mile widziane</h3><p>Rodzic może zadzwonić i zapytać o postępy lub organizację zajęć w dowolnym momencie trwania kursu.</p></article>
-        <article class="feature"><span class="feature-icon">✓</span><h3>Bez zobowiązań na starcie</h3><p>Pierwszy kontakt telefoniczny lub formularz nie zobowiązuje do zapisu - to rozmowa o dopasowaniu kursu do potrzeb dziecka.</p></article>
+        <article class="feature"><span class="feature-icon">📞</span><h3>Regularny kontakt</h3><p>Przy zapisie i kolejnych ustaleniach informujemy rodzica o aktualnym poziomie dziecka i wynikach arkuszy próbnych.</p></article>
+        <article class="feature"><span class="feature-icon">📹</span><h3>Nagrania na wypadek nieobecności</h3><p>Jeśli dziecko opuści zajęcia (choroba, inne zobowiązania), ma dostęp do nagrania i materiałów z lekcji.</p></article>
+        <article class="feature"><span class="feature-icon">📝</span><h3>Praca na realnych arkuszach</h3><p>Przygotowanie opiera się na arkuszach egzaminacyjnych z lat ubiegłych, nie na przypadkowych zadaniach z internetu.</p></article>
+        <article class="feature"><span class="feature-icon">🎯</span><h3>Jasny punkt startowy</h3><p>Przed pierwszymi zajęciami sprawdzamy aktualny poziom dziecka, żeby dobrać odpowiednie tempo pracy.</p></article>
+        <article class="feature"><span class="feature-icon">💬</span><h3>Pytania zawsze mile widziane</h3><p>Rodzic może zadzwonić i zapytać o postępy lub organizację zajęć w dowolnym momencie trwania kursu.</p></article>
+        <article class="feature"><span class="feature-icon">✅</span><h3>Bez zobowiązań na starcie</h3><p>Pierwszy kontakt telefoniczny lub formularz nie zobowiązuje do zapisu - to rozmowa o dopasowaniu kursu do potrzeb dziecka.</p></article>
+      </div>
+    </div></section>
+
+    <section><div class="wrap">
+      <div class="section-head"><span class="kicker">Zero ryzyka</span><h2>Zapisujesz dziecko bez zobowiązań.</h2></div>
+      <div class="risk-grid">
+        <div class="risk-card"><span class="risk-icon">💳</span><div><h3>Płatność po każdej lekcji</h3><p>Nie płacisz z góry za cały kurs - rozliczasz się na bieżąco, po każdych zajęciach.</p></div></div>
+        <div class="risk-card"><span class="risk-icon">🚪</span><div><h3>Rezygnacja w dowolnym momencie</h3><p>Jeśli kurs jednak nie będzie pasował, możesz zrezygnować w każdej chwili, bez kar i zobowiązań.</p></div></div>
       </div>
     </div></section>
 
     <section><div class="wrap">
       <div class="section-head"><span class="kicker">Nasze wyniki</span><h2>Wyniki E8, które mówią same za siebie.</h2><p class="lead">Nie pokazujemy pustych obietnic. To przykładowe rezultaty naszych ósmoklasistów z matematyki, języka polskiego i języka angielskiego.</p></div>
       <div class="results-showcase">
-        <div><div class="results-badges"><div class="result-badge"><strong>85%</strong><span>średni wynik E8 z matematyki</span></div><div class="result-badge"><strong>91%</strong><span>wynik ucznia z E8 z angielskiego</span></div><div class="result-badge"><strong>70%+</strong><span>gwarancja z matematyki</span></div><div class="result-badge"><strong>100+</strong><span>opinii 5★ w Google</span></div></div><p class="photo-note">Fragmenty wyników uczniów; dane osobowe zostały ukryte.</p></div>
+        <div><div class="results-badges"><div class="result-badge"><strong>85%</strong><span>średni wynik E8 z matematyki</span></div><div class="result-badge"><strong>91%</strong><span>wynik ucznia z E8 z angielskiego</span></div><div class="result-badge"><strong>90-100%</strong><span>wyniki najlepszych uczniów</span></div><div class="result-badge"><strong>100+</strong><span>opinii 5★ w Google</span></div></div><p class="photo-note">Fragmenty wyników uczniów; dane osobowe zostały ukryte.</p></div>
         <figure class="results-combined"><picture><source srcset="upload/wyniki-matura.webp" type="image/webp"><img src="upload/wyniki-matura.jpg" width="1684" height="770" loading="lazy" alt="Zbiorcze wyniki ósmoklasistów Burzy Mózgów"></picture></figure>
       </div>
     </div></section>
@@ -338,10 +174,10 @@
     <section class="pricing" id="cena"><div class="wrap">
       <div class="section-head"><span class="kicker">Prosta cena, pełny dostęp</span><h2>Wszystko, czego potrzeba do egzaminu ósmoklasisty.</h2></div>
       <div class="price-card">
-        <div><h3>Kurs E8 - dowolny przedmiot</h3><p>Matematyka, polski i angielski - online z całej Polski lub stacjonarnie w Wyszkowie. Jeden program, jedna cena.</p><ul class="checklist"><li>Regularne zajęcia live</li><li>Pełny program egzaminu E8</li><li>Materiały i zadania</li><li>Platforma VOD 24/7</li><li>Praca z arkuszami egzaminacyjnymi</li><li>Wsparcie prowadzącego</li></ul></div>
+        <div><h3>Kurs E8 - dowolny przedmiot</h3><p>Matematyka, polski i angielski - online z całej Polski lub stacjonarnie w Wyszkowie. Jeden program, jedna cena.</p><ul class="checklist"><li>Regularne zajęcia live</li><li>Pełny program egzaminu E8</li><li>Materiały i zadania</li><li>Płatność po każdej lekcji</li><li>Praca z arkuszami egzaminacyjnymi</li><li>Wsparcie prowadzącego</li></ul></div>
         <div class="big-price"><small>za jeden tydzień zajęć</small><strong>od 60 zł</strong><a class="btn" href="#zapis">Zapisz się →</a></div>
       </div>
-      <div class="guarantee"><div class="seal">70%+</div><div><b>Gwarancja wyniku dotyczy wyłącznie kursu matematyki</b><p>Jeżeli dziecko spełni warunki programu matematycznego, a nie osiągnie 70% na egzaminie ósmoklasisty, zwrócimy opłatę za ostatni miesiąc. Gwarancja nie obejmuje pozostałych przedmiotów. Szczegółowe zasady określa regulamin.</p></div></div>
+      <div class="guarantee"><div class="seal">70%+</div><div><b>Gwarancja wyniku dotyczy wyłącznie kursu matematyki</b><p>Jeżeli dziecko spełni warunki programu matematycznego (regularna obecność, prace domowe, testy), a nie osiągnie 70% na egzaminie ósmoklasisty, zwrócimy opłatę za ostatni miesiąc. Gwarancja nie obejmuje pozostałych przedmiotów. Szczegółowe zasady określa regulamin.</p></div></div>
     </div></section>
 
     <section><div class="wrap">
@@ -352,6 +188,7 @@
         <div class="faq"><button>Jak rodzic może śledzić postępy dziecka?<span>＋</span></button><div>Prowadzący na bieżąco informuje o wynikach sprawdzianów i arkuszy próbnych podczas kontaktu telefonicznego lub przy zapisie na kolejny etap - rodzic wie, nad czym dziecko aktualnie pracuje.</div></div>
         <div class="faq"><button>Co jeśli dziecko nie może być na zajęciach live?<span>＋</span></button><div>Dziecko otrzymuje dostęp do nagrania oraz materiałów, dzięki czemu może nadrobić zajęcia w dogodnym momencie.</div></div>
         <div class="faq"><button>Którego kursu E8 dotyczy gwarancja wyniku 70%+?<span>＋</span></button><div>Wyłącznie kursu E8 z matematyki. Nie dotyczy pozostałych przedmiotów. Wymaga regularnej obecności, wykonywania prac domowych i realizowania testów.</div></div>
+        <div class="faq"><button>Jak wygląda płatność za kurs?<span>＋</span></button><div>Płacisz po każdej lekcji, a nie z góry za cały kurs. Możesz zrezygnować w dowolnym momencie, bez kar i zobowiązań.</div></div>
       </div>
       <div class="related"><a href="/kursy">Wszystkie kursy egzaminacyjne →</a><a href="/kursy-maturalne">Szukasz kursu maturalnego? →</a></div>
     </div></section>

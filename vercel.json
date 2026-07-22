@@ -4,6 +4,13 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/angielski-dla-doroslych-wyszkow",
+      "destination": "/angielski-dla-doroslych",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
