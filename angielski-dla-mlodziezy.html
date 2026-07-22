@@ -159,6 +159,8 @@
     .hero h1 em{color:var(--blush)}
     .hero .lead{color:rgba(247,244,239,.7)}
     .hero .eyebrow{background:rgba(247,244,239,.1);color:var(--cream)}
+    .hero .pill-accent{background:var(--blush);color:var(--dark)}
+    .hero .pill-accent i{background:var(--dark)}
     .hero .micro{color:rgba(247,244,239,.62)}
     .hero .micro span:before{color:var(--blush)}
     .hero .eyebrow i{background:var(--blush)}
@@ -234,6 +236,15 @@
     .links a{padding:.55rem .95rem;border:1px solid var(--gray);text-decoration:none;font-size:.85rem;color:var(--dark);transition:border-color .2s,color .2s}
     .links a:hover{border-color:var(--blush-deep);color:var(--blush-deep)}
     @media(max-width:760px){.seo-cols{columns:1}.seo{padding:1.5rem}}
+    /* ── Plakietki w heroe (jak na /kursy-maturalne) ── */
+    .badge-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:7px;padding:.5rem .95rem;border-radius:100px;background:var(--white);font-size:.8rem;font-weight:600;color:var(--dark);box-shadow:0 2px 10px rgba(32,28,26,.07)}
+    .pill-accent{background:var(--dark);color:var(--white)}
+    .pill-accent i{width:6px;height:6px;background:var(--blush);border-radius:50%;animation:pulseDot 1.8s ease-in-out infinite}
+    .pill-stars{color:var(--blush-deep);letter-spacing:1.5px;font-size:.75rem}
+    @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(217,143,142,.55)}70%,100%{box-shadow:0 0 0 6px rgba(217,143,142,0)}}
+    @media(prefers-reduced-motion:reduce){.pill-accent i{animation:none}}
+    @media(max-width:620px){.pill{font-size:.74rem;padding:.45rem .8rem}}
   </style>
 </head>
 <body data-zrodlo="Landing Ads: angielski dla młodzieży" data-tel-source="ads_teen_english">
@@ -253,7 +264,7 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow"><i></i> Bezpłatna konsultacja · klasy 7–8 i liceum</span>
+          <div class="badge-row"><span class="pill pill-accent"><i></i> Zapisy na rok szkolny 2026/27 trwają</span><span class="pill"><span class="pill-stars">★★★★★</span> 5,0 · 115 opinii w Google</span></div>
           <h1>Korepetycje z angielskiego dla młodzieży w Wyszkowie. <em>Klasa 7 i liceum, podstawa i rozszerzenie.</em></h1>
           <p class="lead">Grupy maksymalnie 6-osobowe albo zajęcia indywidualne, 12:00–20:00, dwie sale w Wyszkowie. Uczeń pracuje nad tym, czego mu brakuje, autorskim systemem, a nie drugi raz na szkolnym podręczniku.</p>
           <div class="hero-actions"><a class="btn" href="#zapis">Umów bezpłatną konsultację →</a><a class="btn phone-btn" href="tel:+48605947803" data-conversion="phone_click">605 947 803</a></div>

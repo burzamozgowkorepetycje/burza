@@ -215,6 +215,15 @@
     .links a{padding:.55rem .95rem;border:1px solid var(--gray);text-decoration:none;font-size:.85rem;color:var(--dark);transition:border-color .2s,color .2s}
     .links a:hover{border-color:var(--blush-deep);color:var(--blush-deep)}
     @media(max-width:760px){.seo-cols{columns:1}.seo{padding:1.5rem}}
+    /* ── Plakietki w heroe (jak na /kursy-maturalne) ── */
+    .badge-row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:7px;padding:.5rem .95rem;border-radius:100px;background:var(--white);font-size:.8rem;font-weight:600;color:var(--dark);box-shadow:0 2px 10px rgba(32,28,26,.07)}
+    .pill-accent{background:var(--dark);color:var(--white)}
+    .pill-accent i{width:6px;height:6px;background:var(--blush);border-radius:50%;animation:pulseDot 1.8s ease-in-out infinite}
+    .pill-stars{color:var(--blush-deep);letter-spacing:1.5px;font-size:.75rem}
+    @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(217,143,142,.55)}70%,100%{box-shadow:0 0 0 6px rgba(217,143,142,0)}}
+    @media(prefers-reduced-motion:reduce){.pill-accent i{animation:none}}
+    @media(max-width:620px){.pill{font-size:.74rem;padding:.45rem .8rem}}
   </style>
 </head>
 <body data-zrodlo="Landing Ads: angielski dla dzieci" data-tel-source="ads_kids_english">
@@ -234,9 +243,9 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow"><i></i> Bezpłatna konsultacja · przedszkole i klasy 1–6</span>
+          <div class="badge-row"><span class="pill pill-accent"><i></i> Zapisy na rok szkolny 2026/27 trwają</span><span class="pill"><span class="pill-stars">★★★★★</span> 5,0 · 115 opinii w Google</span></div>
           <h1>Angielski dla dzieci w Wyszkowie. <em>Nadrobi zaległości albo wyjdzie poza szkolny program.</em></h1>
-          <p class="lead">Uczymy w grupach maksymalnie 6-osobowych albo indywidualnie, od poniedziałku do piątku między 12:00 a 20:00. Pracujemy na własnym programie, więc dziecko nie przerabia po raz drugi tego samego podręcznika ze szkoły.</p>
+          <p class="lead">Uczymy dzieci z przedszkola i klas 1–6, w grupach maksymalnie 6-osobowych albo indywidualnie, od poniedziałku do piątku między 12:00 a 20:00. Idziemy autorskim systemem, więc dziecko nie przerabia po raz drugi tego samego podręcznika ze szkoły.</p>
           <div class="hero-actions"><a class="btn" href="#zapis">Umów bezpłatną konsultację →</a><a class="btn phone-btn" href="tel:+48605947803" data-conversion="phone_click">605 947 803</a></div>
           <div class="micro"><span>Konsultacja bez opłat</span><span>Bez zapisu na semestr</span><span>Oddzwaniamy w 24 h</span></div>
         </div>
