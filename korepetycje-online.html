@@ -2212,6 +2212,31 @@
     // ─── Form submit ───
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyAgf3UccAXC7QAohp3tZOb-px3c8bcm-YxRXVCvORw-YtW7Ui8XFkiTxPVXqAuQ_KcBg/exec';
 
+    // Wysyłka w trybie cors (nie no-cors), bo Apps Script zwraca
+    // Access-Control-Allow-Origin: * na obu hopach przekierowania. Dzięki temu
+    // widzimy realny status: przy padniętym backendzie formularz pokaże błąd
+    // i numer telefonu, zamiast po cichu gubić zgłoszenie. Content-Type
+    // text/plain jest na liście bezpiecznych, więc nie ma preflightu.
+    window.postLead = window.postLead || async function (url, payload) {
+      const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timer = controller ? setTimeout(() => controller.abort(), 15000) : null;
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          keepalive: true,
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+          signal: controller ? controller.signal : undefined
+        });
+        if (!response.ok) throw new Error('Backend odpowiedział ' + response.status);
+        const text = (await response.text()).trim();
+        if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
+        return text;
+      } finally {
+        if (timer) clearTimeout(timer);
+      }
+    };
+
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = this.querySelector('.btn-submit');
@@ -2233,13 +2258,7 @@
       };
 
       try {
-        await fetch(SHEETS_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          keepalive: true,
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(data)
-        });
+        await window.postLead(SHEETS_URL, data);
         btn.textContent = 'Wysłano! ✓';
         btn.style.background = 'transparent';
         btn.style.color = 'var(--blush)';
@@ -2422,13 +2441,7 @@
       };
 
       try {
-        await fetch(QUIZ_SHEETS_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          keepalive: true,
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
+        await window.postLead(QUIZ_SHEETS_URL, payload);
         if (typeof trackPixelEvent === 'function') {
           trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, format: answers.format });
         }

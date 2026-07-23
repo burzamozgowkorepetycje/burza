@@ -16,14 +16,35 @@
     return document.body.dataset.zrodlo || document.title;
   }
 
+  // Wysyłka w trybie cors (nie no-cors), bo endpoint Apps Script zwraca
+  // Access-Control-Allow-Origin: * na obu hopach przekierowania. Dzięki temu
+  // widzimy realny status odpowiedzi: przy padniętym backendzie formularz
+  // pokaże błąd i numer telefonu, zamiast po cichu gubić zgłoszenie.
+  // Content-Type text/plain jest na liście bezpiecznych, więc nie ma preflightu.
+  var SEND_TIMEOUT_MS = 15000;
+
   async function sendLead(payload) {
-    await fetch(LEADS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      keepalive: true,
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() })
-    });
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, SEND_TIMEOUT_MS) : null;
+
+    try {
+      var response = await fetch(LEADS_URL, {
+        method: 'POST',
+        keepalive: true,
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() }),
+        signal: controller ? controller.signal : undefined
+      });
+
+      if (!response.ok) throw new Error('Backend odpowiedział ' + response.status);
+
+      var text = (await response.text()).trim();
+      if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
+
+      return text;
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
   }
 
   function showStatus(element, message, type) {
