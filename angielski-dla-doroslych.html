@@ -150,16 +150,14 @@
   <link rel="stylesheet" href="/assets/page-subject-full.css">
   <link rel="stylesheet" href="/assets/shared.css">
   <style>
-    /* ── Wariant „dorośli": najwięcej bieli, minimum ozdobników ── */
-    body{background:var(--white)}
-    .hero:before{display:none}
+    /* ── Wariant „dorośli": stonowany, ale w tej samej palecie co reszta serwisu.
+       Tło kremowe jak wszędzie; spokój buduje słabsza poświata i lżejsze
+       kroje, nie wybielenie strony. ── */
     .hero{padding:3rem 0 5rem}
-    /* Rytm sekcji jak w reszcie serwisu; biale body niesie tozsamosc "najwiecej bieli". */
+    .hero:before{opacity:.4;width:420px;height:420px;right:-190px;top:-230px}
     .dark{background:var(--gray)}
     .pricing{background:var(--gray)}
-    .eyebrow{background:var(--cream);border:1px solid var(--gray)}
     h1{font-weight:400;letter-spacing:-.005em}
-    h1 em{font-weight:400}
     .section-head h2{font-weight:400}
     .lead{max-width:600px}
     .offer-card{box-shadow:none;border:1px solid rgba(32,28,26,.18)}
