@@ -314,7 +314,7 @@
       color: var(--ink);
       margin-bottom: 1.25rem;
     }
-    .section-title em { color: var(--wine); font-weight: 500; }
+    .section-title em { font-family: var(--body); font-style: normal; font-weight: 700; letter-spacing: -0.01em; color: var(--wine); }
     .section-sub {
       font-family: var(--body);
       font-size: 1rem;
@@ -912,6 +912,39 @@
       display: flex;
       width: max-content;
       animation: marqueeSlide 36s linear infinite;
+    }
+
+    /* ─── Szybki kontakt pod heroem ─── */
+    #quick-contact { position: relative; z-index: 1; background: var(--ink); color: var(--cream); padding: 3.4rem 0; }
+    .qc-inner { width: min(1240px, calc(100% - 3rem)); margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: center; }
+    .qc-kicker { font-family: var(--body); font-size: 0.64rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blush); margin: 0 0 0.7rem; }
+    .qc-title { font-family: var(--display); font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 400; line-height: 1.12; margin: 0 0 0.8rem; color: var(--cream); }
+    .qc-title em { font-family: var(--body); font-style: normal; font-weight: 700; letter-spacing: -0.01em; color: var(--blush); }
+    .qc-sub { font-size: 0.94rem; line-height: 1.6; color: rgba(247,243,236,0.66); margin: 0 0 1.3rem; max-width: 42ch; }
+    .qc-phone { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-size: 1.5rem; color: var(--cream); text-decoration: none; border-bottom: 1px solid rgba(247,243,236,0.3); padding-bottom: 0.15rem; transition: color 0.2s, border-color 0.2s; }
+    .qc-phone svg { width: 18px; height: 18px; fill: none; stroke: var(--blush); stroke-width: 1.6; }
+    .qc-phone:hover { color: var(--blush); border-color: var(--blush); }
+    .qc-form { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem 1.2rem; }
+    .qc-field { display: grid; gap: 0.4rem; }
+    #quick-contact .form-label { color: rgba(247,243,236,0.6); opacity: 1; }
+    #quick-contact .form-input, #quick-contact .form-select { color: var(--cream); background: transparent; border: 0; border-bottom: 1px solid rgba(247,243,236,0.28); border-radius: 0; padding: 0.5rem 0; font-size: 0.95rem; width: 100%; }
+    #quick-contact .form-input::placeholder { color: rgba(247,243,236,0.35); }
+    #quick-contact .form-input:focus, #quick-contact .form-select:focus { border-color: var(--blush); outline: none; }
+    #quick-contact .form-select option { color: var(--ink); background: #fff; }
+    .qc-submit { grid-column: 1 / -1; background: var(--blush); border-color: var(--blush); color: var(--ink); }
+    .qc-submit:hover { background: var(--cream); border-color: var(--cream); color: var(--ink); }
+    .qc-legal { grid-column: 1 / -1; margin: 0; font-size: 0.7rem; color: rgba(247,243,236,0.45); }
+    .qc-legal a { color: rgba(247,243,236,0.7); }
+    .qc-status { grid-column: 1 / -1; margin: 0; font-size: 0.85rem; font-weight: 600; color: var(--blush); }
+    @media (max-width: 900px) {
+      .qc-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .qc-form { grid-template-columns: 1fr 1fr; }
+      .qc-field:nth-child(3) { grid-column: 1 / -1; }
+    }
+    @media (max-width: 560px) {
+      #quick-contact { padding: 2.6rem 0; }
+      .qc-form { grid-template-columns: 1fr; }
+      .qc-field:nth-child(3) { grid-column: 1; }
     }
     .marquee:hover .marquee-track { animation-play-state: paused; }
     @keyframes marqueeSlide { to { transform: translateX(-50%); } }
@@ -2181,6 +2214,49 @@
     </div>
   </div>
 
+  <!-- ═══ SZYBKI KONTAKT ═══
+       Pełny formularz stoi dopiero w sekcji 09, po ~87% długości strony.
+       Ten skrót daje zgłoszenie tuż pod heroem, bez zjeżdżania przez całą stronę. -->
+  <section id="quick-contact" aria-label="Szybkie zgłoszenie">
+    <div class="qc-inner">
+      <div class="qc-copy">
+        <p class="qc-kicker">Bezpłatna konsultacja</p>
+        <h2 class="qc-title">Zostaw numer,<br><em>oddzwonimy w 24&nbsp;h.</em></h2>
+        <p class="qc-sub">Ocenimy poziom, odpowiemy na pytania i dobierzemy formę zajęć. Bez zobowiązań.</p>
+        <a href="tel:+48605947803" class="qc-phone" data-conversion="phone_click">
+          <svg aria-hidden="true"><use href="#i-phone"/></svg>605 947 803
+        </a>
+      </div>
+      <form class="qc-form" id="quick-contact-form" novalidate>
+        <div class="qc-field">
+          <label class="form-label" for="qc-name">Imię</label>
+          <input class="form-input" id="qc-name" name="name" type="text" required autocomplete="name" placeholder="Jan">
+        </div>
+        <div class="qc-field">
+          <label class="form-label" for="qc-phone">Telefon</label>
+          <input class="form-input" id="qc-phone" name="phone" type="tel" required minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000">
+        </div>
+        <div class="qc-field">
+          <label class="form-label" for="qc-subject">Przedmiot</label>
+          <select class="form-select" id="qc-subject" name="subject" required>
+            <option value="">Wybierz</option>
+            <option>Matematyka</option>
+            <option>Język angielski</option>
+            <option>Język polski</option>
+            <option>Biologia</option>
+            <option>Chemia</option>
+            <option>Geografia</option>
+            <option>WOS</option>
+            <option>Język hiszpański</option>
+            <option>Inny / nie wiem</option>
+          </select>
+        </div>
+        <button class="btn-submit qc-submit" type="submit" data-conversion="form_submit">Umów bezpłatną konsultację</button>
+        <p class="qc-legal">Wysyłając formularz, zgadzasz się na kontakt telefoniczny. <a href="/privacy-policy" target="_blank" rel="noopener">Polityka prywatności</a>.</p>
+      </form>
+    </div>
+  </section>
+
   <!-- ═══ PRZEDMIOTY ═══ -->
   <section id="subjects" class="section">
     <div class="wash wash-blush" style="width:560px;height:560px;top:5%;right:-200px;" aria-hidden="true"></div>
@@ -3014,6 +3090,71 @@
 
     // ─── Wysyłka formularza ───
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyAgf3UccAXC7QAohp3tZOb-px3c8bcm-YxRXVCvORw-YtW7Ui8XFkiTxPVXqAuQ_KcBg/exec';
+
+    // Szybki formularz pod heroem - ten sam endpoint i ten sam event konwersji
+    // co formularz w sekcji 09, z osobną etykietą źródła w arkuszu.
+    (function () {
+      const qcForm = document.getElementById('quick-contact-form');
+      if (!qcForm) return;
+      const qcLoadTime = Date.now();
+
+      const hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = 'website';
+      hp.tabIndex = -1;
+      hp.autocomplete = 'off';
+      hp.className = 'hp-field';
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+      qcForm.appendChild(hp);
+
+      let qcStarted = false;
+      qcForm.addEventListener('focusin', function () {
+        if (qcStarted) return;
+        qcStarted = true;
+        if (typeof trackPixelEvent === 'function') trackPixelEvent('FormStart', { form: 'quick-contact-form' });
+      });
+
+      qcForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (hp.value || Date.now() - qcLoadTime < 1500) return;
+        if (!qcForm.checkValidity()) { qcForm.reportValidity(); return; }
+
+        const btn = qcForm.querySelector('.qc-submit');
+        const przedmiot = qcForm.subject.value;
+        btn.disabled = true;
+        btn.textContent = 'Wysyłanie…';
+
+        try {
+          await fetch(SHEETS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            keepalive: true,
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              imie: qcForm.name.value,
+              telefon: qcForm.phone.value,
+              przedmiot: przedmiot,
+              forma: 'Do ustalenia',
+              wiadomosc: 'Szybki formularz pod heroem',
+              zrodlo: 'Strona główna - szybki kontakt',
+              data: new Date().toLocaleString('pl-PL')
+            })
+          });
+          btn.textContent = 'Wysłano ✓';
+          btn.style.background = 'transparent';
+          btn.style.color = 'var(--blush)';
+          btn.style.borderColor = 'var(--blush)';
+          qcForm.reset();
+          if (typeof trackPixelEvent === 'function') {
+            trackPixelEvent('Lead', { lead_type: 'quick_contact_form', subject: przedmiot });
+          }
+        } catch (err) {
+          btn.textContent = 'Błąd - zadzwoń: 605 947 803';
+          btn.disabled = false;
+        }
+      });
+    })();
 
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
