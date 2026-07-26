@@ -55,6 +55,9 @@
   function track(event, data) {
     if (typeof fbq !== 'undefined') fbq('track', event, data || {});
     if (typeof gtag !== 'undefined') gtag('event', event, data || {});
+    if (event === 'Lead' && typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', { send_to: 'AW-18305829941/MhCJCNXP5dYcELWY85hE' });
+    }
   }
 
   function initFaq() {

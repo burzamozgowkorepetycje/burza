@@ -745,6 +745,9 @@
     eventData = eventData || {};
     if (typeof fbq !== 'undefined') fbq('track', eventName, eventData);
     if (typeof gtag !== 'undefined') gtag('event', eventName, eventData);
+    if (eventName === 'Lead' && typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', { send_to: 'AW-18305829941/MhCJCNXP5dYcELWY85hE' });
+    }
   }
   </script>
 </body>
