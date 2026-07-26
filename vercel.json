@@ -9,6 +9,11 @@
       "source": "/angielski-dla-doroslych-wyszkow",
       "destination": "/angielski-dla-doroslych",
       "permanent": true
+    },
+    {
+      "source": "/angielski-dla-mlodziezy",
+      "destination": "/angielski-dla-dzieci",
+      "permanent": true
     }
   ],
   "headers": [
