@@ -134,6 +134,38 @@
           "@type": "Answer",
           "text": "Do naszych placówek w Wyszkowie trafiają też uczniowie z okolicznych gmin - Zabrodzia, Brańszczyka, Długosiodła, Rząśnika, Somianki i Tłuszcza. Dla osób, którym dojazd jest niewygodny, prowadzimy też zajęcia indywidualne online z każdego przedmiotu."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "Ile kosztują korepetycje w Burzy Mózgów?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zajęcia indywidualne kosztują od 40 zł/h, a kursy grupowe od 60 zł tygodniowo. Bez wpisowego i bez ukrytych opłat - płacisz tylko za zajęcia. Dokładne stawki dla dwójek, grup i poszczególnych kursów znajdziesz w cenniku."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Na czym polega gwarancja wyniku 70%+?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jeśli uczeń nie osiągnie co najmniej 70% na egzaminie, zwracamy pieniądze za ostatni miesiąc zajęć. Warunkiem jest regularne uczestnictwo w zajęciach przez minimum 3 miesiące przed egzaminem oraz odrabianie zadanych prac domowych - szczegóły określa umowa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Czy bezpłatna konsultacja do czegoś zobowiązuje?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nie. Konsultacja trwa około 20 minut: oceniamy aktualny poziom ucznia, odpowiadamy na pytania i proponujemy formę zajęć. Decyzję podejmujesz spokojnie po rozmowie. Na zgłoszenia odpowiadamy w ciągu 24 godzin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Czy zajęcia online są tak samo skuteczne jak stacjonarne?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Online prowadzimy te same programy, z tymi samymi nauczycielami i na żywo - indywidualnie i w grupach. Uczymy w ten sposób uczniów z całej Polski, a wyniki uczniów online można zobaczyć w opiniach - m.in. matura rozszerzona z biologii zdana na 78%."
+        }
       }
     ]
   }
@@ -1325,7 +1357,11 @@
       border: 1px solid var(--line-soft);
       box-shadow: 0 12px 32px rgba(27,21,17,0.07);
       padding: 0.85rem 1.35rem;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
     }
+    a.google-pill:hover { box-shadow: 0 16px 40px rgba(27,21,17,0.11); transform: translateY(-2px); }
     .google-pill .gp-logo { font-family: var(--body); font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em; }
     .google-pill .gp-logo .b { color: #4285F4; } /* kolor marki Google - celowo poza paletą */
     .google-pill .gp-meta { display: flex; flex-direction: column; line-height: 1.2; }
@@ -1974,6 +2010,19 @@
       body { padding-bottom: 76px; }
     }
 
+    /* Niskie ekrany desktop/laptop (np. 1366×768): kompaktowy hero,
+       żeby główne CTA i notka „oddzwaniamy w 24 h" mieściły się nad foldem. */
+    @media (min-width: 861px) and (max-height: 850px) {
+      #hero { padding-top: 6.5rem; }
+      .hero-eyebrow { margin-bottom: 1rem; }
+      .hero-headline { font-size: clamp(2.4rem, 4.4vw, 3.9rem); margin-bottom: 1.1rem; }
+      .hero-sub { margin-bottom: 1.1rem; font-size: clamp(0.95rem, 1.2vw, 1.05rem); }
+      .hero-chips { margin-bottom: 1.4rem; }
+      .hero-actions { margin-bottom: 0.9rem; }
+      .hero-card { padding: 1.6rem 1.7rem 1.4rem; }
+      .hero-scroll { display: none; }
+    }
+
     @media (max-width: 480px) {
       .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
       .hero-headline { font-size: clamp(2.6rem, 11.5vw, 3.4rem); }
@@ -2535,7 +2584,7 @@
           <p class="kicker fade-in"><span class="k-no">05</span>Opinie</p>
           <h2 class="section-title fade-in fade-in-delay-1" style="margin-bottom: 0;">Co mówią uczniowie<br /><em>i ich rodzice.</em></h2>
         </div>
-        <div class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii">
+        <a href="/opinie" class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii - zobacz opinie">
           <span class="gp-logo"><span class="b">G</span>oogle</span>
           <span class="gp-meta">
             <span class="gp-rating">
@@ -2544,7 +2593,7 @@
             </span>
             <span class="gp-count">ponad 100 opinii · Nr 1 w Wyszkowie</span>
           </span>
-        </div>
+        </a>
       </div>
       <div class="t-grid">
         <div class="t-feature fade-in">
@@ -2709,6 +2758,22 @@
           <summary class="faq-q">Czy dojeżdżacie do uczniów spoza Wyszkowa?<span class="faq-icon" aria-hidden="true"></span></summary>
           <div class="faq-a-wrap"><div class="faq-a-clip"><p class="faq-a">Do naszych placówek w Wyszkowie trafiają też uczniowie z okolicznych gmin - Zabrodzia, Brańszczyka, Długosiodła, Rząśnika, Somianki i Tłuszcza. Dla osób, którym dojazd jest niewygodny, prowadzimy też zajęcia indywidualne online z każdego przedmiotu.</p></div></div>
         </details>
+        <details class="faq-item fade-in">
+          <summary class="faq-q">Ile kosztują korepetycje w Burzy Mózgów?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-a-wrap"><div class="faq-a-clip"><p class="faq-a">Zajęcia indywidualne kosztują od 40 zł/h, a kursy grupowe od 60 zł tygodniowo. Bez wpisowego i bez ukrytych opłat - płacisz tylko za zajęcia. Dokładne stawki dla dwójek, grup i poszczególnych kursów znajdziesz w <a href="/cennik">cenniku</a>.</p></div></div>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-1">
+          <summary class="faq-q">Na czym polega gwarancja wyniku 70%+?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-a-wrap"><div class="faq-a-clip"><p class="faq-a">Jeśli uczeń nie osiągnie co najmniej 70% na egzaminie, zwracamy pieniądze za ostatni miesiąc zajęć. Warunkiem jest regularne uczestnictwo w zajęciach przez minimum 3 miesiące przed egzaminem oraz odrabianie zadanych prac domowych - szczegóły określa umowa.</p></div></div>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-2">
+          <summary class="faq-q">Czy bezpłatna konsultacja do czegoś zobowiązuje?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-a-wrap"><div class="faq-a-clip"><p class="faq-a">Nie. Konsultacja trwa około 20 minut: oceniamy aktualny poziom ucznia, odpowiadamy na pytania i proponujemy formę zajęć. Decyzję podejmujesz spokojnie po rozmowie. Na zgłoszenia odpowiadamy w ciągu 24 godzin.</p></div></div>
+        </details>
+        <details class="faq-item fade-in fade-in-delay-3">
+          <summary class="faq-q">Czy zajęcia online są tak samo skuteczne jak stacjonarne?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <div class="faq-a-wrap"><div class="faq-a-clip"><p class="faq-a">Online prowadzimy te same programy, z tymi samymi nauczycielami i na żywo - indywidualnie i w grupach. Uczymy w ten sposób uczniów z całej Polski, a wyniki naszych uczniów online zobaczysz w <a href="/opinie">opiniach</a> - m.in. matura rozszerzona z biologii zdana na 78%.</p></div></div>
+        </details>
       </div>
     </div>
   </section>
@@ -2777,9 +2842,9 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="message">Wiadomość (opcjonalnie)</label>
-              <textarea class="form-textarea" id="message" name="message" placeholder="Klasa, cel, pytania - napisz co chcesz..."></textarea>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Np. klasa, poziom, cel - wszystko, co pomoże nam przygotować się do rozmowy."></textarea>
             </div>
-            <button type="submit" class="btn-submit">Wyślij zapytanie</button>
+            <button type="submit" class="btn-submit">Umów bezpłatną konsultację</button>
             <p class="form-trust"><svg aria-hidden="true"><use href="#i-shield"/></svg>Bez zobowiązań. Twoje dane są bezpieczne - nie wysyłamy spamu.</p>
           </form>
         </div>
@@ -2934,11 +2999,11 @@
               <label for="quiz-consent-phone">Zgadzam się na kontakt telefoniczny ze strony Burza Mózgów Korepetycje w celu przedstawienia oferty zajęć. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
             <div class="quiz-consent-row">
-              <input type="checkbox" id="quiz-consent-email" name="consentEmail" required />
-              <label for="quiz-consent-email">Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
+              <input type="checkbox" id="quiz-consent-email" name="consentEmail" />
+              <label for="quiz-consent-email">(Opcjonalnie) Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
           </div>
-          <button type="submit" class="btn-submit" id="quiz-submit-btn" style="width:100%;">Wyślij zgłoszenie</button>
+          <button type="submit" class="btn-submit" id="quiz-submit-btn" style="width:100%;">Umów bezpłatną konsultację</button>
           <p class="quiz-error" id="quiz-error">Coś poszło nie tak - spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
         </form>
       </div>
@@ -3288,7 +3353,7 @@
       contactForm.reset();
       errorEl.classList.remove('show');
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Wyślij zgłoszenie';
+      submitBtn.textContent = 'Umów bezpłatną konsultację';
       showStepId('intro');
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -3358,6 +3423,7 @@
       e.preventDefault();
       const hp = contactForm.querySelector('.hp-field');
       if ((hp && hp.value) || (quizOpenTime && Date.now() - quizOpenTime < 1500)) return;
+      if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
       answers.name = contactForm.name.value.trim();
       answers.email = contactForm.email.value.trim();
       answers.phone = contactForm.phone.value.trim();
@@ -3388,7 +3454,7 @@
       } catch (err) {
         errorEl.classList.add('show');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Wyślij zgłoszenie';
+        submitBtn.textContent = 'Umów bezpłatną konsultację';
       }
     });
   })();
