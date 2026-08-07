@@ -442,11 +442,11 @@
               <label for="quiz-consent-phone">Zgadzam się na kontakt telefoniczny ze strony Burza Mózgów Korepetycje w celu przedstawienia oferty zajęć. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
             <div class="quiz-consent-row">
-              <input type="checkbox" id="quiz-consent-email" name="consentEmail" required />
-              <label for="quiz-consent-email">Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
+              <input type="checkbox" id="quiz-consent-email" name="consentEmail" />
+              <label for="quiz-consent-email">(Opcjonalnie) Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
           </div>
-          <button type="submit" class="btn-submit" id="quiz-submit-btn">Wyślij zgłoszenie</button>
+          <button type="submit" class="btn-submit" id="quiz-submit-btn">Umów bezpłatną konsultację</button>
           <p class="quiz-error" id="quiz-error">Coś poszło nie tak. Spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
         </form>
       </div>
@@ -736,7 +736,7 @@
       } catch (err) {
         errorEl.classList.add('show');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Wyślij zgłoszenie';
+        submitBtn.textContent = 'Umów bezpłatną konsultację';
       }
     });
   })();

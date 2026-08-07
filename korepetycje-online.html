@@ -867,6 +867,8 @@
     .google-pill .gp-stars { display: flex; gap: 1px; }
     .google-pill .gp-stars svg { width: 13px; height: 13px; }
     .google-pill .gp-count { font-family: var(--body); font-size: 0.72rem; color: var(--dark); opacity: 0.5; }
+    a.google-pill { text-decoration: none; color: inherit; transition: box-shadow 0.25s, transform 0.25s; }
+    a.google-pill:hover { box-shadow: 0 16px 40px rgba(27,21,17,0.11); transform: translateY(-2px); }
     .testimonials-layout { display: grid; grid-template-rows: auto auto; gap: 1.5rem; }
     .testimonial-top {
       background: rgba(255,255,255,0.6);
@@ -1129,6 +1131,17 @@
     .mobile-nav-phone span { display: block; font-family: var(--body); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blush-deep); margin-bottom: 0.2rem; }
 
     /* ─── Responsive 1024 ─── */
+    /* Niskie ekrany desktop/laptop (np. 1366×768): kompaktowy hero,
+       żeby główne CTA mieściło się nad foldem. */
+    @media (min-width: 769px) and (max-height: 850px) {
+      #hero { padding-top: 6rem; padding-bottom: 4rem; }
+      .hero-eyebrow { margin-bottom: 1.2rem; }
+      .hero-headline { font-size: clamp(2.5rem, 4.8vw, 4.2rem); margin-bottom: 1.2rem; }
+      .hero-sub { margin-bottom: 1rem; }
+      .hero-offer { margin-bottom: 1.4rem; }
+      .hero-actions { margin-bottom: 1.4rem; }
+    }
+
     @media (max-width: 1024px) {
       .subjects-grid { grid-template-columns: repeat(3, 1fr); }
       .hero-glass-card { display: none; }
@@ -1712,7 +1725,7 @@
           <p class="section-label fade-in">Opinie</p>
           <h2 class="section-title fade-in fade-in-delay-1" style="margin-bottom: 0;">Opinie uczniów<br />online i stacjonarnych.</h2>
         </div>
-        <div class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii">
+        <a href="/opinie" class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii - zobacz opinie">
           <span class="gp-logo"><span class="b">G</span>oogle</span>
           <span class="gp-meta">
             <span class="gp-rating">
@@ -1721,7 +1734,7 @@
             </span>
             <span class="gp-count">ponad 100 opinii · Nr 1 w Wyszkowie</span>
           </span>
-        </div>
+        </a>
       </div>
       <div class="testimonials-layout">
         <div class="testimonial-top fade-in">
@@ -1928,9 +1941,9 @@
           <p style="font-family:var(--body);font-size:0.78rem;color:var(--cream);opacity:0.45;line-height:1.5;margin-top:-0.5rem;">Zajęcia grupowe online dostępne obecnie dla matematyki, angielskiego i polskiego. Pozostałe przedmioty mają grupę wyłącznie stacjonarną w Wyszkowie - indywidualnie online zostają bez zmian.</p>
           <div class="form-group">
             <label class="form-label" for="message">Wiadomość (opcjonalnie)</label>
-            <textarea class="form-textarea" id="message" name="message" placeholder="Klasa, cel, pytania - napisz co chcesz..."></textarea>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Np. klasa, poziom, cel - wszystko, co pomoże nam przygotować się do rozmowy."></textarea>
           </div>
-          <button type="submit" class="btn-submit">Wyślij zapytanie</button>
+          <button type="submit" class="btn-submit">Umów bezpłatną konsultację</button>
         </form>
       </div>
     </div>
@@ -2079,11 +2092,11 @@
               <label for="quiz-consent-phone">Zgadzam się na kontakt telefoniczny ze strony Burza Mózgów Korepetycje w celu przedstawienia oferty zajęć. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
             <div class="quiz-consent-row">
-              <input type="checkbox" id="quiz-consent-email" name="consentEmail" required />
-              <label for="quiz-consent-email">Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
+              <input type="checkbox" id="quiz-consent-email" name="consentEmail" />
+              <label for="quiz-consent-email">(Opcjonalnie) Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
           </div>
-          <button type="submit" class="btn-submit" id="quiz-submit-btn" style="width:100%;">Wyślij zgłoszenie</button>
+          <button type="submit" class="btn-submit" id="quiz-submit-btn" style="width:100%;">Umów bezpłatną konsultację</button>
           <p class="quiz-error" id="quiz-error">Coś poszło nie tak - spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
         </form>
       </div>
@@ -2350,7 +2363,7 @@
       contactForm.reset();
       errorEl.classList.remove('show');
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Wyślij zgłoszenie';
+      submitBtn.textContent = 'Umów bezpłatną konsultację';
       showStepId('intro');
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -2420,6 +2433,7 @@
       e.preventDefault();
       const hp = contactForm.querySelector('.hp-field');
       if ((hp && hp.value) || (quizOpenTime && Date.now() - quizOpenTime < 1500)) return;
+      if (!contactForm.checkValidity()) { contactForm.reportValidity(); return; }
       answers.name = contactForm.name.value.trim();
       answers.email = contactForm.email.value.trim();
       answers.phone = contactForm.phone.value.trim();
@@ -2450,7 +2464,7 @@
       } catch (err) {
         errorEl.classList.add('show');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Wyślij zgłoszenie';
+        submitBtn.textContent = 'Umów bezpłatną konsultację';
       }
     });
   })();
