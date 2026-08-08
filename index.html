@@ -72,7 +72,7 @@
     "priceRange": "od 40 zł/h",
     "openingHours": "Mo-Fr 08:00-20:00",
     "sameAs": [
-      "https://www.google.com/maps/search/Burza+M%C3%B3zg%C3%B3w+Korepetycje+Wyszk%C3%B3w"
+      "https://g.page/r/CdJVHYVGPZPaEBM"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -826,60 +826,47 @@
     .hero-note svg { width: 13px; height: 13px; color: var(--wine); opacity: 0.9; }
 
     /* Prawa kolumna hero - artefakt: karta wyniku + Google + stempel */
-    .hero-art { position: relative; min-height: 460px; z-index: 1; }
-    .hero-card {
-      position: absolute;
-      top: 6%;
-      right: 4%;
-      width: min(330px, 88%);
+    .hero-art { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.3rem; }
+    /* Formularz w hero - lead capture na pierwszym ekranie, bez scrollowania */
+    .hero-form {
+      position: relative;
+      width: 100%;
       background: var(--paper);
       border: 1px solid var(--line-soft);
       box-shadow: 0 30px 70px rgba(27,21,17,0.13), 0 4px 14px rgba(27,21,17,0.05);
-      padding: 2rem 2rem 1.75rem;
-      transform: rotate(2.5deg);
+      padding: 1.9rem 2rem 1.6rem;
+      display: grid;
+      gap: 0.9rem;
     }
-    .hero-card::before {
+    .hero-form::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--wine), var(--blush-deep));
     }
-    .hc-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      border-bottom: 1px solid var(--line-soft);
-      padding-bottom: 0.9rem;
-      margin-bottom: 1.1rem;
+    .hf-title { font-family: var(--display); font-size: 1.5rem; font-weight: 500; color: var(--ink); line-height: 1.15; padding-right: 4.5rem; }
+    .hf-sub { font-family: var(--body); font-size: 0.8rem; color: var(--ink); opacity: 0.55; margin-top: -0.5rem; }
+    .hf-field { display: grid; gap: 0.3rem; }
+    .hero-form .form-input, .hero-form .form-select {
+      width: 100%;
+      color: var(--ink);
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      padding: 0.45rem 0;
+      font-size: 0.95rem;
+      font-family: var(--body);
     }
-    .hc-title { font-family: var(--body); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); opacity: 0.55; }
-    .hc-year { font-family: var(--display); font-style: italic; font-size: 0.95rem; color: var(--wine); }
-    .hc-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.5rem 0;
-      border-bottom: 1px dashed rgba(27,21,17,0.12);
-    }
-    .hc-row:last-of-type { border-bottom: none; }
-    .hc-subject { font-family: var(--display); font-size: 1.08rem; font-weight: 500; color: var(--ink); }
-    .hc-score { font-family: var(--display); font-size: 1.15rem; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--wine); }
-    .hc-foot {
-      margin-top: 1.1rem;
-      padding-top: 0.95rem;
-      border-top: 1px solid var(--line-soft);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .hc-foot-label { font-family: var(--body); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); opacity: 0.5; }
-    .hc-foot-score { font-family: var(--display); font-style: italic; font-size: 2rem; font-weight: 600; color: var(--wine); line-height: 1; }
+    .hero-form .form-input:focus, .hero-form .form-select:focus { outline: none; border-bottom-color: var(--wine); }
+    .hero-form .form-select.has-value { color: var(--ink); }
+    .hf-submit { width: 100%; margin-top: 0.3rem; }
+    .hf-legal { margin: 0; font-size: 0.68rem; line-height: 1.5; color: var(--ink); opacity: 0.5; }
+    .hf-legal a { color: var(--wine); }
 
     .hero-google {
-      position: absolute;
-      bottom: 10%;
-      left: 0;
+      align-self: flex-start;
       width: min(250px, 78%);
       background: var(--paper);
       border: 1px solid var(--line-soft);
@@ -2019,7 +2006,10 @@
       .hero-sub { margin-bottom: 1.1rem; font-size: clamp(0.95rem, 1.2vw, 1.05rem); }
       .hero-chips { margin-bottom: 1.4rem; }
       .hero-actions { margin-bottom: 0.9rem; }
-      .hero-card { padding: 1.6rem 1.7rem 1.4rem; }
+      .hero-form { padding: 1.4rem 1.5rem 1.2rem; gap: 0.65rem; }
+      .hf-title { font-size: 1.3rem; }
+      .hero-google { padding: 1rem 1.3rem; }
+      .hg-num { font-size: 2rem; }
       .hero-scroll { display: none; }
     }
 
@@ -2201,22 +2191,38 @@
         <p class="hero-note fade-in fade-in-delay-5"><svg aria-hidden="true"><use href="#i-clock"/></svg>Oddzwaniamy w ciągu 24 godzin - bez żadnych zobowiązań.</p>
       </div>
 
-      <div class="hero-art fade-in fade-in-delay-3" aria-hidden="true">
-        <div class="hero-card">
-          <div class="stamp"><svg viewBox="0 0 120 120"><use href="#stamp-mark"/></svg></div>
-          <div class="hc-head">
-            <span class="hc-title">Wyniki egzaminów</span>
-            <span class="hc-year">nasi uczniowie</span>
+      <div class="hero-art fade-in fade-in-delay-3">
+        <form class="hero-form" id="hero-form" novalidate aria-label="Umów bezpłatną konsultację">
+          <div class="stamp" aria-hidden="true"><svg viewBox="0 0 120 120"><use href="#stamp-mark"/></svg></div>
+          <p class="hf-title">Umów bezpłatną konsultację</p>
+          <p class="hf-sub">Zostaw numer - oddzwonimy w ciągu 24 h.</p>
+          <div class="hf-field">
+            <label class="form-label" for="hf-name">Imię</label>
+            <input class="form-input" id="hf-name" name="name" type="text" required autocomplete="name" placeholder="Jan">
           </div>
-          <div class="hc-row"><span class="hc-subject">Matematyka - matura</span><span class="hc-score">84%</span></div>
-          <div class="hc-row"><span class="hc-subject">Angielski - egzamin E8</span><span class="hc-score">91%</span></div>
-          <div class="hc-row"><span class="hc-subject">Biologia - rozszerzenie</span><span class="hc-score">78%</span></div>
-          <div class="hc-foot">
-            <span class="hc-foot-label">Średnia<br/>naszych uczniów</span>
-            <span class="hc-foot-score">80%</span>
+          <div class="hf-field">
+            <label class="form-label" for="hf-phone">Telefon</label>
+            <input class="form-input" id="hf-phone" name="phone" type="tel" required minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000">
           </div>
-        </div>
-        <div class="hero-google">
+          <div class="hf-field">
+            <label class="form-label" for="hf-subject">Przedmiot</label>
+            <select class="form-select" id="hf-subject" name="subject" required>
+              <option value="">Wybierz</option>
+              <option>Matematyka</option>
+              <option>Język angielski</option>
+              <option>Język polski</option>
+              <option>Biologia</option>
+              <option>Chemia</option>
+              <option>Geografia</option>
+              <option>WOS</option>
+              <option>Język hiszpański</option>
+              <option>Inny / nie wiem</option>
+            </select>
+          </div>
+          <button class="btn-submit hf-submit" type="submit" data-conversion="form_submit">Umów bezpłatną konsultację</button>
+          <p class="hf-legal">Wysyłając formularz, zgadzasz się na kontakt telefoniczny. <a href="/privacy-policy" target="_blank" rel="noopener">Polityka prywatności</a>.</p>
+        </form>
+        <div class="hero-google" aria-hidden="true">
           <div class="hg-top">
             <span class="hg-logo"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span>
             <span class="hg-rank">Nr 1 w Wyszkowie</span>
@@ -2584,7 +2590,7 @@
           <p class="kicker fade-in"><span class="k-no">05</span>Opinie</p>
           <h2 class="section-title fade-in fade-in-delay-1" style="margin-bottom: 0;">Co mówią uczniowie<br /><em>i ich rodzice.</em></h2>
         </div>
-        <a href="/opinie" class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii - zobacz opinie">
+        <a href="https://g.page/r/CdJVHYVGPZPaEBM" target="_blank" rel="noopener" class="google-pill fade-in fade-in-delay-2" aria-label="Ocena 5,0 na Google, ponad 100 opinii - zobacz profil w Google">
           <span class="gp-logo"><span class="b">G</span>oogle</span>
           <span class="gp-meta">
             <span class="gp-rating">
@@ -3232,6 +3238,65 @@
           qcForm.reset();
           if (typeof trackPixelEvent === 'function') {
             trackPixelEvent('Lead', { lead_type: 'quick_contact_form', subject: przedmiot });
+          }
+        } catch (err) {
+          btn.textContent = 'Błąd - zadzwoń: 605 947 803';
+          btn.disabled = false;
+        }
+      });
+    })();
+
+    // Formularz w hero - ten sam endpoint i event konwersji co pozostałe,
+    // z osobną etykietą źródła w arkuszu.
+    (function () {
+      const hfForm = document.getElementById('hero-form');
+      if (!hfForm) return;
+      const hfLoadTime = Date.now();
+
+      const hp = document.createElement('input');
+      hp.type = 'text';
+      hp.name = 'website';
+      hp.tabIndex = -1;
+      hp.autocomplete = 'off';
+      hp.className = 'hp-field';
+      hp.setAttribute('aria-hidden', 'true');
+      hp.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+      hfForm.appendChild(hp);
+
+      let hfStarted = false;
+      hfForm.addEventListener('focusin', function () {
+        if (hfStarted) return;
+        hfStarted = true;
+        if (typeof trackPixelEvent === 'function') trackPixelEvent('FormStart', { form: 'hero-form' });
+      });
+
+      hfForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (hp.value || Date.now() - hfLoadTime < 1500) return;
+        if (!hfForm.checkValidity()) { hfForm.reportValidity(); return; }
+
+        const btn = hfForm.querySelector('.hf-submit');
+        const przedmiot = hfForm.subject.value;
+        btn.disabled = true;
+        btn.textContent = 'Wysyłanie…';
+
+        try {
+          await window.postLead(SHEETS_URL, {
+            imie: hfForm.name.value,
+            telefon: hfForm.phone.value,
+            przedmiot: przedmiot,
+            forma: 'Do ustalenia',
+            wiadomosc: 'Formularz w hero',
+            zrodlo: 'Strona główna - formularz w hero',
+            data: new Date().toLocaleString('pl-PL')
+          });
+          btn.textContent = 'Wysłano ✓ Oddzwonimy w 24 h';
+          btn.style.background = 'transparent';
+          btn.style.color = 'var(--wine)';
+          btn.style.borderColor = 'var(--wine)';
+          hfForm.reset();
+          if (typeof trackPixelEvent === 'function') {
+            trackPixelEvent('Lead', { lead_type: 'hero_form', subject: przedmiot });
           }
         } catch (err) {
           btn.textContent = 'Błąd - zadzwoń: 605 947 803';
