@@ -825,6 +825,65 @@
     }
     .hero-note svg { width: 13px; height: 13px; color: var(--wine); opacity: 0.9; }
 
+    /* Odliczanie do matury: cyfry w kroju display (Cormorant), etykiety
+       wersalikami - pilność egzaminu w estetyce strony, nie obcy widget.
+       Cyfry wchodzą dopiero z JS (klasa .ticking); bez JS zostaje sama
+       etykieta z datą, więc nic nie kłamie i nic nie skacze. */
+    .hero-countdown { margin-top: 1.7rem; }
+    .hero-countdown .hc-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.55;
+    }
+    .hero-countdown .hc-digits {
+      display: flex;
+      gap: clamp(1rem, 3vw, 1.8rem);
+      margin-top: 0.55rem;
+      min-height: 3.6rem;
+      opacity: 0;
+      transition: opacity 0.5s var(--ease-out);
+    }
+    .hero-countdown.ticking .hc-digits { opacity: 1; }
+    .hero-countdown .hc-v {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(2.1rem, 4.5vw, 2.7rem);
+      line-height: 1;
+      color: var(--wine);
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-countdown .hc-l {
+      margin-top: 0.35rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.45;
+    }
+
+    /* Dryfująca ołówkowa linia za hero - tło ma oddychać, nie animować.
+       Ścieżka jest okresowa (600 jednostek), pętla przesunięcia o okres
+       jest bezszwowa; transform idzie na kompozytorze. */
+    .hero-drift {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 6%;
+      height: 210px;
+      width: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-drift .hd-move { animation: hd-drift 46s linear infinite; will-change: transform; }
+    @keyframes hd-drift { to { transform: translateX(-600px); } }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-drift .hd-move { animation: none; }
+    }
+
     /* Prawa kolumna hero - artefakt: karta wyniku + Google + stempel */
     .hero-art { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1.3rem; }
     /* Formularz w hero - lead capture na pierwszym ekranie, bez scrollowania */
@@ -2169,6 +2228,11 @@
     <div class="wash wash-blush" style="width:640px;height:640px;top:-180px;right:-120px;" aria-hidden="true"></div>
     <div class="wash wash-wine" style="width:520px;height:520px;bottom:-200px;left:-160px;" aria-hidden="true"></div>
     <div class="hero-watermark" id="hero-watermark" aria-hidden="true">80</div>
+    <svg class="hero-drift" viewBox="0 0 1200 220" preserveAspectRatio="none" fill="none" aria-hidden="true">
+      <g class="hd-move">
+        <path d="M 0 120 q 150 -70 300 0 t 300 0 t 300 0 t 300 0 t 300 0 t 300 0 t 300 0" stroke="#1B1511" stroke-opacity="0.07" stroke-width="1.5"/>
+      </g>
+    </svg>
 
     <div class="hero-grid">
       <div class="hero-copy">
@@ -2189,6 +2253,15 @@
           <a href="tel:+48605947803" class="btn-ghost"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>605 947 803</span></a>
         </div>
         <p class="hero-note fade-in fade-in-delay-5"><svg aria-hidden="true"><use href="#i-clock"/></svg>Oddzwaniamy w ciągu 24 godzin - bez żadnych zobowiązań.</p>
+        <div class="hero-countdown fade-in fade-in-delay-5" id="hero-countdown" data-target-date="2027-05-04T00:00:00+02:00">
+          <p class="hc-label">Do matury podstawowej · 4 maja 2027</p>
+          <div class="hc-digits" aria-hidden="true">
+            <div class="hc-cell"><div class="hc-v" data-hc="d">&nbsp;</div><div class="hc-l">dni</div></div>
+            <div class="hc-cell"><div class="hc-v" data-hc="h">&nbsp;</div><div class="hc-l">godz</div></div>
+            <div class="hc-cell"><div class="hc-v" data-hc="m">&nbsp;</div><div class="hc-l">min</div></div>
+            <div class="hc-cell"><div class="hc-v" data-hc="s">&nbsp;</div><div class="hc-l">sek</div></div>
+          </div>
+        </div>
       </div>
 
       <div class="hero-art fade-in fade-in-delay-3">
@@ -3049,6 +3122,32 @@
       window.addEventListener('load', () => {
         requestAnimationFrame(() => headline.classList.add('drawn'));
       });
+    })();
+
+    // ─── Odliczanie do matury (hero) ───
+    // Tyka co sekundę; to treść, nie dekoracja, więc reduceMotion go nie
+    // wyłącza (wyłącza tylko fade-iny wokół). Cyfry wchodzą klasą
+    // .ticking dopiero po pierwszym przeliczeniu - bez JS zostaje sama
+    // etykieta z datą.
+    (() => {
+      const box = document.getElementById('hero-countdown');
+      if (!box) return;
+      const target = new Date(box.dataset.targetDate).getTime();
+      if (Number.isNaN(target)) return;
+      const cell = (k) => box.querySelector('[data-hc="' + k + '"]');
+      const cells = { d: cell('d'), h: cell('h'), m: cell('m'), s: cell('s') };
+      if (!cells.d || !cells.h || !cells.m || !cells.s) return;
+      const pad = (n) => String(n).padStart(2, '0');
+      function hcTick() {
+        const ms = Math.max(0, target - Date.now());
+        cells.d.textContent = Math.floor(ms / 86400000);
+        cells.h.textContent = pad(Math.floor(ms / 3600000) % 24);
+        cells.m.textContent = pad(Math.floor(ms / 60000) % 60);
+        cells.s.textContent = pad(Math.floor(ms / 1000) % 60);
+      }
+      hcTick();
+      box.classList.add('ticking');
+      setInterval(hcTick, 1000);
     })();
 
     // ─── Animacja liczników ───
