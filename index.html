@@ -209,11 +209,11 @@
       --cream:      #F7F3EC;
       --cream-deep: #EFE8DC;
       --paper:      #FCFAF5;
-      --blush:      #EDB1B0;
-      --blush-soft: #F6DAD9;
-      --blush-deep: #D98F8E;
-      --wine:       #7E3B37;
-      --wine-deep:  #63302C;
+      --blush:      #FF5CA8;
+      --blush-soft: #FFD9E8;
+      --blush-deep: #F50057;
+      --wine:       #C2185B;
+      --wine-deep:  #A5134D;
       --line:       rgba(27,21,17,0.14);
       --line-soft:  rgba(27,21,17,0.08);
       --line-cream: rgba(247,243,236,0.16);
@@ -264,8 +264,8 @@
       pointer-events: none;
       z-index: 0;
     }
-    .wash-blush { background: radial-gradient(circle at 40% 35%, rgba(237,177,176,0.42), rgba(237,177,176,0) 68%); }
-    .wash-warm  { background: radial-gradient(circle at 40% 35%, rgba(217,143,142,0.26), rgba(217,143,142,0) 70%); }
+    .wash-blush { background: radial-gradient(circle at 40% 35%, rgba(255,92,168,0.26), rgba(255,92,168,0) 68%); }
+    .wash-warm  { background: radial-gradient(circle at 40% 35%, rgba(245,0,87,0.14), rgba(245,0,87,0) 70%); }
     .wash-wine  { background: radial-gradient(circle at 45% 40%, rgba(126,59,55,0.14),  rgba(126,59,55,0)  70%); }
 
     /* ─── System odsłon (scroll reveal) ─── */
@@ -329,7 +329,7 @@
       content: '';
       flex: 0 0 3.5rem;
       height: 1px;
-      background: var(--line);
+      background: rgba(245,0,87,0.55);
       align-self: center;
     }
     .kicker--center { justify-content: center; }
@@ -633,7 +633,7 @@
       display: flex; align-items: center; justify-content: center;
       transition: border-color 0.2s, background 0.2s;
     }
-    .mobile-nav-close:hover { border-color: var(--blush); background: rgba(237,177,176,0.1); }
+    .mobile-nav-close:hover { border-color: var(--blush); background: rgba(255,92,168,0.1); }
     .mobile-nav-links { list-style: none; margin: auto 0; display: flex; flex-direction: column; }
     .mobile-nav-links li { border-bottom: 1px solid rgba(247,243,236,0.1); }
     .mobile-nav-links li:first-child { border-top: 1px solid rgba(247,243,236,0.1); }
@@ -765,7 +765,7 @@
     }
     .hh-ellipse path {
       fill: none;
-      stroke: var(--wine);
+      stroke: var(--blush-deep);
       stroke-width: 3.2;
       stroke-linecap: round;
       opacity: 0.85;
@@ -800,12 +800,12 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       color: var(--ink);
-      border: 1px solid var(--line);
+      border: 1px solid rgba(245,0,87,0.4);
       background: rgba(252,250,245,0.7);
       padding: 0.5rem 0.95rem;
       border-radius: 100px;
     }
-    .hero-chip svg { width: 13px; height: 13px; color: var(--wine); flex-shrink: 0; }
+    .hero-chip svg { width: 13px; height: 13px; color: var(--blush-deep); flex-shrink: 0; }
     .hero-chip strong { font-weight: 700; }
     .hero-actions {
       display: flex;
@@ -864,6 +864,25 @@
       color: var(--ink);
       opacity: 0.45;
     }
+    /* tykająca sekunda w różu — żywy puls zegara */
+    .hero-countdown .hc-cell:last-child .hc-v { color: var(--blush-deep); }
+
+    /* Różowy marker: podświetlenie wjeżdża od lewej razem z istniejącym
+       odsłonięciem sekcji (.fade-in.visible) — zero dodatkowego JS.
+       Bez JS: brak podświetlenia, tekst i tak czytelny (wine italic). */
+    .section-title .em-mk {
+      background-image: linear-gradient(var(--blush-soft), var(--blush-soft));
+      background-repeat: no-repeat;
+      background-size: 0% 82%;
+      background-position: 0 68%;
+      padding: 0 0.12em;
+      margin: 0 -0.12em;
+      transition: background-size 0.7s var(--ease-out) 0.4s;
+    }
+    .section-title.visible .em-mk { background-size: 100% 82%; }
+    @media (prefers-reduced-motion: reduce) {
+      .section-title .em-mk { background-size: 100% 82%; transition: none; }
+    }
 
     /* Dryfująca ołówkowa linia za hero - tło ma oddychać, nie animować.
        Ścieżka jest okresowa (600 jednostek), pętla przesunięcia o okres
@@ -879,6 +898,7 @@
       z-index: 0;
     }
     .hero-drift .hd-move { animation: hd-drift 46s linear infinite; will-change: transform; }
+    .hero-drift .hd-move-2 { animation-duration: 64s; }
     @keyframes hd-drift { to { transform: translateX(-600px); } }
     @media (prefers-reduced-motion: reduce) {
       .hero-drift .hd-move { animation: none; }
@@ -1069,7 +1089,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(237,177,176,0.16), rgba(237,177,176,0.03));
+      background: linear-gradient(90deg, rgba(255,92,168,0.16), rgba(255,92,168,0.03));
       transform: scaleY(0);
       transform-origin: bottom;
       transition: transform 0.4s var(--ease-out);
@@ -1583,7 +1603,7 @@
     .location-val a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--blush-deep); transition: color 0.2s; }
     .location-val a:hover { color: var(--wine); }
     .location-card--online { background: var(--ink); border-color: var(--ink); }
-    .location-card--online .location-badge { color: var(--blush); border-color: rgba(237,177,176,0.4); }
+    .location-card--online .location-badge { color: var(--blush); border-color: rgba(255,92,168,0.4); }
     .location-card--online .location-name,
     .location-card--online .location-val { color: var(--cream); }
     .location-card--online .location-city { color: var(--cream); opacity: 0.55; }
@@ -1591,7 +1611,7 @@
     .location-card--online .location-row { border-bottom-color: rgba(247,243,236,0.14); }
     .location-card--online .location-desc { font-family: var(--body); font-size: 0.88rem; color: var(--cream); opacity: 0.6; line-height: 1.65; margin-bottom: 1.5rem; }
     .location-card--online .btn-ghost { color: var(--cream); border-color: rgba(247,243,236,0.35); }
-    .location-card--online .btn-ghost:hover { border-color: var(--blush); color: var(--blush); background: rgba(237,177,176,0.06); }
+    .location-card--online .btn-ghost:hover { border-color: var(--blush); color: var(--blush); background: rgba(255,92,168,0.06); }
 
     /* ═══ FAQ ═══ */
     #faq { background: var(--cream); }
@@ -1685,7 +1705,7 @@
       line-height: 1.1;
       transition: color 0.25s;
       width: fit-content;
-      border-bottom: 1px solid rgba(237,177,176,0.35);
+      border-bottom: 1px solid rgba(255,92,168,0.35);
       padding-bottom: 0.2rem;
     }
     .contact-direct a:hover { color: var(--blush); border-color: var(--blush); }
@@ -1927,7 +1947,7 @@
       padding: 0.42rem 0.85rem;
       border-radius: 999px;
       border: 1px solid rgba(126,59,55,0.3);
-      background: rgba(237,177,176,0.14);
+      background: rgba(255,92,168,0.14);
       color: var(--wine);
     }
     .quiz-success { text-align: center; padding: 1.5rem 0; }
@@ -2154,15 +2174,15 @@
       <defs>
         <path id="stamp-circle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/>
       </defs>
-      <circle cx="60" cy="60" r="58" fill="var(--paper, #FCFAF5)" stroke="#7E3B37" stroke-width="1.5"/>
-      <circle cx="60" cy="60" r="33" fill="none" stroke="#7E3B37" stroke-width="1"/>
+      <circle cx="60" cy="60" r="58" fill="var(--paper, #FCFAF5)" stroke="#C2185B" stroke-width="1.5"/>
+      <circle cx="60" cy="60" r="33" fill="none" stroke="#C2185B" stroke-width="1"/>
       <g class="stamp-rotor">
-        <text font-family="DM Sans, sans-serif" font-size="9.2" font-weight="700" letter-spacing="2.6" fill="#7E3B37">
+        <text font-family="DM Sans, sans-serif" font-size="9.2" font-weight="700" letter-spacing="2.6" fill="#C2185B">
           <textPath href="#stamp-circle">GWARANCJA WYNIKU · BURZA MÓZGÓW · </textPath>
         </text>
       </g>
-      <text x="60" y="57" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="24" fill="#7E3B37">70%+</text>
-      <text x="60" y="73" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.4" font-weight="700" letter-spacing="1.8" fill="#7E3B37">NA EGZAMINIE*</text>
+      <text x="60" y="57" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="24" fill="#C2185B">70%+</text>
+      <text x="60" y="73" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="6.4" font-weight="700" letter-spacing="1.8" fill="#C2185B">NA EGZAMINIE*</text>
     </symbol>
   </svg>
 
@@ -2231,6 +2251,9 @@
     <svg class="hero-drift" viewBox="0 0 1200 220" preserveAspectRatio="none" fill="none" aria-hidden="true">
       <g class="hd-move">
         <path d="M 0 120 q 150 -70 300 0 t 300 0 t 300 0 t 300 0 t 300 0 t 300 0 t 300 0" stroke="#1B1511" stroke-opacity="0.07" stroke-width="1.5"/>
+      </g>
+      <g class="hd-move hd-move-2">
+        <path d="M 0 160 q 150 55 300 0 t 300 0 t 300 0 t 300 0 t 300 0 t 300 0 t 300 0" stroke="#F50057" stroke-opacity="0.16" stroke-width="1.5"/>
       </g>
     </svg>
 
@@ -2562,7 +2585,7 @@
       <div class="why-layout">
         <div class="why-sticky">
           <p class="kicker fade-in"><span class="k-no">03</span>Dlaczego Burza Mózgów</p>
-          <h2 class="section-title fade-in fade-in-delay-1">Nie jesteśmy jedną z wielu.<br />Jesteśmy wyborem,<br /><em>który daje wyniki.</em></h2>
+          <h2 class="section-title fade-in fade-in-delay-1">Nie jesteśmy jedną z wielu.<br />Jesteśmy wyborem,<br /><em class="em-mk">który daje wyniki.</em></h2>
           <p class="section-sub fade-in fade-in-delay-2">Rodzice wybierają nas, bo liczy się dla nich jedno - wynik na egzaminie. My też.</p>
           <div class="fade-in fade-in-delay-3">
             <a href="#contact" class="btn-primary js-open-quiz"><span>Umów bezpłatną konsultację</span><span class="btn-arrow" aria-hidden="true">→</span></a>
@@ -2721,7 +2744,7 @@
   <section id="pricing" class="section">
     <div class="section-inner">
       <p class="kicker fade-in"><span class="k-no">06</span>Przejrzyste ceny</p>
-      <h2 class="section-title fade-in fade-in-delay-1">Jakość nie musi<br /><em>kosztować fortuny.</em></h2>
+      <h2 class="section-title fade-in fade-in-delay-1">Jakość nie musi<br /><em class="em-mk">kosztować fortuny.</em></h2>
       <p class="section-sub fade-in fade-in-delay-2">Bez ukrytych opłat i bez wpisowego. Płacisz za zajęcia - i za wynik, który za nimi idzie.</p>
       <div class="price-band fade-in">
         <div class="price-cell">
