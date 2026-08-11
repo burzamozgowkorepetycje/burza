@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Burza Mózgów — oferta zajęć</title>
+  <style>
+    @font-face {
+      font-family: "Cormorant Garamond";
+      src: url("./fonts/cormorant-garamond-latin-ext.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Cormorant Garamond";
+      src: url("./fonts/cormorant-garamond-latin.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "DM Sans";
+      src: url("./fonts/dm-sans-latin-ext.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "DM Sans";
+      src: url("./fonts/dm-sans-latin.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    :root {
+      --ink: #1B1511;
+      --cream: #F7F3EC;
+      --cream-deep: #EFE8DC;
+      --paper: #FCFAF5;
+      --blush-soft: #FFD9E8;
+      --wine: #C2185B;
+      --wine-deep: #A5134D;
+      --line: rgba(27, 21, 17, 0.14);
+      --display: "Cormorant Garamond", Georgia, serif;
+      --body: "DM Sans", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 1640px;
+      height: 624px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    .edge-decoration {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .edge-decoration--left {
+      left: -205px;
+      bottom: -270px;
+      width: 500px;
+      height: 500px;
+      border: 72px solid var(--cream-deep);
+      border-radius: 50%;
+      opacity: 0.74;
+    }
+
+    .edge-decoration--right {
+      right: -235px;
+      top: -285px;
+      width: 580px;
+      height: 580px;
+      border-radius: 50%;
+      background: var(--blush-soft);
+      opacity: 0.56;
+    }
+
+    .edge-rule {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(194, 24, 91, 0.14);
+    }
+
+    .edge-rule--left { left: 264px; }
+    .edge-rule--right { right: 264px; }
+
+    .safe {
+      position: absolute;
+      left: 280px;
+      top: 0;
+      width: 1080px;
+      height: 624px;
+      padding: 30px 20px 25px;
+    }
+
+    .brand-row {
+      height: 62px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      white-space: nowrap;
+    }
+
+    .brand__name {
+      font-family: var(--display);
+      font-size: 31px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand__descriptor {
+      font-size: 10.5px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.27em;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: auto;
+      gap: 6px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .contact__phone {
+      font-family: var(--display);
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: 0.015em;
+    }
+
+    .contact__site {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.025em;
+    }
+
+    .promotion {
+      padding-top: 14px;
+      text-align: center;
+    }
+
+    .promotion__kicker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 0 4px;
+      color: var(--wine);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.24em;
+    }
+
+    .promotion__kicker::before,
+    .promotion__kicker::after {
+      content: "";
+      width: 36px;
+      height: 1px;
+      background: var(--wine);
+    }
+
+    .promotion__headline { margin: 0; }
+
+    .promotion__headline-primary {
+      display: block;
+      font-family: var(--display);
+      font-size: 51px;
+      font-weight: 500;
+      line-height: 0.9;
+      letter-spacing: -0.035em;
+    }
+
+    .promotion__headline-location {
+      display: block;
+      margin-top: 4px;
+      color: var(--wine-deep);
+      font-size: 35px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .promotion__address {
+      margin: 7px 0 0;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .offer {
+      display: grid;
+      grid-template-columns: 710px 330px;
+      min-height: 245px;
+      margin-top: 17px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .offer__details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 22px 31px 23px;
+    }
+
+    .offer__title {
+      margin: 0 0 12px;
+      font-family: var(--display);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .offer__subjects {
+      margin: 0;
+      color: var(--wine-deep);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .offer__benefits {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 8px 23px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .offer__benefit {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .offer__benefit:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .discount {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 26px 24px;
+      border-left: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .discount__value {
+      color: var(--wine-deep);
+      font-family: var(--display);
+      font-size: 78px;
+      font-weight: 600;
+      line-height: 0.8;
+      letter-spacing: -0.04em;
+    }
+
+    .discount__copy {
+      margin: 15px 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .discount__date {
+      display: block;
+      margin-top: 3px;
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="edge-decoration edge-decoration--left" aria-hidden="true"></div>
+  <div class="edge-decoration edge-decoration--right" aria-hidden="true"></div>
+  <div class="edge-rule edge-rule--left" aria-hidden="true"></div>
+  <div class="edge-rule edge-rule--right" aria-hidden="true"></div>
+
+  <main class="safe">
+    <header class="brand-row">
+      <div class="brand" data-critical>
+        <span class="brand__name">Burza Mózgów</span>
+        <span class="brand__descriptor">Korepetycje</span>
+      </div>
+      <div class="contact" data-critical>
+        <span class="contact__phone">605 947 803</span>
+        <span class="contact__site">burza-mozgow-korepetycje.pl</span>
+      </div>
+    </header>
+
+    <section class="promotion" data-critical>
+      <p class="promotion__kicker">PROMOCJA</p>
+      <h1 class="promotion__headline">
+        <span class="promotion__headline-primary">NOWY LOKAL ·</span>
+        <span class="promotion__headline-location">Legionowo / Jabłonna ·</span>
+      </h1>
+      <p class="promotion__address">ul. Zegrzyńska 22, Jabłonna od 1.09</p>
+    </section>
+
+    <section class="offer">
+      <div class="offer__details" data-critical>
+        <h2 class="offer__title">Zajęcia indywidualne i grupowe</h2>
+        <p class="offer__subjects">matematyka · polski · angielski · biologia · chemia</p>
+        <div class="offer__benefits">
+          <p class="offer__benefit">przygotowanie do egzaminu i matury</p>
+          <p class="offer__benefit">wszystkie typy zadań</p>
+          <p class="offer__benefit">darmowa platforma edukacyjna 24/7</p>
+        </div>
+      </div>
+      <div class="discount" data-critical>
+        <strong class="discount__value">-20%</strong>
+        <p class="discount__copy">przy zapisach do <span class="discount__date">1 września</span></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Burza Mózgów — Facebook cover</title>
+  <style>
+    @font-face {
+      font-family: "Cormorant Garamond";
+      src: url("./fonts/cormorant-garamond-latin-ext.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Cormorant Garamond";
+      src: url("./fonts/cormorant-garamond-latin.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "DM Sans";
+      src: url("./fonts/dm-sans-latin-ext.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "DM Sans";
+      src: url("./fonts/dm-sans-latin.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: block;
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    :root {
+      --ink: #1B1511;
+      --cream: #F7F3EC;
+      --cream-deep: #EFE8DC;
+      --paper: #FCFAF5;
+      --blush-soft: #FFD9E8;
+      --wine: #C2185B;
+      --wine-deep: #A5134D;
+      --line: rgba(27, 21, 17, 0.14);
+      --display: "Cormorant Garamond", Georgia, serif;
+      --body: "DM Sans", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 1640px;
+      height: 624px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    .edge-decoration {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .edge-decoration--left {
+      left: -205px;
+      bottom: -270px;
+      width: 500px;
+      height: 500px;
+      border: 72px solid var(--cream-deep);
+      border-radius: 50%;
+      opacity: 0.74;
+    }
+
+    .edge-decoration--right {
+      right: -235px;
+      top: -285px;
+      width: 580px;
+      height: 580px;
+      border-radius: 50%;
+      background: var(--blush-soft);
+      opacity: 0.56;
+    }
+
+    .edge-rule {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(194, 24, 91, 0.14);
+    }
+
+    .edge-rule--left { left: 264px; }
+    .edge-rule--right { right: 264px; }
+
+    .safe {
+      position: absolute;
+      left: 280px;
+      top: 0;
+      width: 1080px;
+      height: 624px;
+      padding: 30px 20px 28px;
+    }
+
+    .brand-row {
+      height: 62px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      white-space: nowrap;
+    }
+
+    .brand__name {
+      font-family: var(--display);
+      font-size: 31px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .brand__descriptor {
+      font-size: 10.5px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.27em;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: auto auto;
+      align-items: baseline;
+      gap: 6px 18px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .contact__phone {
+      grid-column: 2;
+      font-family: var(--display);
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: 0.015em;
+    }
+
+    .contact__site {
+      grid-column: 2;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.025em;
+    }
+
+    .promotion {
+      padding-top: 22px;
+      text-align: center;
+    }
+
+    .promotion__kicker {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      margin: 0 0 7px;
+      color: var(--wine);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .promotion__kicker::before,
+    .promotion__kicker::after {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--wine);
+    }
+
+    .promotion__headline {
+      margin: 0;
+    }
+
+    .promotion__headline-primary {
+      display: block;
+      font-family: var(--display);
+      font-size: 68px;
+      font-weight: 500;
+      line-height: 0.88;
+      letter-spacing: -0.035em;
+    }
+
+    .promotion__headline-location {
+      display: block;
+      margin-top: 6px;
+      color: var(--wine-deep);
+      font-family: var(--body);
+      font-size: 47px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .promotion__address {
+      margin: 10px 0 0;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    .prices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 25px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .price {
+      min-height: 137px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px 30px 20px;
+      text-align: center;
+    }
+
+    .price + .price {
+      border-left: 1px solid var(--line);
+    }
+
+    .price__label {
+      margin: 0 0 4px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .price__value {
+      color: var(--wine-deep);
+      font-family: var(--display);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.015em;
+    }
+
+    .price--proof .price__value {
+      margin-bottom: 4px;
+    }
+
+    .price--proof .price__label {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="edge-decoration edge-decoration--left" aria-hidden="true"></div>
+  <div class="edge-decoration edge-decoration--right" aria-hidden="true"></div>
+  <div class="edge-rule edge-rule--left" aria-hidden="true"></div>
+  <div class="edge-rule edge-rule--right" aria-hidden="true"></div>
+
+  <main class="safe">
+    <header class="brand-row">
+      <div class="brand" data-critical>
+        <span class="brand__name">Burza Mózgów</span>
+        <span class="brand__descriptor">Korepetycje</span>
+      </div>
+      <div class="contact" data-critical>
+        <span class="contact__phone">605 947 803</span>
+        <span class="contact__site">burza-mozgow-korepetycje.pl</span>
+      </div>
+    </header>
+
+    <section class="promotion" data-critical>
+      <p class="promotion__kicker">PROMOCJA</p>
+      <h1 class="promotion__headline">
+        <span class="promotion__headline-primary">NOWY LOKAL ·</span>
+        <span class="promotion__headline-location">Legionowo / Jabłonna ·</span>
+      </h1>
+      <p class="promotion__address">ul. Zegrzyńska 22, Jabłonna od 1.09</p>
+    </section>
+
+    <section class="prices" aria-label="Ceny">
+      <div class="price" data-critical>
+        <p class="price__label">Zajęcia</p>
+        <strong class="price__value">od 40zł</strong>
+      </div>
+      <div class="price price--proof" data-critical>
+        <strong class="price__value">300+</strong>
+        <p class="price__label">zadowolonych klientów</p>
+      </div>
+      <div class="price" data-critical>
+        <p class="price__label">Pierwsza konsultacja</p>
+        <strong class="price__value">bezpłatna</strong>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

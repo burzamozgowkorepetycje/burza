@@ -255,13 +255,13 @@
     document.getElementById('szybki-zapis').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const name=document.getElementById('quickName').value.trim();const phone=document.getElementById('quickPhone').value.trim();
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:name,telefon:phone,etap:'Matura',przedmiot:'Matematyka (online lub Wyszków)',forma:'Online lub Wyszków',wiadomosc:'Szybki zapis z pierwszego ekranu'});Shared.track('Lead',{lead_type:'quick_course_form',exam:'matura',subject:'Matematyka (online lub Wyszków)'});Shared.showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:name,telefon:phone,typEgzaminu:'Matura',przedmiot:'Matematyka (online lub Wyszków)',forma:'Online lub Wyszków',wiadomosc:'Szybki zapis z pierwszego ekranu'});Shared.track('Lead',{lead_type:'quick_course_form',exam:'matura',subject:'Matematyka (online lub Wyszków)'});Shared.showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
     document.getElementById('leadForm').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button[type="submit"]');const status=document.getElementById('leadStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),etap:data.get('exam'),klasa:data.get('grade'),przedmiot:data.get('subject'),forma:'Online lub Wyszków',wiadomosc:`Poziom: ${data.get('poziom')}; aktualny wynik: ${data.get('score')}`});Shared.track('Lead',{lead_type:'course_form',exam:data.get('exam'),subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),typEgzaminu:data.get('exam'),klasa:data.get('grade'),przedmiot:data.get('subject'),forma:'Online lub Wyszków',poziom:data.get('poziom'),wiadomosc:`Aktualny wynik: ${data.get('score')}`});Shared.track('Lead',{lead_type:'course_form',exam:data.get('exam'),subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
   </script>

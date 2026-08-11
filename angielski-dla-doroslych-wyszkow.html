@@ -240,7 +240,7 @@
     document.getElementById('leadForm').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button[type="submit"]');const status=document.getElementById('leadStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),klasa:data.get('grade'),przedmiot:data.get('subject'),forma:data.get('format'),wiadomosc:data.get('message')});Shared.track('Lead',{lead_type:'language_school_form',subject:data.get('subject'),format:data.get('format')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),cel:data.get('grade'),przedmiot:data.get('subject'),forma:data.get('format'),wiadomosc:data.get('message')});Shared.track('Lead',{lead_type:'language_school_form',subject:data.get('subject'),format:data.get('format')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
   </script>
