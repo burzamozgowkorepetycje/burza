@@ -23,6 +23,30 @@
   // Content-Type text/plain jest na liście bezpiecznych, więc nie ma preflightu.
   var SEND_TIMEOUT_MS = 15000;
 
+  // Każdy formularz wysyła inny podzbiór pól (jedne mają klasę, inne etap,
+  // jeszcze inne e-mail), a Apps Script układa wiersz w kolejności kluczy.
+  // Dlatego zgłoszenia lądowały w przesuniętych kolumnach arkusza. Poniższy
+  // szablon wymusza stały, pełny zestaw kluczy w stałej kolejności - pola,
+  // których dany formularz nie ma, jadą jako pusty string.
+  var LEAD_FIELDS = [
+    'imie', 'email', 'telefon', 'klasa', 'etap', 'typEgzaminu', 'przedmiot',
+    'poziom', 'cel', 'pilnosc', 'forma', 'zgodaTelefon', 'zgodaEmail',
+    'wiadomosc', 'zrodlo', 'data'
+  ];
+
+  function normalizeLead(payload) {
+    var row = {};
+    LEAD_FIELDS.forEach(function (field) {
+      var value = payload[field];
+      row[field] = (value === undefined || value === null) ? '' : value;
+    });
+    // Klucze spoza szablonu doklejamy na końcu, żeby nic nie zginęło po drodze.
+    Object.keys(payload).forEach(function (key) {
+      if (LEAD_FIELDS.indexOf(key) === -1) row[key] = payload[key];
+    });
+    return row;
+  }
+
   async function sendLead(payload) {
     var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, SEND_TIMEOUT_MS) : null;
@@ -32,7 +56,7 @@
         method: 'POST',
         keepalive: true,
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() }),
+        body: JSON.stringify(normalizeLead({ ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() })),
         signal: controller ? controller.signal : undefined
       });
 
@@ -174,7 +198,7 @@
     });
   }
 
-  window.Shared = { sendLead: sendLead, showStatus: showStatus, track: track };
+  window.Shared = { sendLead: sendLead, showStatus: showStatus, track: track, normalizeLead: normalizeLead };
 
   document.addEventListener('DOMContentLoaded', function () {
     initFaq();

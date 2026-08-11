@@ -478,6 +478,28 @@
     // widzimy realny status: przy padniętym backendzie formularz pokaże błąd
     // i numer telefonu, zamiast po cichu gubić zgłoszenie. Content-Type
     // text/plain jest na liście bezpiecznych, więc nie ma preflightu.
+    // Każdy formularz wysyła inny podzbiór pól, a Apps Script układa wiersz
+    // w kolejności kluczy - stąd zgłoszenia w przesuniętych kolumnach arkusza.
+    // Stały, pełny zestaw kluczy w stałej kolejności; brakujące pola jako ''.
+    // Ta sama lista co w /assets/shared.js - zmieniasz tu, zmień i tam.
+    const LEAD_FIELDS = [
+      'imie', 'email', 'telefon', 'klasa', 'etap', 'typEgzaminu', 'przedmiot',
+      'poziom', 'cel', 'pilnosc', 'forma', 'zgodaTelefon', 'zgodaEmail',
+      'wiadomosc', 'zrodlo', 'data'
+    ];
+
+    function normalizeLead(payload) {
+      const row = {};
+      LEAD_FIELDS.forEach(field => {
+        const value = payload[field];
+        row[field] = (value === undefined || value === null) ? '' : value;
+      });
+      Object.keys(payload).forEach(key => {
+        if (!LEAD_FIELDS.includes(key)) row[key] = payload[key];
+      });
+      return row;
+    }
+
     window.postLead = window.postLead || async function (url, payload) {
       const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
       const timer = controller ? setTimeout(() => controller.abort(), 15000) : null;
@@ -486,7 +508,7 @@
           method: 'POST',
           keepalive: true,
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(normalizeLead(payload)),
           signal: controller ? controller.signal : undefined
         });
         if (!response.ok) throw new Error('Backend odpowiedział ' + response.status);
