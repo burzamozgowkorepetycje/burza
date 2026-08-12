@@ -411,11 +411,12 @@
       </div>
 
       <!-- Step: Forma zajęć -->
-      <div class="quiz-step" data-step="format">
-        <p class="quiz-question">Jaka forma zajęć Cię interesuje?</p>
-        <div class="quiz-options" id="quiz-format-options">
-          <button class="quiz-option" data-field="format" data-value="Stacjonarnie (Wyszków)"><span class="qo-emoji">📍</span>Stacjonarnie (Wyszków)</button>
-          <button class="quiz-option" data-field="format" data-value="Online"><span class="qo-emoji">💻</span>Online</button>
+      <div class="quiz-step" data-step="lokalizacja">
+        <p class="quiz-question">Gdzie chcesz się uczyć?</p>
+        <div class="quiz-options" id="quiz-lokalizacja-options">
+          <button class="quiz-option" data-field="lokalizacja" data-value="Wyszków"><span class="qo-emoji">📍</span>Wyszków</button>
+          <button class="quiz-option" data-field="lokalizacja" data-value="Jabłonna (Legionowo)"><span class="qo-emoji">📍</span>Jabłonna (Legionowo)</button>
+          <button class="quiz-option" data-field="lokalizacja" data-value="Online"><span class="qo-emoji">💻</span>Online</button>
         </div>
       </div>
 
@@ -488,7 +489,7 @@
     const LEAD_FIELDS = [
       'imie', 'email', 'telefon', 'klasa', 'etap', 'typEgzaminu', 'przedmiot',
       'poziom', 'cel', 'pilnosc', 'forma', 'zgodaTelefon', 'zgodaEmail',
-      'wiadomosc', 'zrodlo', 'data'
+      'lokalizacja', 'wiadomosc', 'zrodlo', 'data'
     ];
 
     function normalizeLead(payload) {
@@ -570,7 +571,7 @@
     const GENERAL_SUBJECTS = ['Matematyka', 'Język angielski', 'Biologia', 'Chemia', 'Język polski', 'Język hiszpański', 'Geografia', 'WOS', 'Inny'];
     const CORE_LEVEL_SUBJECTS = ['Matematyka', 'Język polski', 'Język angielski'];
 
-    const answers = { grade: '', classNumber: '', subject: '', poziom: '', goal: '', urgency: '', format: '', name: '', email: '', phone: '' };
+    const answers = { grade: '', classNumber: '', subject: '', poziom: '', goal: '', urgency: '', lokalizacja: '', name: '', email: '', phone: '' };
     let currentStepId = 'intro';
 
     function getExamType() {
@@ -585,7 +586,7 @@
       if (answers.grade && CLASS_NUMBERS[answers.grade]) order.push('grade-detail');
       order.push('subject');
       if (getExamType() === 'matura' && CORE_LEVEL_SUBJECTS.includes(answers.subject)) order.push('poziom');
-      order.push('goal', 'urgency', 'format', 'contact');
+      order.push('goal', 'urgency', 'lokalizacja', 'contact');
       return order;
     }
 
@@ -661,7 +662,7 @@
     }
 
     function renderSummary() {
-      const chips = [answers.grade, answers.classNumber, answers.subject, answers.poziom, answers.goal, answers.urgency, answers.format].filter(Boolean);
+      const chips = [answers.grade, answers.classNumber, answers.subject, answers.poziom, answers.goal, answers.urgency, answers.lokalizacja].filter(Boolean);
       summaryEl.innerHTML = chips.map(c => `<span class="quiz-chip">${c}</span>`).join('');
     }
 
@@ -757,7 +758,7 @@
         poziom: answers.poziom,
         cel: answers.goal,
         pilnosc: answers.urgency,
-        forma: answers.format,
+        lokalizacja: answers.lokalizacja,
         zgodaTelefon: contactForm.consentPhone.checked,
         zgodaEmail: contactForm.consentEmail.checked,
         wiadomosc: 'Zgłoszenie z landing page /zapisz-sie',
@@ -768,7 +769,7 @@
       try {
         await window.postLead(QUIZ_SHEETS_URL, payload);
         if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, goal: answers.goal, urgency: answers.urgency, format: answers.format });
+          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, goal: answers.goal, urgency: answers.urgency, lokalizacja: answers.lokalizacja });
         }
         showStepId('success');
       } catch (err) {
