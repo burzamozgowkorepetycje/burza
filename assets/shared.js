@@ -21,6 +21,11 @@
   // widzimy realny status odpowiedzi: przy padniętym backendzie formularz
   // pokaże błąd i numer telefonu, zamiast po cichu gubić zgłoszenie.
   // Content-Type text/plain jest na liście bezpiecznych, więc nie ma preflightu.
+  //
+  // Bez keepalive: przy przekierowaniu Apps Script na googleusercontent.com
+  // WebKit potrafił odrzucić takie żądanie mimo dostarczenia go na serwer -
+  // lead zapisywał się w arkuszu, a użytkownik widział "Błąd - zadzwoń".
+  // Flaga dawała tylko dosyłanie przy zamknięciu karty w trakcie wysyłki.
   var SEND_TIMEOUT_MS = 15000;
 
   // Każdy formularz wysyła inny podzbiór pól (jedne mają klasę, inne etap,
@@ -61,7 +66,6 @@
     try {
       var response = await fetch(LEADS_URL, {
         method: 'POST',
-        keepalive: true,
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(normalizeLead({ ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() })),
         signal: controller ? controller.signal : undefined

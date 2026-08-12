@@ -513,7 +513,6 @@
       try {
         const response = await fetch(url, {
           method: 'POST',
-          keepalive: true,
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(normalizeLead(payload)),
           signal: controller ? controller.signal : undefined
