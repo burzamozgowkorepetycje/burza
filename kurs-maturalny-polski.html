@@ -253,6 +253,7 @@
         <div class="field"><label for="f-phone">Numer telefonu</label><input id="f-phone" required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
         <div class="field"><label for="f-grade">Obecna klasa</label><select id="f-grade" required name="grade"><option value="">Wybierz</option><option>Klasa 3 liceum</option><option>Klasa 4 liceum / 5 technikum</option><option>Poprawiam maturę</option></select></div>
         <div class="field full"><label for="f-score">Aktualny wynik z arkusza</label><select id="f-score" required name="score"><option value="">Wybierz</option><option>Poniżej 30%</option><option>30–49%</option><option>50–69%</option><option>70% lub więcej</option><option>Nie wiem</option></select></div>
+        <div class="field"><label for="f-lokalizacja">Lokalizacja</label><select id="f-lokalizacja" required name="lokalizacja"><option value="">Wybierz</option><option>Wyszków</option><option>Jabłonna (Legionowo)</option><option>Online</option></select></div>
         <button class="btn" type="submit">Umów bezpłatną konsultację →</button>
         <div class="form-status" id="leadStatus" role="status"></div>
         <div class="legal">Wysyłając formularz, zgadzasz się na kontakt w sprawie kursu. Zobacz <a href="/privacy-policy" target="_blank" rel="noopener">politykę prywatności</a>.</div>
@@ -267,13 +268,13 @@
     document.getElementById('szybki-zapis').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const name=document.getElementById('quickName').value.trim();const phone=document.getElementById('quickPhone').value.trim();
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:name,telefon:phone,typEgzaminu:'Matura',przedmiot:'Język polski (online lub Wyszków)',forma:'Online lub Wyszków',wiadomosc:'Szybki zapis z pierwszego ekranu'});Shared.track('Lead',{lead_type:'quick_course_form',exam:'matura',subject:'Język polski (online lub Wyszków)'});Shared.showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:name,telefon:phone,typEgzaminu:'Matura',przedmiot:'Język polski (online lub Wyszków)',lokalizacja:'Do ustalenia',wiadomosc:'Szybki zapis z pierwszego ekranu'});Shared.track('Lead',{lead_type:'quick_course_form',exam:'matura',subject:'Język polski (online lub Wyszków)'});Shared.showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
     document.getElementById('leadForm').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button[type="submit"]');const status=document.getElementById('leadStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),typEgzaminu:data.get('exam'),klasa:data.get('grade'),przedmiot:data.get('subject'),forma:'Online lub Wyszków',wiadomosc:`Aktualny wynik: ${data.get('score')}`});Shared.track('Lead',{lead_type:'course_form',exam:data.get('exam'),subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),typEgzaminu:data.get('exam'),klasa:data.get('grade'),przedmiot:data.get('subject'),lokalizacja:data.get('lokalizacja'),wiadomosc:`Aktualny wynik: ${data.get('score')}`});Shared.track('Lead',{lead_type:'course_form',exam:data.get('exam'),subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
   </script>

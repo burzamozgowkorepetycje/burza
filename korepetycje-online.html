@@ -1932,14 +1932,13 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" for="format">Forma zajęć</label>
-              <select class="form-select has-value" id="format" name="format" required>
-                <option value="" disabled>Wybierz formę</option>
-                <option value="online" selected>Online</option>
-                <option value="indywidualne">Indywidualne (stacjonarnie)</option>
-                <option value="dwojki">W dwójkach</option>
-                <option value="grupy">W grupach</option>
-              </select>
+              <label class="form-label" for="lokalizacja">Lokalizacja</label>
+                <select class="form-select" id="lokalizacja" name="lokalizacja" required>
+                  <option value="" disabled selected>Wybierz lokalizację</option>
+                  <option>Wyszków</option>
+                  <option>Jabłonna (Legionowo)</option>
+                  <option>Online</option>
+                </select>
             </div>
           </div>
           <p style="font-family:var(--body);font-size:0.78rem;color:var(--cream);opacity:0.45;line-height:1.5;margin-top:-0.5rem;">Zajęcia grupowe online dostępne obecnie dla matematyki, angielskiego i polskiego. Pozostałe przedmioty mają grupę wyłącznie stacjonarną w Wyszkowie - indywidualnie online zostają bez zmian.</p>
@@ -2064,11 +2063,12 @@
       </div>
 
       <!-- Step: Forma zajęć -->
-      <div class="quiz-step" data-step="format">
-        <p class="quiz-question">Jaka forma zajęć Cię interesuje?</p>
-        <div class="quiz-options" id="quiz-format-options">
-          <button class="quiz-option" data-field="format" data-value="Online"><span class="qo-emoji">💻</span>Online</button>
-          <button class="quiz-option" data-field="format" data-value="Stacjonarnie (Wyszków)"><span class="qo-emoji">📍</span>Stacjonarnie (Wyszków)</button>
+      <div class="quiz-step" data-step="lokalizacja">
+        <p class="quiz-question">Gdzie chcesz się uczyć?</p>
+        <div class="quiz-options" id="quiz-lokalizacja-options">
+          <button class="quiz-option" data-field="lokalizacja" data-value="Wyszków"><span class="qo-emoji">📍</span>Wyszków</button>
+          <button class="quiz-option" data-field="lokalizacja" data-value="Jabłonna (Legionowo)"><span class="qo-emoji">📍</span>Jabłonna (Legionowo)</button>
+          <button class="quiz-option" data-field="lokalizacja" data-value="Online"><span class="qo-emoji">💻</span>Online</button>
         </div>
       </div>
 
@@ -2243,7 +2243,7 @@
     const LEAD_FIELDS = [
       'imie', 'email', 'telefon', 'klasa', 'etap', 'typEgzaminu', 'przedmiot',
       'poziom', 'cel', 'pilnosc', 'forma', 'zgodaTelefon', 'zgodaEmail',
-      'wiadomosc', 'zrodlo', 'data'
+      'lokalizacja', 'wiadomosc', 'zrodlo', 'data'
     ];
 
     function normalizeLead(payload) {
@@ -2306,7 +2306,7 @@
         imie:     form.name.value,
         telefon:  form.phone.value,
         przedmiot: form.subject.value,
-        forma:    form.format.value,
+        lokalizacja: form.lokalizacja.value,
         wiadomosc: form.message.value,
         data:     new Date().toLocaleString('pl-PL')
       };
@@ -2354,13 +2354,13 @@
       'Zawodówka': [1, 2, 3]
     };
 
-    const answers = { grade: '', classNumber: '', subject: '', format: '', name: '', email: '', phone: '' };
+    const answers = { grade: '', classNumber: '', subject: '', lokalizacja: '', name: '', email: '', phone: '' };
     let currentStepId = 'intro';
 
     function stepOrder() {
       const order = ['intro', 'grade'];
       if (answers.grade && CLASS_NUMBERS[answers.grade]) order.push('grade-detail');
-      order.push('subject', 'format', 'contact');
+      order.push('subject', 'lokalizacja', 'contact');
       return order;
     }
 
@@ -2392,14 +2392,14 @@
     }
 
     function renderSummary() {
-      const chips = [answers.grade, answers.classNumber, answers.subject, answers.format].filter(Boolean);
+      const chips = [answers.grade, answers.classNumber, answers.subject, answers.lokalizacja].filter(Boolean);
       summaryEl.innerHTML = chips.map(c => `<span class="quiz-chip">${c}</span>`).join('');
     }
 
     let quizOpenTime = 0;
 
     function openQuiz() {
-      answers.grade = answers.classNumber = answers.subject = answers.format = answers.name = answers.email = answers.phone = '';
+      answers.grade = answers.classNumber = answers.subject = answers.lokalizacja = answers.name = answers.email = answers.phone = '';
       contactForm.reset();
       errorEl.classList.remove('show');
       submitBtn.disabled = false;
@@ -2488,7 +2488,7 @@
         klasa: answers.classNumber || answers.grade,
         etap: answers.grade,
         przedmiot: answers.subject,
-        forma: answers.format,
+        lokalizacja: answers.lokalizacja,
         zgodaTelefon: contactForm.consentPhone.checked,
         zgodaEmail: contactForm.consentEmail.checked,
         wiadomosc: 'Zgłoszenie z quizu na stronie',
@@ -2498,7 +2498,7 @@
       try {
         await window.postLead(QUIZ_SHEETS_URL, payload);
         if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, format: answers.format });
+          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, lokalizacja: answers.lokalizacja });
         }
         showStepId('success');
       } catch (err) {

@@ -425,13 +425,13 @@
     document.getElementById('szybki-zapis').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),cel:data.get('goal'),przedmiot:PAGE_SUBJECT,forma:'Do ustalenia',wiadomosc:'Szybki zapis z pierwszego ekranu'});Shared.track('Lead',{lead_type:'ads_adult_hero_form',subject:PAGE_SUBJECT});Shared.showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),cel:data.get('goal'),przedmiot:PAGE_SUBJECT,lokalizacja:'Do ustalenia',wiadomosc:'Szybki zapis z pierwszego ekranu'});Shared.track('Lead',{lead_type:'ads_adult_hero_form',subject:PAGE_SUBJECT});Shared.showStatus(status,'✓ Zgłoszenie wysłane. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
     document.getElementById('leadForm').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button[type="submit"]');const status=document.getElementById('leadStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),cel:data.get('goal'),przedmiot:data.get('subject'),forma:'Do ustalenia'});Shared.track('Lead',{lead_type:'ads_adult_main_form',subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy, zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),cel:data.get('goal'),przedmiot:data.get('subject'),lokalizacja:'Do ustalenia'});Shared.track('Lead',{lead_type:'ads_adult_main_form',subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy, zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
   </script>

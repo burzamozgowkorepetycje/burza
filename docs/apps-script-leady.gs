@@ -21,6 +21,7 @@ var FIELD_TO_HEADER = {
   telefon:      'Telefon',
   przedmiot:    'Przedmiot',
   forma:        'Forma',
+  lokalizacja:  'Lokalizacja',
   wiadomosc:    'Wiadomość',
   data:         'Data',
   klasa:        'Klasa',

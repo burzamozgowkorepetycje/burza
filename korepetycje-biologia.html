@@ -148,7 +148,7 @@
         <input type="hidden" name="subject" value="Biologia">
         <div class="field"><label for="f-name">Imię i nazwisko</label><input id="f-name" required name="name" autocomplete="name" placeholder="Jan Kowalski"></div>
         <div class="field"><label for="f-phone">Numer telefonu</label><input id="f-phone" required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
-        <div class="field full"><label for="f-format">Forma zajęć</label><select id="f-format" required name="format"><option value="">Wybierz</option><option>Zajęcia indywidualne (online)</option><option>Zajęcia indywidualne (Wyszków)</option><option>Kurs stacjonarny w Wyszkowie</option></select></div>
+        <div class="field full"><label for="f-lokalizacja">Lokalizacja</label><select id="f-lokalizacja" required name="lokalizacja"><option value="">Wybierz</option><option>Wyszków</option><option>Jabłonna (Legionowo)</option><option>Online</option></select></div>
         <div class="field full"><label>Wiadomość (opcjonalnie)</label><textarea name="message" rows="3" placeholder="Np. klasa, poziom, cel - wszystko, co pomoże nam przygotować się do rozmowy."></textarea></div>
         <button class="btn" type="submit">Umów bezpłatną konsultację →</button>
         <div class="form-status" id="leadStatus" role="status"></div>
@@ -163,7 +163,7 @@
     document.getElementById('leadForm').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button[type="submit"]');const status=document.getElementById('leadStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),przedmiot:data.get('subject'),forma:data.get('format'),wiadomosc:data.get('message')});Shared.track('Lead',{lead_type:'subject_form',subject:data.get('subject'),format:data.get('format')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),przedmiot:data.get('subject'),lokalizacja:data.get('lokalizacja'),wiadomosc:data.get('message')});Shared.track('Lead',{lead_type:'subject_form',subject:data.get('subject'),format:data.get('format')});Shared.showStatus(status,'✓ Dziękujemy! Zgłoszenie dotarło. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Zgłoszenie wysłane ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
     

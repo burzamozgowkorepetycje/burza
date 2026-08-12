@@ -36,7 +36,7 @@
   var LEAD_FIELDS = [
     'imie', 'email', 'telefon', 'klasa', 'etap', 'typEgzaminu', 'przedmiot',
     'poziom', 'cel', 'pilnosc', 'forma', 'zgodaTelefon', 'zgodaEmail',
-    'wiadomosc', 'zrodlo', 'data'
+    'lokalizacja', 'wiadomosc', 'zrodlo', 'data'
   ];
 
   function normalizeLead(payload) {
