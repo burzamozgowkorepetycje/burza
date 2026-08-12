@@ -523,6 +523,12 @@
         if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
         pushLeadSuccess();
         return text;
+      } catch (err) {
+        // Handler formularza połyka wyjątek i pokazuje tylko "Błąd", przez co nie
+        // da się ustalić przyczyny. Tu zostaje ślad w konsoli - przy zgłoszeniu
+        // problemu wystarczy przekleić tę linię.
+        console.error('[lead] wysyłka nieudana:', err && err.name, err && err.message);
+        throw err;
       } finally {
         if (timer) clearTimeout(timer);
       }

@@ -74,6 +74,12 @@
 
       pushLeadSuccess();
       return text;
+    } catch (err) {
+      // Handlery formularzy połykają wyjątek i pokazują tylko "Błąd", przez co
+      // nie da się ustalić przyczyny. Tu zostaje ślad w konsoli - przy zgłoszeniu
+      // problemu wystarczy przekleić tę linię.
+      console.error('[lead] wysyłka nieudana:', err && err.name, err && err.message);
+      throw err;
     } finally {
       if (timer) clearTimeout(timer);
     }
