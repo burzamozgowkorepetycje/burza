@@ -47,6 +47,13 @@
     return row;
   }
 
+  // Zdarzenie dla GTM - wypychane wyłącznie po potwierdzonym zapisie leada,
+  // nigdy przy błędzie wysyłki.
+  function pushLeadSuccess() {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'lead_form_success' });
+  }
+
   async function sendLead(payload) {
     var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     var timer = controller ? setTimeout(function () { controller.abort(); }, SEND_TIMEOUT_MS) : null;
@@ -65,6 +72,7 @@
       var text = (await response.text()).trim();
       if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
 
+      pushLeadSuccess();
       return text;
     } finally {
       if (timer) clearTimeout(timer);

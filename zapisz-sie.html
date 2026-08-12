@@ -466,7 +466,7 @@
   <footer class="lp-footer">
     <p>ul. Prosta 3 / ul. Sowińskiego 38, 07-200 Wyszków · <a href="tel:+48605947803">605 947 803</a></p>
     <p><a href="/privacy-policy">Polityka prywatności</a></p>
-    <p style="margin-top:0.75rem; font-size:0.68rem; max-width:520px; margin-left:auto; margin-right:auto;">*Gwarancja wyniku 70%+ obowiązuje zgodnie z warunkami umowy.</p>
+    <p style="margin-top:0.75rem; font-size:0.68rem; max-width:520px; margin-left:auto; margin-right:auto;">*Gwarancja wyniku 70%+ dotyczy wyłącznie matematyki i obowiązuje po spełnieniu wszystkich warunków określonych w regulaminie.</p>
   </footer>
 
   <script>
@@ -500,6 +500,13 @@
       return row;
     }
 
+    // Zdarzenie dla GTM - wypychane wyłącznie po potwierdzonym zapisie leada,
+    // nigdy przy błędzie wysyłki.
+    function pushLeadSuccess() {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'lead_form_success' });
+    }
+
     window.postLead = window.postLead || async function (url, payload) {
       const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
       const timer = controller ? setTimeout(() => controller.abort(), 15000) : null;
@@ -514,6 +521,7 @@
         if (!response.ok) throw new Error('Backend odpowiedział ' + response.status);
         const text = (await response.text()).trim();
         if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
+        pushLeadSuccess();
         return text;
       } finally {
         if (timer) clearTimeout(timer);
@@ -627,8 +635,8 @@
         } else {
           const isMath = answers.subject === 'Matematyka';
           proofTextEl.innerHTML = isMath
-            ? `<strong>80%</strong> średni wynik naszych uczniów na egzaminie · <strong>Gwarancja wyniku 70%+</strong>*`
-            : `<strong>80%</strong> średni wynik naszych uczniów na egzaminie`;
+            ? `<strong>80%</strong> średni wynik naszych maturzystów · <strong>Gwarancja wyniku 70%+*</strong>`
+            : `<strong>80%</strong> średni wynik naszych maturzystów`;
           proofBanner.style.display = 'flex';
         }
       }

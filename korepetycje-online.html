@@ -30,6 +30,7 @@
     "@type": "EducationalOrganization",
     "name": "Burza Mózgów Korepetycje",
     "alternateName": "Burza Mózgów Korepetycje Wyszków",
+    "foundingDate": "2023",
     "description": "Korepetycje online z matematyki, angielskiego i polskiego dla uczniów z całej Polski, prowadzone przez centrum korepetycji z Wyszkowa. Nr 1 na Google z oceną 5.0.",
     "url": "https://burza-mozgow-korepetycje.pl/",
     "telephone": "+48605947803",
@@ -1503,6 +1504,7 @@
     <span aria-current="page">Korepetycje online</span>
   </nav>
 
+  <main>
   <!-- ─── HERO ─── -->
   <section id="hero" aria-label="Nagłówek główny" style="padding-top:1.5rem;">
     <div class="blob blob-blush animate" style="width:520px;height:520px;top:-120px;right:-80px;" aria-hidden="true"></div>
@@ -1513,8 +1515,8 @@
       <h1 class="hero-headline fade-in fade-in-delay-1">
         Ci sami nauczyciele<br />co w Wyszkowie.<br />Zajęcia <span class="grad-text">online</span>.
       </h1>
-      <p class="hero-sub fade-in fade-in-delay-2">Zajęcia indywidualne online z matematyki, angielskiego i polskiego - z tymi samymi nauczycielami, którzy dają 80% średniego wyniku w Wyszkowie. Bez wychodzenia z domu, z dowolnego miejsca w Polsce.</p>
-      <p class="hero-offer fade-in fade-in-delay-3">Zajęcia online od 40 zł/h · Gwarancja wyniku 70%+</p>
+      <p class="hero-sub fade-in fade-in-delay-2">Indywidualne zajęcia online z matematyki, angielskiego i polskiego, prowadzone na żywo według tych samych programów co w naszych placówkach. Bez dojazdów i z dowolnego miejsca w Polsce.</p>
+      <p class="hero-offer fade-in fade-in-delay-3">Zajęcia online od 40 zł/h · Gwarancja wyniku 70%+*</p>
       <div class="hero-actions fade-in fade-in-delay-4">
         <a href="#contact" class="btn-primary">Umów bezpłatną konsultację online</a>
         <a href="tel:+48605947803" class="btn-call">📞 Zadzwoń teraz</a>
@@ -1662,8 +1664,8 @@
           <div class="why-item fade-in fade-in-delay-1">
             <span class="why-number">02</span>
             <div>
-              <h3 class="why-title"><span class="guarantee-badge">Gwarancja 70%+</span></h3>
-              <p class="why-desc">Jeśli uczeń nie osiągnie 70% na egzaminie, zwracamy pieniądze za ostatni miesiąc zajęć.* Stawiamy na wyniki, nie na słowa.</p>
+              <h3 class="why-title"><span class="guarantee-badge">Gwarancja 70%+*</span></h3>
+              <p class="why-desc">Gwarancja dotyczy wyłącznie matematyki i obowiązuje po spełnieniu wszystkich warunków określonych w regulaminie.</p>
             </div>
           </div>
           <div class="why-item fade-in fade-in-delay-2">
@@ -1950,6 +1952,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <!-- ─── FOOTER ─── -->
   <footer>
@@ -1994,7 +1997,7 @@
       <a href="/blog">Blog</a>
     </div>
     <div class="footer-guarantee">
-      <p>*Gwarancja wyniku 70%+ obowiązuje pod warunkiem spełnienia warunków umowy - m.in. regularnego uczestnictwa w zajęciach przez minimum 3 miesiące przed egzaminem oraz odrabiania zadanych prac domowych. Szczegółowe warunki określa umowa.</p>
+      <p>*Gwarancja wyniku 70%+ dotyczy wyłącznie matematyki i obowiązuje po spełnieniu wszystkich warunków określonych w regulaminie.</p>
     </div>
   </footer>
 
@@ -2255,6 +2258,13 @@
       return row;
     }
 
+    // Zdarzenie dla GTM - wypychane wyłącznie po potwierdzonym zapisie leada,
+    // nigdy przy błędzie wysyłki.
+    function pushLeadSuccess() {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'lead_form_success' });
+    }
+
     window.postLead = window.postLead || async function (url, payload) {
       const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
       const timer = controller ? setTimeout(() => controller.abort(), 15000) : null;
@@ -2269,6 +2279,7 @@
         if (!response.ok) throw new Error('Backend odpowiedział ' + response.status);
         const text = (await response.text()).trim();
         if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
+        pushLeadSuccess();
         return text;
       } finally {
         if (timer) clearTimeout(timer);
