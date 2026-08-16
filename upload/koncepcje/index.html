@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Burza Mózgów — 10 koncepcji reklam</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<meta name="omelette-owns-print" content="1">
+<style>
+  body { margin: 0; background: #08080a; }
+  @media print {
+    @page { size: A4 landscape; margin: 8mm; }
+    html, body { background: #08080a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body > * { zoom: 0.86; }
+    section { break-inside: avoid; break-after: page; page-break-after: always; padding-top: 18px !important; }
+    section:last-of-type { break-after: auto; page-break-after: auto; }
+  }
+  a { color: #ffd400; text-decoration: none; }
+  a:hover { color: #ffffff; }
+</style>
+</helmet>
+<div style="font-family: Inter, Helvetica, Arial, sans-serif; background: #08080a; color: #f2f1ed; padding: 64px 72px 120px; min-height: 100vh; box-sizing: border-box">
+  <div style="display: flex; flex-direction: column; gap: 10px; max-width: 900px; margin-bottom: 56px">
+    <div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #ffd400">Burza Mózgów · Jabłonna · zestawy reklam</div>
+    <h1 style="font-size: 46px; font-weight: 800; letter-spacing: -0.02em; margin: 0; line-height: 1.05">10 koncepcji, 3 formaty każda</h1>
+    <p style="font-size: 16px; line-height: 1.55; color: #9a9aa2; margin: 0; text-wrap: pretty">Podglądy skalowane; kreacje renderują się w pełnych wymiarach 1080 px. Wszystkie liczby, opinie i terminy pochodzą wyłącznie z listy faktów. Copy każdej koncepcji pod kreacjami, z licznikami znaków dla limitów Meta.</p>
+  </div>
+
+  <sc-for list="{{ concepts }}" as="c" hint-placeholder-count="3">
+    <section style="display: flex; flex-direction: column; gap: 22px; padding: 40px 0 48px; border-top: 1px solid #1e1e23">
+      <div style="display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap">
+        <span style="font-family: ui-monospace, Menlo, monospace; font-size: 13px; color: #ffd400; font-weight: 700">{{ c.n }}</span>
+        <h2 style="font-size: 26px; font-weight: 700; margin: 0; letter-spacing: -0.01em">{{ c.title }}</h2>
+        <span style="font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #6e6e77">{{ c.slug }}</span>
+        <span style="font-size: 12px; color: #6e6e77">{{ c.tpl }}</span>
+        <span style="font-size: 12px; color: #6e6e77">{{ c.set }}</span>
+      </div>
+
+      <div style="display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start">
+        <sc-for list="{{ c.creatives }}" as="cr" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 9px">
+            <div style="font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.08em; color: #74747d">{{ cr.fmt }}</div>
+            <div style="width: {{ cr.dw }}; height: {{ cr.dh }}; overflow: hidden; border: 1px solid #26262c; border-radius: 4px">
+              <div data-days="{{ cr.days }}" style="width: {{ cr.pw }}; height: {{ cr.ph }}; transform: {{ cr.tf }}; transform-origin: top left; background: {{ cr.bg }}; color: {{ cr.fg }}; box-sizing: border-box; padding: {{ cr.padY }} 96px; display: flex; flex-direction: column">
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 22px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: {{ cr.accentText }}">
+                  <span>Burza Mózgów</span>
+                  <span style="color: {{ cr.muted }}; letter-spacing: 0.06em; font-weight: 500; text-transform: none">{{ cr.setShort }}</span>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: {{ cr.gap }}">
+                  <sc-if value="{{ cr.hasLabel }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size: 26px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: {{ cr.accentText }}">{{ cr.label }}</div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasHl }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; flex-direction: column; gap: 4px; position: relative">
+                      <sc-if value="{{ cr.hasQuoteMark }}" hint-placeholder-val="{{ false }}">
+                        <div style="position: absolute; top: -595px; left: -32px; font-size: 700px; line-height: 1; font-weight: 800; color: {{ cr.accent }}; opacity: 0.18; z-index: 0; pointer-events: none">„</div>
+                      </sc-if>
+                      <sc-for list="{{ cr.hl }}" as="ln" hint-placeholder-count="3">
+                        <div style="font-size: {{ cr.hlSize }}; font-weight: 800; line-height: 1.06; letter-spacing: -0.025em; color: {{ ln.color }}; background: {{ ln.bg }}; align-self: flex-start; padding: {{ ln.pad }}; position: relative; z-index: 1">{{ ln.t }}</div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasCard }}" hint-placeholder-val="{{ false }}">
+                    <div style="background: {{ cr.cardBg }}; color: {{ cr.cardFg }}; padding: 44px 48px; border-radius: 20px; font-size: 36px; line-height: 1.34; font-weight: 500; text-wrap: pretty">{{ cr.cardText }}</div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasStat }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-direction: column; gap: 18px">
+                      <div style="font-size: {{ cr.statSize }}; font-weight: 800; line-height: 0.86; letter-spacing: -0.04em; color: {{ cr.accentText }}">{{ cr.statValue }}</div>
+                      <div style="font-size: 34px; line-height: 1.32; font-weight: 500; color: {{ cr.fg }}; max-width: 820px; text-wrap: pretty">{{ cr.statCaption }}</div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasReview }}" hint-placeholder-val="{{ false }}">
+                    <div style="background: {{ cr.cardBg2 }}; border: 1px solid {{ cr.border }}; border-radius: 24px; padding: 56px 52px; display: flex; flex-direction: column; gap: 28px">
+                      <div style="display: flex; align-items: center; gap: 18px">
+                        <span style="font-size: 40px; letter-spacing: 0.08em; color: {{ cr.accentText }}">★★★★★</span>
+                        <span style="font-size: 24px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: {{ cr.muted }}">Opinia z Google</span>
+                      </div>
+                      <div style="font-size: 44px; line-height: 1.28; font-weight: 600; letter-spacing: -0.01em; text-wrap: pretty">{{ cr.reviewQuote }}</div>
+                      <div style="font-size: 28px; font-weight: 500; color: {{ cr.muted }}">{{ cr.reviewSign }}</div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasFaq }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-direction: column; gap: 34px">
+                      <div style="font-size: 60px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; text-wrap: pretty">{{ cr.faqQ }}</div>
+                      <div style="background: {{ cr.cardBg2 }}; border-left: 6px solid {{ cr.accent }}; border-radius: 4px 20px 20px 4px; padding: 40px 44px; font-size: 34px; line-height: 1.36; font-weight: 500; text-wrap: pretty">{{ cr.faqA }}</div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasRows }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; flex-direction: column; gap: 22px">
+                      <sc-for list="{{ cr.rows }}" as="r" hint-placeholder-count="3">
+                        <div style="display: flex; gap: 20px; align-items: baseline">
+                          <span style="font-size: 30px; font-weight: 800; color: {{ cr.accentText }}; min-width: 44px">{{ r.n }}</span>
+                          <span style="font-size: 30px; font-weight: 500; line-height: 1.34">{{ r.t }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasBa }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px">
+                      <div style="background: {{ cr.cardBg2 }}; border-radius: 20px; padding: 44px 40px; display: flex; flex-direction: column; gap: 16px; min-height: 300px">
+                        <div style="font-size: 24px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: {{ cr.muted }}">Wrzesień</div>
+                        <div style="font-size: 40px; font-weight: 700; line-height: 1.2; text-wrap: pretty">{{ cr.baLeft }}</div>
+                      </div>
+                      <div style="background: {{ cr.accent }}; color: #121214; border-radius: 20px; padding: 44px 40px; display: flex; flex-direction: column; gap: 16px; min-height: 300px">
+                        <div style="font-size: 24px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7">Po 3 miesiącach</div>
+                        <div style="font-size: 40px; font-weight: 800; line-height: 1.2; text-wrap: pretty">{{ cr.baRight }}</div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasMap }}" hint-placeholder-val="{{ false }}">
+                    <div style="background: {{ cr.cardBg2 }}; border: 1px solid {{ cr.border }}; border-radius: 20px; padding: 32px; position: relative; height: 300px; box-sizing: border-box">
+                      <svg viewBox="0 0 820 240" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+                        <line x1="40" y1="176" x2="780" y2="96" stroke="{{ cr.border }}" stroke-width="10" stroke-linecap="round"></line>
+                        <line x1="430" y1="20" x2="360" y2="220" stroke="{{ cr.border }}" stroke-width="10" stroke-linecap="round"></line>
+                        <circle cx="398" cy="130" r="20" fill="{{ cr.accent }}"></circle>
+                        <circle cx="398" cy="130" r="38" fill="none" stroke="{{ cr.accent }}" stroke-width="4" opacity="0.5"></circle>
+                        <text x="398" y="196" font-family="Inter" font-size="26" font-weight="700" fill="{{ cr.fg }}" text-anchor="middle">Jabłonna</text>
+                        <text x="60" y="150" font-family="Inter" font-size="24" font-weight="500" fill="{{ cr.muted }}">Legionowo 5 min</text>
+                        <text x="600" y="70" font-family="Inter" font-size="24" font-weight="500" fill="{{ cr.muted }}">Wieliszew</text>
+                        <text x="300" y="46" font-family="Inter" font-size="24" font-weight="500" fill="{{ cr.muted }}">Chotomów</text>
+                      </svg>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasAddress }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size: 34px; font-weight: 600; line-height: 1.3">{{ cr.address }}</div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasSub }}" hint-placeholder-val="{{ true }}">
+                    <div style="font-size: 30px; font-weight: 500; line-height: 1.34; color: {{ cr.fg }}; text-wrap: pretty">{{ cr.sub }}</div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasChips }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap">
+                      <sc-for list="{{ cr.chips }}" as="ch" hint-placeholder-count="3">
+                        <span style="border: 2px solid {{ cr.border2 }}; border-radius: 999px; padding: 14px 26px; font-size: 26px; font-weight: 600">{{ ch }}</span>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasPhone }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; align-items: center; gap: 24px">
+                      <span style="width: 84px; height: 84px; border-radius: 999px; background: {{ cr.accent }}; color: #121214; display: flex; align-items: center; justify-content: center; font-size: 44px">☎</span>
+                      <span style="font-size: 72px; font-weight: 800; letter-spacing: -0.02em">605 947 803</span>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cr.hasBtn }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex">
+                      <span style="background: {{ cr.accent }}; color: #121214; font-size: 32px; font-weight: 700; padding: 26px 44px; border-radius: 999px">{{ cr.btn }}</span>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 22px; font-weight: 500; color: {{ cr.muted }}">
+                  <span>ul. Zegrzyńska 22, Jabłonna · online</span>
+                  <span>605 947 803</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background: #101013; border: 1px solid #1e1e23; border-radius: 14px; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; max-width: 1080px">
+        <div style="font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6e6e77">copy.md</div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">Hook</div>
+          <div style="font-size: 17px; font-weight: 600; line-height: 1.45; color: #ffd400; text-wrap: pretty">{{ c.hook }}</div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">Tekst główny · {{ c.primaryLen }} zn.</div>
+          <div style="font-size: 17px; line-height: 1.6; color: #dcdcd8; text-wrap: pretty">{{ c.primary }}</div>
+        </div>
+        <div style="display: flex; gap: 40px; flex-wrap: wrap; font-size: 15px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">Nagłówek Meta · {{ c.mhLen }}</span>
+            <span style="font-weight: 600">{{ c.mh }}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">Opis · {{ c.mdLen }}</span>
+            <span style="font-weight: 600">{{ c.md }}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">Link</span>
+            <span style="font-weight: 600; color: #ffd400">{{ c.url }}</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">CTA</span>
+            <span style="font-weight: 600">{{ c.cta }}</span>
+          </div>
+        </div>
+        <sc-if value="{{ c.hasAlts }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #1e1e23; padding-top: 16px">
+            <div style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6e6e77">Alternatywne hooki</div>
+            <sc-for list="{{ c.alts }}" as="a" hint-placeholder-count="2">
+              <div style="font-size: 16px; line-height: 1.5; color: #dcdcd8">{{ a }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+  </sc-for>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#ffd400&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#ffd400&quot;,&quot;#ffc300&quot;,&quot;#f5e050&quot;,&quot;#ffd400&quot;]},&quot;days&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:14,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Countdown 1–7.09&quot;},&quot;previewWidth&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:330,&quot;min&quot;:240,&quot;max&quot;:540,&quot;step&quot;:30,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Podgląd&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent ?? '#ffd400';
+    const days = this.props.days ?? 5;
+    const DISP = this.props.previewWidth ?? 330;
+    const FMT = [['1080×1080', 1080, 1080, 120], ['1080×1350', 1080, 1350, 170], ['1080×1920', 1080, 1920, 260]];
+    const GAP = { 1080: 34, 1350: 44, 1920: 58 };
+
+    const dark = {
+      bg: '#0d0d0f', fg: '#f5f4f0', muted: '#9c9ca4', border: '#2c2c33', border2: '#44444d',
+      cardBg: '#000000', cardFg: '#ffffff', cardBg2: '#1a1a1e'
+    };
+    const light = {
+      bg: '#f5f3ec', fg: '#141416', muted: '#55555e', border: '#cfcabb', border2: '#a8a294',
+      cardBg: '#141416', cardFg: '#ffffff', cardBg2: '#ffffff'
+    };
+    const accentTextFor = isLight => isLight ? '#141416' : accent;
+
+    const defs = [
+      {
+        n: '01', slug: 'cena-40', title: 'Cena wprost', tpl: 'Headline Statement', set: 'Korepetycje', setShort: 'Korepetycje',
+        hl: [['Korepetycje w Jabłonnie.', 0], ['Zajęcia już od 40 zł', 0], ['za godzinę.', 1]], hlSize: 74,
+        sub: 'Matematyka · polski · angielski · inne przedmioty · także online',
+        chips: ['5,0 · 100+ opinii', '80% średni wynik', '5 min od Legionowa'],
+        btn: 'Umów bezpłatną diagnozę',
+        hook: 'Godzina korepetycji w Jabłonnie kosztuje od 40 zł.',
+        primary: 'Godzina korepetycji w Jabłonnie kosztuje od 40 zł. Zaczynamy od bezpłatnej diagnozy: 45 minut, po których wiadomo, gdzie dokładnie jest luka i co robimy dalej. ul. Zegrzyńska 22, Jabłonna. Telefon 605 947 803.',
+        mh: 'Zajęcia od 40 zł/h – Jabłonna', md: 'Bezpłatna diagnoza',
+        url: 'https://burza-mozgow-korepetycje.pl/jablonna', cta: 'Dowiedz się więcej'
+      },
+      {
+        n: '02', slug: 'nowa-matematyka', title: 'Rodzic vs nowa matematyka', tpl: 'Problem/Solution · relatability', set: 'Korepetycje', setShort: 'Korepetycje',
+        quoteMark: true,
+        hl: [['„Mamo, my to inaczej', 0], ['robimy w szkole.”', 0]], hlSize: 70,
+        cardText: 'Znasz to? Nie musisz uczyć się matematyki od nowa. My to robimy z Twoim dzieckiem — od 40 zł za godzinę.',
+        btn: 'Umów bezpłatną diagnozę',
+        hook: '„Mamo, my to inaczej robimy w szkole.”',
+        primary: '„Mamo, my to inaczej robimy w szkole.” Nie musisz uczyć się matematyki od nowa — robimy to z Twoim dzieckiem, od 40 zł za godzinę. Diagnoza trwa 45 minut i kończy się planem na kartce. Jabłonna, 5 minut od Legionowa, także online.',
+        mh: 'Korepetycje Jabłonna – od 40 zł/h', md: 'Diagnoza za 0 zł',
+        url: '/jablonna', cta: 'Dowiedz się więcej'
+      },
+      {
+        n: '03', slug: 'opinia-87', title: 'Karta opinii', tpl: 'Review Card', set: 'Kursy E8/matura', setShort: 'Kursy E8 / matura',
+        review: ['„Bałam się, że córka nie zda matematyki. Po 3 miesiącach miała 87% na próbnej.”', '— mama uczennicy, Wyszków'],
+        sub: 'Kursy do matury i E8 · start 22 września · od 40 zł/h',
+        btn: 'Umów bezpłatną diagnozę',
+        hook: '„Bałam się, że córka nie zda matematyki.”',
+        primary: '„Bałam się, że córka nie zda matematyki.” Po 3 miesiącach miała 87% na próbnej. Mamy 100+ opinii z oceną 5,0, średni wynik uczniów to 80%, a z matematyki dajemy gwarancję 70%+. Kursy startują 22 września w Jabłonnie.',
+        mh: 'Kurs maturalny/E8 – start 22.09', md: 'Zapisy do 15 września',
+        url: '/jablonna/kursy-maturalne-e8', cta: 'Zapisz się'
+      },
+      {
+        n: '04', slug: 'wynik-91', title: 'Wynik ucznia', tpl: 'Stat Callout', set: 'Kursy', setShort: 'Kursy E8',
+        stat: ['91%', 'egzamin ósmoklasisty, syn pani Małgorzaty W.', 300],
+        sub: 'Średni wynik naszych uczniów: 80%.',
+        chips: ['Kurs do E8 w Jabłonnie · start 22.09 · od 40 zł/h'],
+        btn: 'Umów bezpłatną diagnozę',
+        hook: '91% na egzaminie ósmoklasisty. Nie talent — regularna praca od września.',
+        primary: '91% na egzaminie ósmoklasisty. Nie talent — regularna praca od września. Kurs to jedno spotkanie w tygodniu po 90 minut, próbne egzaminy i plan na cały rok. Z matematyki gwarantujemy 70%+. Start 22.09, ul. Zegrzyńska 22, Jabłonna.',
+        alts: ['Łagodniej: „91% na egzaminie ósmoklasisty po roku regularnej pracy od września.”', 'Bez oceny talentu: „Syn pani Małgorzaty W. miał 91% na egzaminie ósmoklasisty. Zaczął we wrześniu.”'],
+        mh: 'Kurs do egzaminu ósmoklasisty', md: 'Jabłonna · od 40 zł/h',
+        url: '/jablonna/kursy-maturalne-e8#e8', cta: 'Zapisz się'
+      },
+      {
+        n: '05', slug: 'faq-podrecznik', title: 'FAQ o podręczniku', tpl: 'FAQ Card', set: 'Korepetycje', setShort: 'Korepetycje',
+        label: 'Najczęstsze pytanie rodziców',
+        faq: ['Mamy w szkole inny podręcznik. Czy to problem?', 'Nie. Uczymy do egzaminu, nie z podręcznika — a przed sprawdzianem robimy powtórkę z tego, co jest w szkole.'],
+        sub: 'Zajęcia od 40 zł za godzinę · Jabłonna · online',
+        btn: 'Umów bezpłatną diagnozę',
+        hook: 'Mamy w szkole inny podręcznik. Czy to problem?',
+        primary: 'Mamy w szkole inny podręcznik. Czy to problem? Nie — uczymy do egzaminu, nie z podręcznika. Przed sprawdzianem robimy powtórkę z materiału, który dziecko ma aktualnie w szkole. Zajęcia od 40 zł za godzinę, Jabłonna lub online. Diagnoza bezpłatna.',
+        mh: 'Korepetycje Jabłonna / Legionowo', md: 'Od 40 zł za godzinę',
+        url: '/jablonna#faq', cta: 'Dowiedz się więcej'
+      },
+      {
+        n: '06', slug: 'zegrzynska-22', title: 'Nowe miejsce', tpl: 'Headline Statement z mapą', set: 'Korepetycje + Angielski', setShort: 'Korepetycje · Angielski',
+        hl: [['Nowa Burza', 0], ['Mózgów w Jabłonnie.', 1]], hlSize: 68,
+        map: true,
+        address: 'ul. Zegrzyńska 22 · zajęcia stacjonarne i online',
+        sub: 'od 40 zł za godzinę',
+        btn: 'Umów bezpłatną diagnozę',
+        hook: 'Od września Burza Mózgów jest 5 minut od Legionowa.',
+        primary: 'Od września Burza Mózgów jest 5 minut od Legionowa. ul. Zegrzyńska 22 w Jabłonnie: korepetycje ze wszystkich przedmiotów, kursy do matury i E8, angielski dla dzieci i dorosłych. Od 40 zł za godzinę, także online. Telefon 605 947 803.',
+        mh: 'Jabłonna, Zegrzyńska 22 – zapisy', md: 'Od 40 zł/h · online też',
+        url: '/jablonna#dojazd', cta: 'Dowiedz się więcej'
+      },
+      {
+        n: '07', slug: 'angielski-jablonna', title: 'Angielski lokalnie', tpl: 'Numbered List', set: 'Angielski', setShort: 'Angielski',
+        hl: [['Angielski w Jabłonnie', 0], ['od 40 zł za godzinę', 1]], hlSize: 66,
+        rows: [['1.', 'Dzieci od 6 lat — mówienie od pierwszej lekcji'], ['2.', 'Młodzież — egzamin ósmoklasisty i matura'], ['3.', 'Dorośli — wieczorami, w tygodniu']],
+        sub: 'ul. Zegrzyńska 22 · 5 min od Legionowa',
+        btn: 'Umów bezpłatną diagnozę poziomu',
+        hook: 'Angielski dla dziecka albo dla siebie — 5 minut od Legionowa.',
+        primary: 'Angielski dla dziecka albo dla siebie — 5 minut od Legionowa. Dzieci od 6 lat mówią od pierwszej lekcji, młodzież przygotowuje się do egzaminu ósmoklasisty i matury, dorośli uczą się wieczorami w tygodniu. Poziom sprawdzamy na bezpłatnej diagnozie. Od 40 zł/h.',
+        mh: 'Angielski Jabłonna – od 40 zł/h', md: 'Dzieci · młodzież · dorośli',
+        url: '/jablonna/angielski', cta: 'Dowiedz się więcej'
+      },
+      {
+        n: '07b', slug: 'angielski-jablonna-light', title: 'Angielski lokalnie — wariant jasny', tpl: 'Numbered List · light', set: 'Angielski', setShort: 'Angielski', light: true,
+        hl: [['Angielski w Jabłonnie', 0], ['od 40 zł za godzinę', 1]], hlSize: 66,
+        rows: [['1.', 'Dzieci od 6 lat — mówienie od pierwszej lekcji'], ['2.', 'Młodzież — egzamin ósmoklasisty i matura'], ['3.', 'Dorośli — wieczorami, w tygodniu']],
+        sub: 'ul. Zegrzyńska 22 · 5 min od Legionowa',
+        btn: 'Umów bezpłatną diagnozę poziomu',
+        hook: 'Angielski dla dziecka albo dla siebie — 5 minut od Legionowa.',
+        primary: 'Angielski dla dziecka albo dla siebie — 5 minut od Legionowa. Dzieci od 6 lat mówią od pierwszej lekcji, młodzież przygotowuje się do egzaminu ósmoklasisty i matury, dorośli uczą się wieczorami w tygodniu. Poziom sprawdzamy na bezpłatnej diagnozie. Od 40 zł/h.',
+        mh: 'Angielski Jabłonna – od 40 zł/h', md: 'Dzieci · młodzież · dorośli',
+        url: '/jablonna/angielski', cta: 'Dowiedz się więcej'
+      },
+      {
+        n: '08', slug: 'zapisy-do-15-09', title: 'Termin zapisów', tpl: 'Headline Statement z datą', set: 'Kursy', setShort: 'Kursy E8 / matura',
+        stat: ['15.09', 'ostatni dzień zapisów na kursy do matury i E8 · start 22 września · Jabłonna', 220],
+        sub: 'od 40 zł za godzinę · gwarancja 70%+ z matematyki',
+        btn: 'Umów bezpłatną diagnozę', countdown: true,
+        hook: 'Kursy egzaminacyjne w Jabłonnie ruszają 22 września. Zapisy zamykamy 15.09.',
+        primary: 'Kursy egzaminacyjne w Jabłonnie ruszają 22 września, zapisy zamykamy 15.09. Zamykamy je, bo kurs prowadzi ten sam nauczyciel przez cały rok i skład ustalamy na start. W kursie: 90 minut w tygodniu, próbne egzaminy, gwarancja 70%+ z matematyki. Diagnoza bezpłatna.',
+        mh: 'Zapisy do 15 września', md: 'Start kursów 22.09',
+        url: '/jablonna/kursy-maturalne-e8', cta: 'Zapisz się'
+      },
+      {
+        n: '09', slug: 'przed-po', title: 'Przed / po — uczciwie', tpl: 'Before/After (tylko liczby)', set: 'Kursy', setShort: 'Kursy E8 / matura',
+        ba: ['„Bałam się, że nie zda”', '87% na próbnej'],
+        sub: 'Kursy do matury i E8 · Jabłonna · od 40 zł/h',
+        btn: 'Umów bezpłatną diagnozę',
+        hook: '„Bałam się, że córka nie zda matematyki. Po 3 miesiącach miała 87% na próbnej.”',
+        primary: '„Bałam się, że córka nie zda matematyki. Po 3 miesiącach miała 87% na próbnej.” Na kursie co tydzień to samo: powtórka, nowy dział, zadania z arkuszy, próbny egzamin. Gwarancja 70%+ z matematyki. Start 22 września w Jabłonnie.',
+        mh: 'Kurs maturalny/E8 – Jabłonna', md: 'Start 22.09 · od 40 zł/h',
+        url: '/jablonna/kursy-maturalne-e8', cta: 'Zapisz się'
+      },
+      {
+        n: '10', slug: 'retarget-v2', title: 'Retargeting — przypomnienie', tpl: 'Founder Message', set: 'Retargeting', setShort: 'Retargeting',
+        hl: [['Byłeś u nas na stronie.', 0], ['Nie zdążyłeś napisać?', 1]], hlSize: 64,
+        rows: [['·', 'Zajęcia od 40 zł za godzinę'], ['·', 'Bezpłatna diagnoza w 3 dni'], ['·', 'Jabłonna · Wyszków · online']],
+        phone: true,
+        btn: 'Umów bezpłatną diagnozę',
+        hook: 'Byłeś u nas na stronie — zapisy na wrzesień trwają.',
+        primary: 'Byłeś u nas na stronie — zapisy na wrzesień trwają. Diagnoza jest bezpłatna i mamy termin w ciągu 3 dni: 45 minut i plan na kartce. Zadzwoń 605 947 803, oddzwaniamy w 24 godziny. Jabłonna, Wyszków, online.',
+        mh: 'Bezpłatna diagnoza – Jabłonna', md: 'Oddzwaniamy w 24 h',
+        url: '/diagnoza', cta: 'Zadzwoń'
+      }
+    ];
+
+    const concepts = defs.map(d => {
+      const th = d.light ? light : dark;
+      const hl = (d.hl || []).map(([t, y]) => ({
+        t,
+        color: y ? (d.light ? '#141416' : accent) : th.fg,
+        bg: y && d.light ? accent : 'transparent',
+        pad: y && d.light ? '2px 12px' : '0'
+      }));
+      const build = (fmt, w, h, padY, extra) => Object.assign({
+        fmt: extra ? fmt + ' · countdown' : fmt,
+        pw: w + 'px', ph: h + 'px', dw: DISP + 'px', dh: Math.round(h * (DISP / w)) + 'px',
+        tf: 'scale(' + (DISP / w).toFixed(4) + ')', padY: padY + 'px', gap: GAP[h] + 'px',
+        bg: th.bg, fg: th.fg, muted: th.muted, border: th.border, border2: th.border2,
+        cardBg: th.cardBg, cardFg: th.cardFg, cardBg2: th.cardBg2, accent, accentText: accentTextFor(!!d.light), setShort: d.setShort,
+        days: extra ? String(days) : null,
+        hasLabel: !!d.label, label: d.label || '',
+        hasQuoteMark: !!d.quoteMark,
+        hasHl: hl.length > 0, hl, hlSize: (d.hlSize || 70) + 'px',
+        hasCard: !!d.cardText, cardText: d.cardText || '',
+        hasStat: !!d.stat, statValue: d.stat ? d.stat[0] : '', statCaption: d.stat ? d.stat[1] : '', statSize: (d.stat ? d.stat[2] : 200) + 'px',
+        hasReview: !!d.review, reviewQuote: d.review ? d.review[0] : '', reviewSign: d.review ? d.review[1] : '',
+        hasFaq: !!d.faq, faqQ: d.faq ? d.faq[0] : '', faqA: d.faq ? d.faq[1] : '',
+        hasRows: !!d.rows, rows: (d.rows || []).map(([n, t]) => ({ n, t })),
+        hasBa: !!d.ba, baLeft: d.ba ? d.ba[0] : '', baRight: d.ba ? d.ba[1] : '',
+        hasMap: !!d.map,
+        hasAddress: !!d.address, address: d.address || '',
+        hasSub: !!d.sub, sub: extra ? 'Zapisy zamykamy 15.09 — zostało ' + days + ' dni · start 22 września' : (d.sub || ''),
+        hasChips: !!d.chips, chips: d.chips || [],
+        hasPhone: !!d.phone,
+        hasBtn: true, btn: d.btn
+      });
+      const creatives = FMT.map(f => build(f[0], f[1], f[2], f[3], false));
+      if (d.countdown) creatives.push(build(FMT[0][0], 1080, 1080, 120, true));
+      return {
+        n: d.n, slug: d.slug, title: d.title, tpl: d.tpl, set: d.set, url: d.url, cta: d.cta,
+        hook: d.hook, primary: d.primary, primaryLen: d.primary.length,
+        mh: d.mh, mhLen: d.mh.length + '/40', md: d.md, mdLen: d.md.length + '/30',
+        hasAlts: !!d.alts, alts: d.alts || [], creatives
+      };
+    });
+
+    return { concepts };
+  }
+}
+
+</script>
+</body>
+</html>
