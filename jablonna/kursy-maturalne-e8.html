@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kurs do matury i egzaminu ósmoklasisty w Jabłonnie. Start 22 września, próbne egzaminy, gwarancja 70%+ z matematyki. Zajęcia od 40 zł za godzinę. Zapisy do 15 września.">
+  <meta name="description" content="Kurs do matury i egzaminu ósmoklasisty w Jabłonnie. Start 22 września, dwa próbne egzaminy w warunkach egzaminacyjnych i weekendowa powtórka. Zajęcia od 40 zł za godzinę. Zapisy do 15 września.">
   <title>Kursy maturalne i do egzaminu ósmoklasisty – Jabłonna / Legionowo | od 40 zł/h</title>
   <link rel="canonical" href="https://burza-mozgow-korepetycje.pl/jablonna/kursy-maturalne-e8">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://burza-mozgow-korepetycje.pl/jablonna/kursy-maturalne-e8">
   <meta property="og:title" content="Kursy maturalne i do egzaminu ósmoklasisty – Jabłonna / Legionowo | od 40 zł/h">
-  <meta property="og:description" content="Kurs do matury i egzaminu ósmoklasisty w Jabłonnie. Start 22 września, próbne egzaminy, gwarancja 70%+ z matematyki. Zajęcia od 40 zł za godzinę. Zapisy do 15 września.">
+  <meta property="og:description" content="Kurs do matury i egzaminu ósmoklasisty w Jabłonnie. Start 22 września, dwa próbne egzaminy w warunkach egzaminacyjnych i weekendowa powtórka. Zajęcia od 40 zł za godzinę. Zapisy do 15 września.">
   <meta property="og:image" content="https://burza-mozgow-korepetycje.pl/upload/wyniki-matura.jpg">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:site_name" content="Burza Mózgów Korepetycje">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Kursy maturalne i do egzaminu ósmoklasisty – Jabłonna / Legionowo | od 40 zł/h">
-  <meta name="twitter:description" content="Kurs do matury i egzaminu ósmoklasisty w Jabłonnie. Start 22 września, próbne egzaminy, gwarancja 70%+ z matematyki. Zajęcia od 40 zł za godzinę. Zapisy do 15 września.">
+  <meta name="twitter:description" content="Kurs do matury i egzaminu ósmoklasisty w Jabłonnie. Start 22 września, dwa próbne egzaminy w warunkach egzaminacyjnych i weekendowa powtórka. Zajęcia od 40 zł za godzinę. Zapisy do 15 września.">
   <meta name="twitter:image" content="https://burza-mozgow-korepetycje.pl/upload/wyniki-matura.jpg">
   <script type="application/ld+json">
   {
@@ -190,6 +190,8 @@
     .tabs a:hover{border-color:var(--blush-deep);color:var(--blush-deep)}
     .lead-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
     .lead-form .field{display:grid;gap:.35rem}
+    /* Bez tego atrybut hidden nie działa — reguła display z autora bije UA stylesheet. */
+    .lead-form .field[hidden]{display:none}
     .lead-form .field.full{grid-column:1/-1}
     .lead-form label{font-size:.78rem;font-weight:600}
     .lead-form input,.lead-form select{padding:.85rem .9rem;border:1px solid var(--gray);border-radius:2px;background:var(--white);font:400 .95rem var(--body);color:var(--dark);width:100%}
@@ -233,13 +235,13 @@
         <h1>Kursy maturalne i do egzaminu ósmoklasisty w Jabłonnie — start 22 września, zajęcia już od 40 zł/h</h1>
         <p class="lead">Zajęcia stacjonarne przy ul. Zegrzyńskiej 22 w Jabłonnie, 5 minut od Legionowa. Matematyka, język polski i język angielski — raz w tygodniu po 90 minut, z próbnymi egzaminami i weekendową powtórką w kwietniu.</p>
         <div class="hero-actions"><a class="btn" href="#formularz">Umów bezpłatną diagnozę</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a></div>
-        <div class="micro"><span>Średni wynik 80%</span><span>Gwarancja 70%+ z matematyki</span><span>2 próbne egzaminy w cenie</span></div>
+        <div class="micro"><span>Średni wynik 80%</span><span>2 próbne egzaminy w cenie</span><span>Raport dla rodzica co miesiąc</span></div>
       </div>
       
     </div></section>
 
     <section><div class="wrap">
-      <div class="tabs"><a href="#e8">Egzamin ósmoklasisty →</a><a href="#matura">Matura →</a><a href="#gwarancja">Gwarancja 70%+ →</a></div>
+      <div class="tabs"><a href="#e8">Egzamin ósmoklasisty →</a><a href="#matura">Matura →</a><a href="#terminy">Terminy →</a></div>
 
       <div class="section-head" id="e8"><span class="kicker">Egzamin ósmoklasisty</span><h2>Kurs E8 — matematyka, polski, angielski.</h2><p>Dla uczniów klas 8, którzy chcą wejść na wynik pozwalający wybrać liceum, a nie to, które zostanie.</p></div>
       <div class="months">
@@ -260,11 +262,12 @@
       </div>
     </div></section>
 
-    <section class="dark" id="gwarancja"><div class="wrap">
-      <div class="section-head"><span class="kicker">Gwarancja</span><h2>Jeśli uczeń nie osiągnie 70% z matematyki na maturze lub egzaminie ósmoklasisty, zwracamy pieniądze za ostatni miesiąc zajęć.</h2><p>Gwarancja obowiązuje po spełnieniu dwóch warunków — bez nich kurs po prostu nie zadziała, więc nie obiecujemy wyniku na wyrost.</p></div>
+    <section class="dark" id="postepy"><div class="wrap">
+      <div class="section-head"><span class="kicker">Postępy</span><h2>Wiadomo, na jakim wyniku jest uczeń — i to na piśmie.</h2><p>Nie obiecujemy wyniku z góry. Pokazujemy liczby: wynik procentowy po każdym próbnym egzaminie i krótki raport dla rodzica raz w miesiącu.</p></div>
       <div class="feature-grid">
-        <article class="feature"><span class="feature-icon">✓</span><h3>Obecność na zajęciach</h3><p>Uczeń uczestniczy w zajęciach regularnie — nieobecności odrabia z materiałów kursowych.</p></article>
-        <article class="feature"><span class="feature-icon">◉</span><h3>Zaliczone próbne egzaminy</h3><p>Uczeń pisze oba próbne egzaminy w wyznaczonych terminach i oddaje prace domowe.</p></article>
+        <article class="feature"><span class="feature-icon">◉</span><h3>Wynik procentowy po każdym próbnym</h3><p>Dwa próbne egzaminy w warunkach egzaminacyjnych, każdy sprawdzony według klucza CKE.</p></article>
+        <article class="feature"><span class="feature-icon">▶</span><h3>Omówienie arkusza punkt po punkcie</h3><p>Po próbnym przechodzimy przez arkusz i pokazujemy, gdzie dokładnie uciekły punkty.</p></article>
+        <article class="feature"><span class="feature-icon">✓</span><h3>Raport dla rodzica co miesiąc</h3><p>Co przerobiliśmy, na jakim wyniku jest uczeń i nad czym pracujemy w kolejnym miesiącu.</p></article>
       </div>
     </div></section>
 

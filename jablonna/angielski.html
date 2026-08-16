@@ -207,6 +207,8 @@
     .tabs a:hover{border-color:var(--blush-deep);color:var(--blush-deep)}
     .lead-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
     .lead-form .field{display:grid;gap:.35rem}
+    /* Bez tego atrybut hidden nie działa — reguła display z autora bije UA stylesheet. */
+    .lead-form .field[hidden]{display:none}
     .lead-form .field.full{grid-column:1/-1}
     .lead-form label{font-size:.78rem;font-weight:600}
     .lead-form input,.lead-form select{padding:.85rem .9rem;border:1px solid var(--gray);border-radius:2px;background:var(--white);font:400 .95rem var(--body);color:var(--dark);width:100%}
