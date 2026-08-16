@@ -50,6 +50,11 @@
       "source": "/kursy-maturalne-jablonna",
       "destination": "/jablonna/kursy-maturalne-e8",
       "permanent": true
+    },
+    {
+      "source": "/lokalizacja-zegrzynska-22-jablonna",
+      "destination": "/jablonna",
+      "permanent": true
     }
   ],
   "headers": [
