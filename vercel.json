@@ -8,7 +8,10 @@
     {
       "source": "/:path*",
       "has": [
-        { "type": "host", "value": "www.burza-mozgow-korepetycje.pl" }
+        {
+          "type": "host",
+          "value": "www.burza-mozgow-korepetycje.pl"
+        }
       ],
       "destination": "https://burza-mozgow-korepetycje.pl/:path*",
       "permanent": true
@@ -22,27 +25,67 @@
       "source": "/angielski-dla-mlodziezy",
       "destination": "/angielski-dla-dzieci",
       "permanent": true
+    },
+    {
+      "source": "/korepetycje-jablonna",
+      "destination": "/jablonna",
+      "permanent": true
+    },
+    {
+      "source": "/korepetycje-matematyka-jablonna",
+      "destination": "/jablonna#matematyka",
+      "permanent": true
+    },
+    {
+      "source": "/korepetycje-polski-jablonna",
+      "destination": "/jablonna#polski",
+      "permanent": true
+    },
+    {
+      "source": "/kurs-angielski-jablonna",
+      "destination": "/jablonna/angielski",
+      "permanent": true
+    },
+    {
+      "source": "/kursy-maturalne-jablonna",
+      "destination": "/jablonna/kursy-maturalne-e8",
+      "permanent": true
     }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/upload/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     }
   ]

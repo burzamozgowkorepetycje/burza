@@ -77,6 +77,9 @@
       if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
 
       pushLeadSuccess();
+      // Jeden wspólny finisz dla wszystkich formularzy w serwisie:
+      // dataLayer lead_form_submit + przekierowanie na /dziekujemy.
+      if (window.LeadFlow) return window.LeadFlow.complete(payload);
       return text;
     } catch (err) {
       // Handlery formularzy połykają wyjątek i pokazują tylko "Błąd", przez co

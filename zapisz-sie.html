@@ -354,7 +354,7 @@
             <div class="quiz-pillar"><span class="qp-icon">🤖</span><span class="qp-text">Asystent 24/7</span></div>
             <div class="quiz-pillar"><span class="qp-icon">🧩</span><span class="qp-text">Kompleksowy system nauki</span></div>
           </div>
-          <button class="btn-submit quiz-start-btn" id="quiz-start-btn" type="button">Zaczynamy →</button>
+          <button class="btn-submit quiz-start-btn" id="quiz-start-btn" type="button">Umów bezpłatną diagnozę</button>
           <p class="quiz-intro-note">Całość zajmie do 2 minut</p>
         </div>
       </div>
@@ -450,7 +450,7 @@
               <label for="quiz-consent-email">(Opcjonalnie) Zgadzam się na przesyłanie informacji o kursach i ofercie na podany adres e-mail. <a href="/privacy-policy" target="_blank" rel="noopener">Szczegóły</a></label>
             </div>
           </div>
-          <button type="submit" class="btn-submit" id="quiz-submit-btn">Umów bezpłatną konsultację</button>
+          <button type="submit" class="btn-submit" id="quiz-submit-btn">Umów bezpłatną diagnozę</button>
           <p class="quiz-error" id="quiz-error">Coś poszło nie tak. Spróbuj ponownie lub zadzwoń: <a href="tel:+48605947803">605 947 803</a></p>
         </form>
       </div>
@@ -525,6 +525,8 @@
         const text = (await response.text()).trim();
         if (text.indexOf('OK') !== 0) throw new Error('Nieoczekiwana odpowiedź: ' + text.slice(0, 80));
         pushLeadSuccess();
+        // Wspólny finisz: dataLayer lead_form_submit + /dziekujemy (patrz /assets/lead-flow.js).
+        if (window.LeadFlow) return window.LeadFlow.complete(payload);
         return text;
       } catch (err) {
         // Handler formularza połyka wyjątek i pokazuje tylko "Błąd", przez co nie
@@ -775,7 +777,7 @@
       } catch (err) {
         errorEl.classList.add('show');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Umów bezpłatną konsultację';
+        submitBtn.textContent = 'Umów bezpłatną diagnozę';
       }
     });
   })();
@@ -789,5 +791,6 @@
     }
   }
   </script>
+  <script src="/assets/lead-flow.js?v=20260816"></script>
 </body>
 </html>

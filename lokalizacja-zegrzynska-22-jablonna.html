@@ -98,7 +98,7 @@
     .opening-note{background:var(--blush-deep);color:#fff;text-align:center;padding:.7rem 1rem;font-size:.85rem;font-weight:600;letter-spacing:.02em}
     .opening-note b{font-weight:700}
     /* Formularz nad zgięciem — 3 pola, ten sam wzorzec co na stronach
-       przedmiotowych (/kurs-angielski-jablonna itd.). */
+       przedmiotowych. */
     .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
     .offer-card{background:var(--white);border:1px solid var(--gray);padding:1.8rem;box-shadow:var(--shadow,0 20px 50px rgba(32,28,26,.10))}
     .offer-card h2{margin:.6rem 0 1.1rem;font-size:1.5rem}
@@ -126,10 +126,10 @@
   <p class="opening-note"><b>Nowa szkoła – Jabłonna, ul. Zegrzyńska 22</b> — otwieramy 1 września. Zapisy już trwają, miejsca w grupach rezerwujemy w kolejności zgłoszeń.</p>
   <header class="wrap nav">
     <a class="brand" href="/"><picture><source srcset="upload/logo.webp" type="image/webp"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"></picture><span>Burza Mózgów Korepetycje</span></a>
-    <nav class="nav-links"><a href="/">Strona główna</a><a href="/lokalizacje">Wszystkie lokalizacje</a><a href="/kursy">Cennik i kursy</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Zapytaj o termin →</a></nav>
+    <nav class="nav-links"><a href="/">Strona główna</a><a href="/lokalizacje">Wszystkie lokalizacje</a><a href="/kursy">Cennik i kursy</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Umów bezpłatną diagnozę</a></nav>
     <button class="menu-toggle" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
   </header>
-  <nav class="mobile-menu" id="mobileMenu" aria-label="Menu mobilne"><a href="/">Strona główna</a><a href="/lokalizacje">Wszystkie lokalizacje</a><a href="/kursy">Cennik i kursy</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Zapytaj o termin →</a></nav>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Menu mobilne"><a href="/">Strona główna</a><a href="/lokalizacje">Wszystkie lokalizacje</a><a href="/kursy">Cennik i kursy</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Umów bezpłatną diagnozę</a></nav>
   <nav class="breadcrumbs wrap" aria-label="Okruszki"><ol><li><a href="/">Strona główna</a></li><li><a href="/lokalizacje">Lokalizacje</a></li><li aria-current="page">ul. Zegrzyńska 22, Jabłonna</li></ol></nav>
 
   <main>
@@ -137,7 +137,7 @@
       <div>
         <h1>Korepetycje w Jabłonnie - ul. Zegrzyńska 22.</h1>
         <p class="lead">Od 1 września uczymy także przy ul. Zegrzyńskiej 22 w Jabłonnie, 5 minut jazdy od centrum Legionowa. Zajęcia indywidualne od 40 zł/h, kursy grupowe od 60 zł tygodniowo.</p>
-        <div class="hero-actions"><a class="btn" href="#szybki-zapis">Zostaw numer →</a><a class="btn phone-btn" href="tel:+48605947803">Zadzwoń teraz</a></div>
+        <div class="hero-actions"><a class="btn" href="#szybki-zapis">Umów bezpłatną diagnozę</a><a class="btn phone-btn" href="tel:+48605947803">Zadzwoń teraz</a></div>
       </div>
       <aside class="offer-card">
         <span class="live">ZAPISY OTWARTE</span>
@@ -149,7 +149,7 @@
           <input id="quickPhone" name="phone" type="tel" required minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000">
           <label for="quickSubject">Przedmiot:</label>
           <select id="quickSubject" name="subject" required><option value="">Wybierz</option><option>Matematyka</option><option>Język angielski</option><option>Język polski</option><option>Biologia</option><option>Chemia</option><option>Geografia</option><option>WOS</option><option>Język hiszpański</option><option>Jeszcze nie wiem</option></select>
-          <button class="btn btn-dark" type="submit">Zapytaj o wolne miejsce →</button>
+          <button class="btn btn-dark" type="submit">Umów bezpłatną diagnozę</button>
           <div class="form-status" id="quickStatus" role="status"></div>
           <div class="quick-note">ul. Zegrzyńska 22, Jabłonna · od 40 zł/h · oddzwonimy w 24h. Wysyłając formularz, akceptujesz <a href="/privacy-policy" target="_blank" rel="noopener">politykę prywatności</a>.</div>
         </form>
@@ -184,9 +184,9 @@
     <section id="przedmioty"><div class="wrap">
       <div class="section-head"><span class="kicker">Dostępne przedmioty</span><h2>Ta sama oferta przedmiotowa, co w całej firmie.</h2><p>W Jabłonnie realizujemy zajęcia stacjonarne indywidualne oraz - w zależności od przedmiotu - grupowe. Szczegóły formy dla każdego przedmiotu znajdziesz na jego stronie.</p></div>
       <div class="subjects-grid">
-        <a class="subject-chip" href="/korepetycje-matematyka-jablonna">Matematyka</a>
-        <a class="subject-chip" href="/kurs-angielski-jablonna">Język angielski</a>
-        <a class="subject-chip" href="/korepetycje-polski-jablonna">Język polski</a>
+        <a class="subject-chip" href="/jablonna#matematyka">Matematyka</a>
+        <a class="subject-chip" href="/jablonna/angielski">Język angielski</a>
+        <a class="subject-chip" href="/jablonna#polski">Język polski</a>
         <a class="subject-chip" href="/korepetycje-biologia">Biologia</a>
         <a class="subject-chip" href="/korepetycje-chemia">Chemia</a>
         <a class="subject-chip" href="/korepetycje-geografia">Geografia</a>
@@ -194,9 +194,9 @@
         <a class="subject-chip" href="/korepetycje-hiszpanski">Język hiszpański</a>
       </div>
       <div class="subjects-grid" style="margin-top:1px">
-        <a class="subject-chip" href="/korepetycje-jablonna">Wszystkie korepetycje w Jabłonnie →</a>
-        <a class="subject-chip" href="/kursy-maturalne-jablonna">Kursy maturalne i E8 w Jabłonnie →</a>
-        <a class="subject-chip" href="/kurs-angielski-jablonna">Kurs angielskiego w Jabłonnie →</a>
+        <a class="subject-chip" href="/jablonna">Wszystkie korepetycje w Jabłonnie →</a>
+        <a class="subject-chip" href="/jablonna/kursy-maturalne-e8">Kursy maturalne i E8 w Jabłonnie →</a>
+        <a class="subject-chip" href="/jablonna/angielski">Kurs angielskiego w Jabłonnie →</a>
         <a class="subject-chip" href="/cennik">Pełny cennik →</a>
       </div>
     </div></section>
@@ -229,15 +229,16 @@
         <div class="field"><label for="f-phone">Numer telefonu</label><input id="f-phone" required name="phone" type="tel" minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000"></div>
         <div class="field full"><label for="f-subject">Przedmiot</label><select id="f-subject" required name="subject"><option value="">Wybierz</option><option>Matematyka</option><option>Język angielski</option><option>Język polski</option><option>Biologia</option><option>Chemia</option><option>Geografia</option><option>WOS</option><option>Język hiszpański</option></select></div>
         <div class="field full"><label>Wiadomość (opcjonalnie)</label><textarea name="message" rows="3" placeholder="Np. klasa, poziom, cel - wszystko, co pomoże nam przygotować się do rozmowy."></textarea></div>
-        <button class="btn" type="submit">Umów bezpłatną konsultację →</button>
+        <button class="btn" type="submit">Umów bezpłatną diagnozę</button>
         <div class="form-status" id="leadStatus" role="status"></div>
         <div class="legal">Wysyłając formularz, zgadzasz się na kontakt w sprawie zajęć. Zobacz <a href="/privacy-policy" target="_blank" rel="noopener">politykę prywatności</a>.</div>
       </form>
     </div></section>
   </main>
 
-  <footer class="wrap footer"><div class="footer-top"><div class="footer-brand"><b>Burza Mózgów Korepetycje</b><a href="tel:+48605947803">605 947 803</a></div><nav class="footer-sitemap" aria-label="Mapa strony"><div class="footer-col"><span class="footer-col-title">Przedmioty</span><a href="/korepetycje-matematyka">Matematyka</a><a href="/korepetycje-angielski">Angielski</a><a href="/angielski-wyszkow">Szkoła językowa</a><a href="/korepetycje-polski">Polski</a><a href="/korepetycje-biologia">Biologia</a><a href="/korepetycje-chemia">Chemia</a><a href="/korepetycje-geografia">Geografia</a><a href="/korepetycje-hiszpanski">Hiszpański</a><a href="/korepetycje-wos">WOS</a><a href="/korepetycje-online">Online</a></div><div class="footer-col"><span class="footer-col-title">Kursy</span><a href="/kursy-maturalne">Kursy maturalne</a><a href="/kursy-egzamin-osmoklasisty">Kurs E8</a><a href="/kursy">Wszystkie kursy</a><a href="/cennik">Cennik</a></div><div class="footer-col"><span class="footer-col-title">Lokalizacje</span><a href="/lokalizacje">Lokalizacje</a><a href="/lokalizacja-prosta-3-wyszkow">ul. Prosta 3</a><a href="/lokalizacja-sowinskiego-38-wyszkow">ul. Sowińskiego 38</a><a href="/lokalizacja-zegrzynska-22-jablonna">ul. Zegrzyńska 22</a></div><div class="footer-col"><span class="footer-col-title">Firma</span><a href="/o-nas">O nas</a><a href="/opinie">Opinie</a><a href="/wyniki">Wyniki</a><a href="/blog">Blog</a><a href="/kontakt">Kontakt</a></div></nav></div><div class="footer-row"><span>© 2026 Burza Mózgów Korepetycje · Wszelkie prawa zastrzeżone</span><a href="/privacy-policy">Polityka prywatności</a></div></footer>
-  <script src="/assets/shared.js"></script>
+  <footer class="wrap footer"><div class="footer-top"><div class="footer-brand"><b>Burza Mózgów Korepetycje</b><a href="tel:+48605947803">605 947 803</a></div><nav class="footer-sitemap" aria-label="Mapa strony"><div class="footer-col"><span class="footer-col-title">Przedmioty</span><a href="/korepetycje-matematyka">Matematyka</a><a href="/korepetycje-angielski">Angielski</a><a href="/angielski-wyszkow">Szkoła językowa</a><a href="/korepetycje-polski">Polski</a><a href="/korepetycje-biologia">Biologia</a><a href="/korepetycje-chemia">Chemia</a><a href="/korepetycje-geografia">Geografia</a><a href="/korepetycje-hiszpanski">Hiszpański</a><a href="/korepetycje-wos">WOS</a><a href="/korepetycje-online">Online</a></div><div class="footer-col"><span class="footer-col-title">Kursy</span><a href="/kursy-maturalne">Kursy maturalne</a><a href="/kursy-egzamin-osmoklasisty">Kurs E8</a><a href="/kursy">Wszystkie kursy</a><a href="/cennik">Cennik</a></div><div class="footer-col"><span class="footer-col-title">Lokalizacje</span><a href="/lokalizacje">Lokalizacje</a><a href="/jablonna">Jabłonna / Legionowo</a><a href="/lokalizacja-prosta-3-wyszkow">ul. Prosta 3</a><a href="/lokalizacja-sowinskiego-38-wyszkow">ul. Sowińskiego 38</a><a href="/lokalizacja-zegrzynska-22-jablonna">ul. Zegrzyńska 22</a></div><div class="footer-col"><span class="footer-col-title">Firma</span><a href="/diagnoza">Bezpłatna diagnoza</a><a href="/o-nas">O nas</a><a href="/opinie">Opinie</a><a href="/wyniki">Wyniki</a><a href="/blog">Blog</a><a href="/kontakt">Kontakt</a></div></nav></div><div class="footer-row"><span>© 2026 Burza Mózgów Korepetycje · Wszelkie prawa zastrzeżone</span><a href="/privacy-policy">Polityka prywatności</a></div></footer>
+  <script src="/assets/lead-flow.js?v=20260816"></script>
+  <script src="/assets/shared.js?v=20260816"></script>
   <script>
     document.getElementById('szybki-zapis').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');const status=document.getElementById('quickStatus');const data=new FormData(form);
