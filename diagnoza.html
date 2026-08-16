@@ -170,6 +170,39 @@
       .lead-form{grid-template-columns:1fr}
       .price-table th,.price-table td{padding:.8rem .7rem;font-size:.88rem}
     }
+    /* Krótki formularz w hero. Na desktopie druga kolumna obok nagłówka,
+       na telefonie ląduje zaraz pod H1 (przed leadem i przyciskami), żeby
+       zmieścił się nad zgięciem na iPhone SE 375x667. */
+    .hero-grid{align-items:start}
+    .hero-head{grid-column:1;grid-row:1}
+    .hero-body{grid-column:1;grid-row:2}
+    .hero .offer-card{grid-column:2;grid-row:1 / span 2;align-self:start}
+    .hero-body .lead{margin-top:1.2rem}
+    .callback-note{margin:.75rem 0 0;font-size:.82rem;font-weight:600;text-align:center}
+    .callback-note a{color:var(--blush-deep)}
+    .consent-note{margin:.5rem 0 0;font-size:.7rem;line-height:1.45;color:rgba(32,28,26,.55)}
+    .consent-note a{color:var(--blush-deep)}
+    @media(max-width:900px){
+      .hero-head,.hero-body,.hero .offer-card{grid-column:1;grid-row:auto}
+      .hero-grid{gap:24px}
+    }
+    @media(max-width:620px){
+      .hero{padding-top:.4rem}
+      /* Nad formularzem zostaje tylko H1 — plakietka i eyebrow zjadały 80 px,
+         przez co przycisk wypadał pod zgięciem na iPhone SE (375x667). */
+      .hero-head .eyebrow,.hero .offer-card .live{display:none}
+      .hero .offer-card{padding-top:.9rem}
+      h1{font-size:1.62rem;margin:.2rem 0 0}
+      .hero-grid{gap:18px}
+      .hero .offer-card{padding:1.1rem}
+      .hero .offer-card h2{font-size:1.15rem;margin:.5rem 0 .2rem}
+      .quick-form{gap:.35rem;margin-top:.7rem}
+      .quick-form input,.quick-form select{padding:.62rem .7rem;font-size:.94rem}
+      .quick-form .btn{margin-top:.55rem;padding:.75rem .6rem}
+      .callback-note{margin-top:.6rem;font-size:.79rem}
+      .consent-note{font-size:.67rem}
+      .hero-body .lead{margin-top:0}
+    }
   </style>
 </head>
 <body data-zrodlo="Landing bezpłatna diagnoza" data-tel-source="diagnoza">
@@ -184,14 +217,31 @@
 
   <main id="top">
     <section class="hero"><div class="wrap hero-grid">
-      <div>
+      <div class="hero-head">
         <span class="eyebrow"><i></i> Bezpłatnie · bez zobowiązań</span>
         <h1>Bezpłatna diagnoza — 45 minut, po których wiesz, co dalej</h1>
+      </div>
+      <aside class="offer-card">
+        <span class="live">ZAPISY OTWARTE</span>
+        <h2>Zostaw numer, oddzwonimy.</h2>
+        <form class="quick-form" id="heroForm" novalidate>
+          <label for="h-name">Imię i nazwisko</label>
+          <input id="h-name" name="name" required autocomplete="name" placeholder="Jan Kowalski">
+          <label for="h-phone">Numer telefonu</label>
+          <input id="h-phone" name="phone" type="tel" required minlength="9" inputmode="tel" autocomplete="tel" placeholder="500 000 000">
+          <label for="h-location">Lokalizacja</label>
+          <select id="h-location" name="location" required><option value="">Wybierz</option><option>Jabłonna – Legionowo</option><option>Wyszków</option><option>Online</option></select>
+          <button class="btn btn-dark" type="submit">Umów bezpłatną diagnozę</button>
+          <div class="form-status" id="heroStatus" role="status"></div>
+          <p class="callback-note">Oddzwaniamy w 15 min · <a href="tel:+48605947803">605 947 803</a></p>
+          <p class="consent-note">Wysyłając formularz, zgadzasz się na kontakt telefoniczny w sprawie zajęć. Zobacz <a href="/privacy-policy" target="_blank" rel="noopener">politykę prywatności</a>.</p>
+        </form>
+      </aside>
+      <div class="hero-body">
         <p class="lead">Sprawdzamy, na jakim poziomie naprawdę jest uczeń, i wychodzisz z pisemnym planem: ile godzin, jaka forma zajęć i ile to kosztuje. Wyszków, Jabłonna/Legionowo albo online.</p>
         <div class="hero-actions"><a class="btn" href="#formularz">Umów bezpłatną diagnozę</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a></div>
         <div class="micro"><span>45 minut</span><span>Plan na piśmie</span><span>Termin w 3 dni robocze</span></div>
       </div>
-      
     </div></section>
 
     <section><div class="wrap">
@@ -245,14 +295,38 @@
   <script src="/assets/shared.js?v=20260817"></script>
   <script>
     (function () {
-      var form = document.getElementById('leadForm');
-      var subject = document.getElementById('f-subject');
-      var otherWrap = document.getElementById('otherWrap');
-      var otherInput = document.getElementById('f-subject-other');
-      var status = document.getElementById('leadStatus');
+      // Dwa formularze: skrót w hero i pełny na dole (#formularz). Wysyłają
+      // to samo tą samą drogą — Shared.sendLead → LeadFlow (pola ukryte
+      // gclid/fbclid/utm/event_id, piksel + CAPI) → redirect na /dziekujemy.
+      function bind(id, statusId, buildPayload, leadType) {
+        var form = document.getElementById(id);
+        if (!form) return;
+        var status = document.getElementById(statusId);
+        form.addEventListener('submit', async function (event) {
+          event.preventDefault();
+          if (!form.checkValidity()) { form.reportValidity(); return; }
+          var button = form.querySelector('button[type="submit"]');
+          var label = button.textContent;
+          var data = new FormData(form);
+          button.disabled = true;
+          button.textContent = 'Wysyłanie…';
+          try {
+            await Shared.sendLead(buildPayload(data));
+            // Przy sprawnym LeadFlow sterowanie tu nie wraca (redirect).
+            window.location.assign('/dziekujemy');
+          } catch (error) {
+            Shared.showStatus(status, 'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803', 'error');
+            button.disabled = false;
+            button.textContent = label;
+          }
+        });
+      }
 
       // „Inny przedmiot" odsłania pole tekstowe — bez tego lead z biologii
       // trafia do arkusza jako „Inny" i nikt nie wie, o co chodziło.
+      var subject = document.getElementById('f-subject');
+      var otherWrap = document.getElementById('otherWrap');
+      var otherInput = document.getElementById('f-subject-other');
       function toggleOther() {
         var on = subject.value === 'Inny przedmiot';
         otherWrap.hidden = !on;
@@ -261,33 +335,27 @@
       subject.addEventListener('change', toggleOther);
       toggleOther();
 
-      form.addEventListener('submit', async function (event) {
-        event.preventDefault();
-        if (!form.checkValidity()) { form.reportValidity(); return; }
-        var button = form.querySelector('button[type="submit"]');
-        var data = new FormData(form);
+      bind('heroForm', 'heroStatus', function (data) {
+        return {
+            imie: data.get('name'),
+            telefon: data.get('phone'),
+            lokalizacja: data.get('location') || '',
+            zgodaTelefon: 'TAK (klauzula pod przyciskiem)'
+        };
+      });
+
+      bind('leadForm', 'leadStatus', function (data) {
         var przedmiot = data.get('subject') === 'Inny przedmiot'
           ? (data.get('subject_other') || 'Inny przedmiot')
           : (data.get('subject') || '');
-        button.disabled = true;
-        button.textContent = 'Wysyłanie…';
-        try {
-          await Shared.sendLead({
-            imie: data.get('name'),
-            telefon: data.get('phone'),
-            przedmiot: przedmiot,
-            klasa: data.get('class') || '',
-            lokalizacja: data.get('location') || '',
-            zgodaTelefon: data.get('consent') ? 'TAK' : ''
-          });
-          // Przy sprawnym LeadFlow sterowanie już tu nie wraca (redirect na
-          // /dziekujemy). Ta linia to zapasowe wyjście, gdyby skrypt nie wstał.
-          window.location.assign('/dziekujemy');
-        } catch (error) {
-          Shared.showStatus(status, 'Nie udało się wysłać zgłoszenia. Zadzwoń: 605 947 803', 'error');
-          button.disabled = false;
-          button.textContent = 'Umów bezpłatną diagnozę';
-        }
+        return {
+          imie: data.get('name'),
+          telefon: data.get('phone'),
+          przedmiot: przedmiot,
+          klasa: data.get('class') || '',
+          lokalizacja: data.get('location') || '',
+          zgodaTelefon: data.get('consent') ? 'TAK' : ''
+        };
       });
     })();
   </script>
