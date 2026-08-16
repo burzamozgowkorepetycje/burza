@@ -515,10 +515,13 @@
       const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
       const timer = controller ? setTimeout(() => controller.abort(), 15000) : null;
       try {
+        // LeadFlow.enrich dokłada gclid/fbclid/utm/landing_page/event_id, żeby
+        // atrybucja jechała do arkusza razem z leadem (import konwersji offline).
+        const row = window.LeadFlow ? window.LeadFlow.enrich(payload) : payload;
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(normalizeLead(payload)),
+          body: JSON.stringify(normalizeLead(row)),
           signal: controller ? controller.signal : undefined
         });
         if (!response.ok) throw new Error('Backend odpowiedział ' + response.status);
@@ -791,6 +794,6 @@
     }
   }
   </script>
-  <script src="/assets/lead-flow.js?v=20260816"></script>
+  <script src="/assets/lead-flow.js?v=20260817"></script>
 </body>
 </html>

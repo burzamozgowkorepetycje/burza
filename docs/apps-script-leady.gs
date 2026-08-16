@@ -33,7 +33,20 @@ var FIELD_TO_HEADER = {
   pilnosc:      'Pilność',
   zgodaTelefon: 'Zgoda tel.',
   zgodaEmail:   'Zgoda e-mail',
-  zrodlo:       'Źródło'
+  zrodlo:       'Źródło',
+  // Atrybucja z /assets/lead-flow.js - potrzebna do importu konwersji offline
+  // do Google Ads (gclid) i Meta (fbclid). „klik" to jedna kolumna zbiorcza:
+  // gclid, a gdy go nie ma - fbclid.
+  klik:         'gclid / fbclid',
+  gclid:        'gclid',
+  fbclid:       'fbclid',
+  utm_source:   'utm_source',
+  utm_medium:   'utm_medium',
+  utm_campaign: 'utm_campaign',
+  utm_content:  'utm_content',
+  utm_term:     'utm_term',
+  landing_page: 'Landing',
+  event_id:     'event_id'
 };
 
 // Kolumny prowadzone ręcznie - skrypt ich nie dotyka przy dopisywaniu leada.

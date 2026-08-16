@@ -64,10 +64,15 @@
     var timer = controller ? setTimeout(function () { controller.abort(); }, SEND_TIMEOUT_MS) : null;
 
     try {
+      // LeadFlow.enrich dokłada gclid/fbclid/utm/landing_page/event_id, żeby
+      // atrybucja jechała do arkusza razem z leadem (import konwersji offline).
+      var row = { ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() };
+      if (window.LeadFlow) row = window.LeadFlow.enrich(row);
+
       var response = await fetch(LEADS_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(normalizeLead({ ...payload, data: new Date().toLocaleString('pl-PL'), zrodlo: zrodlo() })),
+        body: JSON.stringify(normalizeLead(row)),
         signal: controller ? controller.signal : undefined
       });
 
