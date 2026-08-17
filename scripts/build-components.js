@@ -38,6 +38,7 @@ const PAGES = [
 const trackingHead = read('tracking-head.html');
 const gtmNoscript = read('gtm-noscript.html');
 const footerPartial = read('footer.html');
+const headAssets = read('head-assets.html');
 
 function read(name) {
   return fs.readFileSync(path.join(PARTIALS, name), 'utf8').trim();
@@ -210,4 +211,57 @@ function processPage(file) {
 }
 
 PAGES.forEach(processPage);
-console.log('Build komponentów zakończony.');
+
+// Tracking, zgody i favicon muszą być identyczne na wszystkich publicznych
+// dokumentach, nie tylko na stronach objętych wspólnym headerem. Ten przebieg
+// jest celowo wykonywany zawsze, także na wcześniej zbudowanych plikach.
+const GLOBAL_PAGES = fs.readdirSync(ROOT)
+  .filter((file) => file.endsWith('.html') && file !== 'redesign.html')
+  .concat(
+    fs.readdirSync(path.join(ROOT, 'jablonna'))
+      .filter((file) => file.endsWith('.html'))
+      .map((file) => path.join('jablonna', file))
+  );
+
+function refreshGlobalHead(file) {
+  const filePath = path.join(ROOT, file);
+  let html = fs.readFileSync(filePath, 'utf8');
+  const original = html;
+
+  const currentTracking = /\s*<!-- BM tracking start -->[\s\S]*?<!-- BM tracking end -->\s*/;
+  const legacyTracking = /\s*<!-- Google (?:Analytics 4|tag \(gtag\.js\)) -->[\s\S]*?<!-- Meta Pixel Code -->\s*<script>[\s\S]*?<\/script>\s*(?:<noscript>\s*<img[\s\S]*?facebook\.com\/tr[\s\S]*?<\/noscript>)?\s*/;
+
+  if (currentTracking.test(html)) {
+    html = html.replace(currentTracking, '\n  ' + trackingHead + '\n');
+  } else if (legacyTracking.test(html)) {
+    html = html.replace(legacyTracking, '\n  ' + trackingHead + '\n');
+  } else {
+    must(html.includes('</head>'), `[${file}] brak </head> do osadzenia trackingu`);
+    html = html.replace('</head>', '  ' + trackingHead + '\n</head>');
+  }
+
+  // Fallbacki noscript nie potrafią zebrać zgody, dlatego nie uruchamiamy
+  // w nich ani GTM, ani Meta. Rozwiązuje to też niepoprawny <noscript><img>
+  // umieszczony wcześniej w <head> strony głównej i strony online.
+  html = html.replace(
+    /\s*(?:<!-- Google Tag Manager \(noscript\) -->\s*)?<noscript>\s*<iframe[^>]*googletagmanager\.com\/ns\.html[\s\S]*?<\/noscript>\s*/g,
+    '\n'
+  );
+  html = html.replace(
+    /\s*<noscript>\s*<img[\s\S]*?facebook\.com\/tr[\s\S]*?<\/noscript>\s*/g,
+    '\n'
+  );
+
+  const currentHeadAssets = /\s*<!-- BM head assets start -->[\s\S]*?<!-- BM head assets end -->\s*/;
+  html = html.replace(currentHeadAssets, '\n');
+  must(html.includes('</head>'), `[${file}] brak </head> do osadzenia favicon i CMP`);
+  html = html.replace('</head>', '  ' + headAssets + '\n</head>');
+
+  if (html !== original) {
+    fs.writeFileSync(filePath, html, 'utf8');
+    console.log(`[${file}] tracking/favicon/consent OK`);
+  }
+}
+
+GLOBAL_PAGES.forEach(refreshGlobalHead);
+console.log('Build komponentów i wspólnego head zakończony.');

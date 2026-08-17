@@ -5,8 +5,8 @@ Kursy maturalne i przygotowanie do egzaminu ósmoklasisty.
 
 ## Typ projektu
 
-Statyczna strona HTML — jeden plik `index.html` z wbudowanym CSS i JS.
-**Brak zależności i brak kroku budowania.**
+Statyczna strona HTML z podstronami i wspólnymi komponentami w `partials/`
+oraz `assets/`. Build działa w czystym Node i nie ma zależności npm.
 
 ## Podgląd lokalny
 
@@ -20,7 +20,7 @@ lub po prostu otwórz `index.html` w przeglądarce.
 ## Build
 
 ```bash
-npm run build      # strona statyczna — nie wymaga budowania (no-op)
+npm run build      # synchronizuje wspólny tracking, favicon, zgody i komponenty
 ```
 
 ## Deployment
@@ -37,7 +37,8 @@ piksela (`fbq('track','Lead', …, {eventID})`), Conversions API i arkusza lead�
 Meta łączy oba źródła w jedno zdarzenie — dlatego **`/dziekujemy` nie może
 odpalać drugiego `fbq('track','Lead')`**.
 
-`gclid`, `fbclid` i `utm_*` zapamiętujemy na 90 dni w `localStorage`, dokładamy
+Po zgodzie marketingowej `gclid`, `fbclid` i `utm_*` zapamiętujemy na 90 dni
+w `localStorage`, dokładamy
 do każdego formularza jako pola ukryte i do payloadu leada — trafiają do arkusza
 (kolumna zbiorcza `gclid / fbclid`), co pozwala importować konwersje offline
 do Google Ads i Meta. Nagłówki arkusza dopisuje sam `docs/apps-script-leady.gs`
@@ -52,6 +53,17 @@ Zmienne środowiskowe na Vercelu (Project → Settings → Environment Variables
 | `META_TEST_EVENT_CODE` | Events Manager → „Testuj zdarzenia" | tylko na czas testu, potem usunąć |
 
 Bez tych zmiennych strona działa normalnie — endpoint tylko loguje pominięcie.
+
+## Zgody i Consent Mode v2
+
+`partials/tracking-head.html` ustawia wszystkie zgody analityczne i reklamowe
+na `denied` przed załadowaniem Google tag i GTM. Interfejs zgód znajduje się
+w `assets/consent.js` i `assets/consent.css`. Meta Pixel, Meta CAPI oraz trwała
+atrybucja kampanii uruchamiają się wyłącznie po zgodzie marketingowej.
+
+Zmiana w partialu jest propagowana na wszystkie publiczne dokumenty przez
+`npm run build`. Nie należy dodawać osobnych skryptów GA, GTM lub Meta bezpośrednio
+do pojedynczych plików HTML.
 
 Test: wejdź na `/jablonna?utm_source=test&gclid=TEST123&fbclid=TEST456`, wyślij
 formularz i sprawdź w „Testuj zdarzenia", czy jest **jedno** zdarzenie Lead

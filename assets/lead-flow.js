@@ -1,8 +1,8 @@
 /*
  * Wspólne zakończenie wysyłki leada dla całego serwisu.
  * Jedno miejsce, w którym:
- *   1) zapamiętujemy gclid/fbclid/utm na 90 dni (także gdy formularz jest
- *      na innej stronie niż ta, na którą trafiła reklama),
+ *   1) po zgodzie marketingowej zapamiętujemy gclid/fbclid/utm na 90 dni
+ *      (także gdy formularz jest na innej stronie niż strona wejścia),
  *   2) dokładamy te parametry do każdego formularza jako pola ukryte
  *      i do payloadu leada (LeadFlow.enrich) - stąd trafiają do arkusza,
  *   3) odpalamy Meta Lead: piksel w przeglądarce + Conversions API
@@ -17,8 +17,9 @@
  * Wywoływany z jednego punktu: Shared.sendLead (podstrony) i window.postLead
  * (index.html, korepetycje-online.html, zapisz-sie.html).
  *
- * Meta Lead odpala się WYŁĄCZNIE tutaj. Strona /dziekujemy nie może odpalać
- * drugiego fbq('track','Lead') - podwoiłaby leady w Menedżerze zdarzeń.
+ * Meta Lead odpala się WYŁĄCZNIE tutaj i WYŁĄCZNIE po zgodzie marketingowej.
+ * Strona /dziekujemy nie może odpalać drugiego fbq('track','Lead') -
+ * podwoiłaby leady w Menedżerze zdarzeń.
  */
 (function () {
   'use strict';
@@ -29,7 +30,12 @@
   var TTL_MS = 90 * 24 * 60 * 60 * 1000; // okno atrybucji Google/Meta
   var CAPI_URL = '/api/meta-lead';
 
+  function marketingAllowed() {
+    return !!(window.BMConsent && window.BMConsent.allows('marketing'));
+  }
+
   function readStore() {
+    if (!marketingAllowed()) return {};
     var raw = null;
     try { raw = localStorage.getItem(STORE_KEY); } catch (e) { /* tryb prywatny */ }
     if (!raw) {
@@ -46,14 +52,21 @@
   }
 
   function writeStore(store) {
+    if (!marketingAllowed()) return;
     var raw = JSON.stringify(store);
     try { localStorage.setItem(STORE_KEY, raw); } catch (e) { /* tryb prywatny */ }
     try { sessionStorage.setItem(STORE_KEY, raw); } catch (e) { /* j.w. */ }
   }
 
+  function clearStore() {
+    try { localStorage.removeItem(STORE_KEY); } catch (e) { /* tryb prywatny */ }
+    try { sessionStorage.removeItem(STORE_KEY); } catch (e) { /* j.w. */ }
+  }
+
   // Pusta wartość nigdy nie nadpisuje zapamiętanej: wejście z linku bez utm
   // nie może skasować atrybucji z kliknięcia w reklamę sprzed kilku dni.
   function capture() {
+    if (!marketingAllowed()) return {};
     var store = readStore();
     var data = store.data || {};
     try {
@@ -72,7 +85,12 @@
     return data;
   }
 
-  var attribution = capture();
+  var attribution = {};
+  function setAttribution(next) {
+    Object.keys(attribution).forEach(function (key) { delete attribution[key]; });
+    Object.keys(next || {}).forEach(function (key) { attribution[key] = next[key]; });
+  }
+  setAttribution(capture());
 
   function cookie(name) {
     var match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'));
@@ -133,6 +151,7 @@
 
   function hiddenFields() {
     var fields = {};
+    if (!marketingAllowed()) return fields;
     ATTR_KEYS.forEach(function (key) { if (attribution[key]) fields[key] = attribution[key]; });
     if (attribution.landing_page) fields.landing_page = attribution.landing_page;
     var browserId = fbp();
@@ -164,6 +183,16 @@
     });
   }
 
+  function removeAttributionFields() {
+    var names = ATTR_KEYS.concat(['landing_page', 'fbp', 'fbc']);
+    document.querySelectorAll('form').forEach(function (form) {
+      names.forEach(function (name) {
+        var field = form.querySelector('input[name="' + name + '"]');
+        if (field && field.type === 'hidden') field.remove();
+      });
+    });
+  }
+
   var sent = {};
 
   // Piksel + CAPI, oba z tym samym event_id. keepalive, bo zaraz po tym
@@ -173,6 +202,13 @@
     var id = eventId();
     if (sent[id]) return;
     sent[id] = true;
+
+    // Zgłoszenie nadal trafia do arkusza, ale Meta Pixel i CAPI są opcjonalnym
+    // marketingiem i nie mogą dostać danych bez świadomej zgody użytkownika.
+    if (!marketingAllowed()) {
+      pendingEventId = '';
+      return;
+    }
 
     var category = attribution.utm_content || 'brak';
     try {
@@ -235,6 +271,17 @@
     query: query,
     slug: slug
   };
+
+  window.addEventListener('bm:consent-updated', function (event) {
+    if (event.detail && event.detail.marketing) {
+      setAttribution(capture());
+      decorateForms();
+    } else {
+      clearStore();
+      setAttribution({});
+      removeAttributionFields();
+    }
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', decorateForms);

@@ -43,17 +43,114 @@
     ]
   }
   </script>
+  <!-- BM tracking start -->
+<!-- Consent Mode v2: domyślnie bez cookies analitycznych i reklamowych. -->
+<script>
+(function (w, d) {
+  'use strict';
+  var STORAGE_KEY = 'bm_consent_v1';
+  var META_PIXEL_ID = '37060592533531781';
+  var saved = null;
 
-  <!-- Google tag (gtag.js) -->
+  w.dataLayer = w.dataLayer || [];
+  w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
+  w.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    personalization_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+  w.gtag('set', 'ads_data_redaction', true);
+  w.gtag('set', 'url_passthrough', true);
+
+  try {
+    saved = JSON.parse(w.localStorage.getItem(STORAGE_KEY) || 'null');
+    if (!saved || typeof saved.analytics !== 'boolean' || typeof saved.marketing !== 'boolean') saved = null;
+  } catch (e) { saved = null; }
+
+  function googleState(state) {
+    return {
+      analytics_storage: state.analytics ? 'granted' : 'denied',
+      ad_storage: state.marketing ? 'granted' : 'denied',
+      ad_user_data: state.marketing ? 'granted' : 'denied',
+      ad_personalization: state.marketing ? 'granted' : 'denied',
+      personalization_storage: state.marketing ? 'granted' : 'denied'
+    };
+  }
+
+  function loadMeta() {
+    if (w.__bmMetaLoaded) return;
+    w.__bmMetaLoaded = true;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (w,d,'script','https://connect.facebook.net/en_US/fbevents.js');
+    w.fbq('consent', 'grant');
+    w.fbq('init', META_PIXEL_ID);
+    w.fbq('track', 'PageView');
+  }
+
+  function revokeMeta() {
+    if (typeof w.fbq === 'function') w.fbq('consent', 'revoke');
+    ['_fbp', '_fbc'].forEach(function (name) {
+      d.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax';
+      d.cookie = name + '=; Max-Age=0; path=/; domain=.' + w.location.hostname + '; SameSite=Lax';
+    });
+  }
+
+  function normalize(next) {
+    return {
+      analytics: !!(next && next.analytics),
+      marketing: !!(next && next.marketing),
+      decided: true,
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  var current = saved ? normalize(saved) : { analytics: false, marketing: false, decided: false, updatedAt: '' };
+  if (saved) {
+    w.gtag('consent', 'update', googleState(current));
+    if (current.marketing) loadMeta();
+  }
+
+  function save(next) {
+    current = normalize(next);
+    try { w.localStorage.setItem(STORAGE_KEY, JSON.stringify(current)); } catch (e) { /* tryb prywatny */ }
+    w.gtag('consent', 'update', googleState(current));
+    w.dataLayer.push({
+      event: 'consent_update',
+      consent_analytics: current.analytics ? 'granted' : 'denied',
+      consent_marketing: current.marketing ? 'granted' : 'denied'
+    });
+    if (current.marketing) loadMeta(); else revokeMeta();
+    w.dispatchEvent(new CustomEvent('bm:consent-updated', { detail: current }));
+    return current;
+  }
+
+  w.BMConsent = {
+    get: function () { return Object.assign({}, current); },
+    allows: function (type) { return type === 'analytics' ? current.analytics : type === 'marketing' ? current.marketing : false; },
+    save: save,
+    acceptAll: function () { return save({ analytics: true, marketing: true }); },
+    rejectAll: function () { return save({ analytics: false, marketing: false }); }
+  };
+})(window, document);
+</script>
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWWWQMM89P"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZWWWQMM89P');gtag('config','AW-18305829941');</script>
+<script>gtag('js',new Date());gtag('config','G-ZWWWQMM89P');gtag('config','AW-18305829941');</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NLNXJ3DC');</script>
-<!-- Meta Pixel Code -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','37060592533531781');fbq('track','PageView');</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<!-- Meta Pixel jest ładowany przez BMConsent dopiero po zgodzie marketingowej. -->
+<!-- BM tracking end -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
   <style>
     :root{
       --cream:#F7F4EF;--blush:#FF5CA8;--blush-deep:#C2185B;--dark:#201C1A;--white:#fff;--gray:#EDEBE7;
@@ -170,10 +267,17 @@
     }
   </style>
   <link rel="stylesheet" href="/assets/shared.css">
+  <!-- BM head assets start -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/consent.css">
+<script defer src="/assets/consent.js"></script>
+<!-- BM head assets end -->
 </head>
 <body data-zrodlo="Landing opinie" data-tel-source="opinie_landing">
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLNXJ3DC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <header class="wrap nav">
+<header class="wrap nav">
     <a class="brand" href="/"><picture><source srcset="upload/logo.webp" type="image/webp"><img class="brand-logo" src="upload/logo.jpg" alt="Logo Burza Mózgów Korepetycje"></picture><span>Burza Mózgów Korepetycje</span></a>
     <nav class="nav-links"><a href="/">Strona główna</a><a href="/wyniki">Wyniki</a><a href="/cennik">Cennik</a><a href="/kontakt">Kontakt</a><a class="btn phone-btn" href="tel:+48605947803">605 947 803</a><a class="btn" href="#zapis">Umów bezpłatną diagnozę</a></nav>
     <button class="menu-toggle" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
