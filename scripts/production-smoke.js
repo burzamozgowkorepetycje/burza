@@ -66,6 +66,7 @@ async function main() {
       if (!html.includes('/assets/icons/favicon-192.png')) fail(`${url}: brak favicon`);
       if (/\[ZDJĘCIE|\[PRZEDMIOT|\[IMIĘ|DO UZUPEŁNIENIA/i.test(html)) fail(`${url}: pozostał placeholder`);
       if (html.includes('facebook.com/tr?') || /<noscript>\s*<iframe[^>]*googletagmanager/i.test(html)) fail(`${url}: tracking noscript omija zgodę`);
+      if (url === ORIGIN + '/' && !html.includes('name="google-site-verification"')) fail(`${url}: brak weryfikacji Search Console`);
     }
   });
   await Promise.all(workers);

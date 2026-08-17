@@ -36,6 +36,7 @@ function warn(message) { warnings.push(message); }
 const robots = read('robots.txt');
 if (!robots.includes(`Sitemap: ${ORIGIN}/sitemap.xml`)) fail('robots.txt nie wskazuje kanonicznej sitemapy');
 if (!/User-agent:\s*\*/i.test(robots) || !/Allow:\s*\//i.test(robots)) fail('robots.txt nie zezwala botom na serwis');
+if (!read('index.html').includes('name="google-site-verification"')) fail('strona główna nie ma metatagu weryfikacyjnego Search Console');
 
 const sitemap = read('sitemap.xml');
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
