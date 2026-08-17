@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "pages": {
+    "/": {
+      "cluster": "korepetycje-lokalne",
+      "role": "hub",
+      "intent": "Znalezienie centrum korepetycji w Wyszkowie i Jabłonnie",
+      "primaryKeyword": "centrum korepetycji Wyszków",
+      "titleTerms": ["korepetycje", "wyszków"],
+      "h1Terms": ["korepetycje", "wyszkowie"]
+    },
+    "/korepetycje-online": {
+      "cluster": "korepetycje-online",
+      "role": "service",
+      "parent": "/",
+      "intent": "Zapis na korepetycje online z dowolnego przedmiotu",
+      "primaryKeyword": "korepetycje online",
+      "titleTerms": ["korepetycje online"],
+      "h1Terms": ["zajęcia", "online"]
+    },
+    "/kursy": {
+      "cluster": "kursy-egzaminacyjne",
+      "role": "hub",
+      "parent": "/",
+      "intent": "Porównanie wszystkich kursów do matury i egzaminu ósmoklasisty",
+      "primaryKeyword": "kursy egzaminacyjne",
+      "titleTerms": ["kursy egzaminacyjne", "matura", "e8"],
+      "h1Terms": ["kursy egzaminacyjne", "matura", "egzamin ósmoklasisty"],
+      "requiredLinks": ["/kursy-maturalne", "/kursy-egzamin-osmoklasisty", "/kurs-maturalny-matematyka", "/kurs-e8-matematyka"]
+    },
+    "/kurs-matematyka": {
+      "cluster": "kursy-egzaminacyjne-matematyka",
+      "role": "gateway",
+      "parent": "/kursy",
+      "intent": "Porównanie kursu maturalnego i kursu E8 z matematyki",
+      "primaryKeyword": "kursy z matematyki matura i E8",
+      "titleTerms": ["kursy z matematyki", "matura", "e8"],
+      "h1Terms": ["kursy z matematyki", "maturę", "egzamin ósmoklasisty"],
+      "requiredLinks": ["/kurs-maturalny-matematyka", "/kurs-maturalny-matematyka-rozszerzona", "/kurs-e8-matematyka", "/korepetycje-matematyka"]
+    },
+    "/kurs-polski": {
+      "cluster": "kursy-egzaminacyjne-polski",
+      "role": "gateway",
+      "parent": "/kursy",
+      "intent": "Porównanie kursu maturalnego i kursu E8 z języka polskiego",
+      "primaryKeyword": "kursy z polskiego matura i E8",
+      "titleTerms": ["kursy z polskiego", "matura", "e8"],
+      "h1Terms": ["kursy z języka polskiego", "maturę", "egzamin ósmoklasisty"],
+      "requiredLinks": ["/kurs-maturalny-polski", "/kurs-e8-polski", "/korepetycje-polski"]
+    },
+    "/kurs-angielski": {
+      "cluster": "kursy-egzaminacyjne-angielski",
+      "role": "gateway",
+      "parent": "/kursy",
+      "intent": "Porównanie kursu maturalnego i kursu E8 z języka angielskiego",
+      "primaryKeyword": "kursy z angielskiego matura i E8",
+      "titleTerms": ["kursy z angielskiego", "matura", "e8"],
+      "h1Terms": ["kursy z języka angielskiego", "maturę", "egzamin ósmoklasisty"],
+      "requiredLinks": ["/kurs-maturalny-angielski", "/kurs-e8-angielski", "/korepetycje-angielski", "/angielski-wyszkow"]
+    },
+    "/kursy-maturalne": {
+      "cluster": "kursy-maturalne",
+      "role": "category",
+      "parent": "/kursy",
+      "intent": "Wybór kursu maturalnego według przedmiotu",
+      "primaryKeyword": "kursy maturalne 2027",
+      "titleTerms": ["kursy maturalne"],
+      "h1Terms": ["kursy maturalne"],
+      "requiredLinks": ["/kurs-maturalny-matematyka", "/kurs-maturalny-polski", "/kurs-maturalny-angielski"]
+    },
+    "/kursy-egzamin-osmoklasisty": {
+      "cluster": "kursy-e8",
+      "role": "category",
+      "parent": "/kursy",
+      "intent": "Wybór kursu do egzaminu ósmoklasisty według przedmiotu",
+      "primaryKeyword": "kursy egzamin ósmoklasisty 2027",
+      "titleTerms": ["egzaminu ósmoklasisty"],
+      "h1Terms": ["egzaminu ósmoklasisty"],
+      "requiredLinks": ["/kurs-e8-matematyka", "/kurs-e8-polski", "/kurs-e8-angielski"]
+    },
+    "/kurs-maturalny-matematyka": {
+      "cluster": "kursy-maturalne-matematyka",
+      "role": "detail",
+      "parent": "/kursy-maturalne",
+      "intent": "Zapis na kurs do matury podstawowej z matematyki",
+      "primaryKeyword": "kurs maturalny matematyka podstawowa",
+      "titleTerms": ["kurs maturalny", "matematyki"],
+      "h1Terms": ["kurs maturalny", "matematyki"]
+    },
+    "/kurs-maturalny-matematyka-rozszerzona": {
+      "cluster": "kursy-maturalne-matematyka",
+      "role": "detail",
+      "parent": "/kursy-maturalne",
+      "intent": "Zapis na kurs do matury rozszerzonej z matematyki",
+      "primaryKeyword": "kurs maturalny matematyka rozszerzona",
+      "titleTerms": ["matematyka rozszerzona"],
+      "h1Terms": ["kurs maturalny", "matematyki", "poziom rozszerzony"]
+    },
+    "/kurs-maturalny-angielski": {
+      "cluster": "kursy-maturalne-angielski",
+      "role": "detail",
+      "parent": "/kursy-maturalne",
+      "intent": "Zapis na kurs maturalny z języka angielskiego",
+      "primaryKeyword": "kurs maturalny język angielski",
+      "titleTerms": ["kurs maturalny", "angielskiego"],
+      "h1Terms": ["kurs maturalny", "angielskiego"]
+    },
+    "/kurs-maturalny-polski": {
+      "cluster": "kursy-maturalne-polski",
+      "role": "detail",
+      "parent": "/kursy-maturalne",
+      "intent": "Zapis na kurs maturalny z języka polskiego",
+      "primaryKeyword": "kurs maturalny język polski",
+      "titleTerms": ["kurs maturalny", "polskiego"],
+      "h1Terms": ["kurs maturalny", "polskiego"]
+    },
+    "/kurs-e8-matematyka": {
+      "cluster": "kursy-e8-matematyka",
+      "role": "detail",
+      "parent": "/kursy-egzamin-osmoklasisty",
+      "intent": "Zapis na kurs do egzaminu ósmoklasisty z matematyki",
+      "primaryKeyword": "kurs E8 matematyka",
+      "titleTerms": ["kurs do egzaminu ósmoklasisty", "matematyki"],
+      "h1Terms": ["kurs do egzaminu ósmoklasisty", "matematyki"]
+    },
+    "/kurs-e8-angielski": {
+      "cluster": "kursy-e8-angielski",
+      "role": "detail",
+      "parent": "/kursy-egzamin-osmoklasisty",
+      "intent": "Zapis na kurs do egzaminu ósmoklasisty z języka angielskiego",
+      "primaryKeyword": "kurs E8 język angielski",
+      "titleTerms": ["kurs do egzaminu ósmoklasisty", "angielskiego"],
+      "h1Terms": ["kurs do egzaminu ósmoklasisty", "angielskiego"]
+    },
+    "/kurs-e8-polski": {
+      "cluster": "kursy-e8-polski",
+      "role": "detail",
+      "parent": "/kursy-egzamin-osmoklasisty",
+      "intent": "Zapis na kurs do egzaminu ósmoklasisty z języka polskiego",
+      "primaryKeyword": "kurs E8 język polski",
+      "titleTerms": ["kurs do egzaminu ósmoklasisty", "polskiego"],
+      "h1Terms": ["kurs do egzaminu ósmoklasisty", "polskiego"]
+    },
+    "/korepetycje-matematyka": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Bieżąca pomoc szkolna z matematyki w Wyszkowie",
+      "primaryKeyword": "korepetycje matematyka Wyszków",
+      "titleTerms": ["korepetycje", "matematyki", "wyszkowie"],
+      "h1Terms": ["bieżące korepetycje", "matematyki"]
+    },
+    "/korepetycje-polski": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Bieżąca pomoc szkolna z języka polskiego w Wyszkowie",
+      "primaryKeyword": "korepetycje język polski Wyszków",
+      "titleTerms": ["korepetycje", "polskiego", "wyszkowie"],
+      "h1Terms": ["bieżące korepetycje", "polskiego"]
+    },
+    "/korepetycje-angielski": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Bieżąca pomoc szkolna z języka angielskiego w Wyszkowie",
+      "primaryKeyword": "korepetycje język angielski Wyszków",
+      "titleTerms": ["korepetycje", "angielskiego", "wyszkowie"],
+      "h1Terms": ["bieżące korepetycje", "angielskiego"],
+      "requiredLinks": ["/kurs-maturalny-angielski", "/kurs-e8-angielski", "/angielski-wyszkow"]
+    },
+    "/angielski-wyszkow": {
+      "cluster": "szkola-angielskiego",
+      "role": "hub",
+      "parent": "/",
+      "intent": "Wybór rodzaju regularnej nauki angielskiego w Wyszkowie",
+      "primaryKeyword": "szkoła angielskiego Wyszków",
+      "titleTerms": ["szkoła angielskiego", "wyszków"],
+      "h1Terms": ["angielski", "wyszkowie"],
+      "requiredLinks": ["/angielski-dla-dzieci", "/angielski-dla-doroslych", "/korepetycje-angielski", "/kurs-maturalny-angielski", "/kurs-e8-angielski"]
+    },
+    "/angielski-dla-dzieci": {
+      "cluster": "szkola-angielskiego",
+      "role": "service",
+      "parent": "/angielski-wyszkow",
+      "intent": "Regularna nauka angielskiego dla dzieci i młodzieży w Wyszkowie",
+      "primaryKeyword": "angielski dla dzieci Wyszków",
+      "titleTerms": ["angielski dla dzieci", "wyszków"],
+      "h1Terms": ["angielski dla dzieci", "wyszkowie", "swobodnej komunikacji"],
+      "requiredLinks": ["/angielski-wyszkow", "/korepetycje-angielski", "/kurs-maturalny-angielski", "/kurs-e8-angielski"],
+      "forbiddenMetaTerms": ["arkusze CKE", "po maturę"]
+    },
+    "/angielski-dla-doroslych": {
+      "cluster": "szkola-angielskiego",
+      "role": "service",
+      "parent": "/angielski-wyszkow",
+      "intent": "Nauka angielskiego dla dorosłych w Wyszkowie",
+      "primaryKeyword": "angielski dla dorosłych Wyszków",
+      "titleTerms": ["angielski dla dorosłych", "wyszków"],
+      "h1Terms": ["angielski dla dorosłych"]
+    },
+    "/korepetycje-biologia": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Korepetycje z biologii w Wyszkowie",
+      "primaryKeyword": "korepetycje biologia Wyszków",
+      "titleTerms": ["korepetycje", "biologii", "wyszkowie"],
+      "h1Terms": ["korepetycje", "biologii"]
+    },
+    "/korepetycje-chemia": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Korepetycje z chemii w Wyszkowie",
+      "primaryKeyword": "korepetycje chemia Wyszków",
+      "titleTerms": ["korepetycje", "chemii", "wyszkowie"],
+      "h1Terms": ["korepetycje", "chemii"]
+    },
+    "/korepetycje-geografia": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Korepetycje z geografii w Wyszkowie",
+      "primaryKeyword": "korepetycje geografia Wyszków",
+      "titleTerms": ["korepetycje", "geografii", "wyszkowie"],
+      "h1Terms": ["korepetycje", "geografii"]
+    },
+    "/korepetycje-wos": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Korepetycje z WOS w Wyszkowie",
+      "primaryKeyword": "korepetycje WOS Wyszków",
+      "titleTerms": ["korepetycje", "wos", "wyszkowie"],
+      "h1Terms": ["korepetycje", "wos"]
+    },
+    "/korepetycje-hiszpanski": {
+      "cluster": "korepetycje-przedmiotowe",
+      "role": "service",
+      "parent": "/",
+      "intent": "Korepetycje z języka hiszpańskiego w Wyszkowie",
+      "primaryKeyword": "korepetycje hiszpański Wyszków",
+      "titleTerms": ["korepetycje", "hiszpańskiego", "wyszkowie"],
+      "h1Terms": ["korepetycje", "hiszpańskiego"]
+    },
+    "/lokalizacje": {
+      "cluster": "lokalizacje",
+      "role": "hub",
+      "parent": "/",
+      "intent": "Sprawdzenie wszystkich lokalizacji Burzy Mózgów",
+      "primaryKeyword": "Burza Mózgów lokalizacje",
+      "titleTerms": ["lokalizacje"],
+      "h1Terms": ["lokalizacje"]
+    },
+    "/lokalizacja-prosta-3-wyszkow": {
+      "cluster": "lokalizacje-wyszkow",
+      "role": "location",
+      "parent": "/lokalizacje",
+      "intent": "Dojazd do sali przy Prostej 3 w Wyszkowie",
+      "primaryKeyword": "korepetycje Prosta 3 Wyszków",
+      "titleTerms": ["prosta 3", "wyszków"],
+      "h1Terms": ["prosta 3", "wyszków"]
+    },
+    "/jablonna": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-hub",
+      "parent": "/lokalizacje",
+      "intent": "Korepetycje i kursy w Jabłonnie i Legionowie",
+      "primaryKeyword": "korepetycje Jabłonna Legionowo",
+      "titleTerms": ["jabłonna", "legionowo"],
+      "h1Terms": ["korepetycje", "jabłonnie", "legionowie"]
+    },
+    "/jablonna/angielski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Angielski w Jabłonnie i Legionowie",
+      "primaryKeyword": "angielski Jabłonna Legionowo",
+      "titleTerms": ["angielski", "jabłonna", "legionowo"],
+      "h1Terms": ["angielski", "jabłonnie", "legionowie"]
+    },
+    "/jablonna/kursy-maturalne-e8": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Kursy maturalne i E8 w Jabłonnie i Legionowie",
+      "primaryKeyword": "kursy maturalne E8 Jabłonna Legionowo",
+      "titleTerms": ["kurs maturalny", "e8", "jabłonna"],
+      "h1Terms": ["kursy maturalne", "egzaminu ósmoklasisty", "jabłonnie"]
+    },
+    "/diagnoza": {
+      "cluster": "konwersja",
+      "role": "service",
+      "parent": "/",
+      "intent": "Umówienie bezpłatnej diagnozy poziomu ucznia",
+      "primaryKeyword": "bezpłatna diagnoza edukacyjna",
+      "titleTerms": ["bezpłatna diagnoza"],
+      "h1Terms": ["bezpłatna diagnoza"]
+    },
+    "/lokalizacja-sowinskiego-38-wyszkow": {
+      "cluster": "lokalizacje-wyszkow",
+      "role": "location",
+      "parent": "/lokalizacje",
+      "intent": "Dojazd do sali przy Sowińskiego 38 w Wyszkowie",
+      "primaryKeyword": "korepetycje Sowińskiego 38 Wyszków",
+      "titleTerms": ["sowińskiego 38", "wyszków"],
+      "h1Terms": ["sowińskiego 38", "wyszków"]
+    },
+    "/cennik": {
+      "cluster": "informacje-handlowe",
+      "role": "commercial",
+      "parent": "/",
+      "intent": "Sprawdzenie cen korepetycji i kursów",
+      "primaryKeyword": "cennik korepetycji Wyszków",
+      "titleTerms": ["cennik", "korepetycji"],
+      "h1Terms": ["cennik"]
+    },
+    "/wyniki": {
+      "cluster": "zaufanie",
+      "role": "proof",
+      "parent": "/",
+      "intent": "Sprawdzenie wyników uczniów Burzy Mózgów",
+      "primaryKeyword": "wyniki uczniów Burza Mózgów",
+      "titleTerms": ["wyniki"],
+      "h1Terms": ["wyniki"]
+    },
+    "/opinie": {
+      "cluster": "zaufanie",
+      "role": "proof",
+      "parent": "/",
+      "intent": "Przeczytanie opinii o Burzy Mózgów",
+      "primaryKeyword": "opinie Burza Mózgów Korepetycje",
+      "titleTerms": ["opinie"],
+      "h1Terms": ["opinie"]
+    },
+    "/o-nas": {
+      "cluster": "firma",
+      "role": "trust",
+      "parent": "/",
+      "intent": "Poznanie zespołu i metody pracy Burzy Mózgów",
+      "primaryKeyword": "Burza Mózgów Korepetycje o nas",
+      "titleTerms": ["o nas"],
+      "h1Terms": ["poznaj burzę mózgów"]
+    },
+    "/kontakt": {
+      "cluster": "firma",
+      "role": "contact",
+      "parent": "/",
+      "intent": "Kontakt z Burzą Mózgów Korepetycje",
+      "primaryKeyword": "Burza Mózgów kontakt",
+      "titleTerms": ["kontakt"],
+      "h1Terms": ["kontakt"]
+    },
+    "/blog": {
+      "cluster": "poradniki",
+      "role": "hub",
+      "parent": "/",
+      "intent": "Wybór poradnika o nauce i egzaminach",
+      "primaryKeyword": "poradniki matura korepetycje",
+      "titleTerms": ["blog"],
+      "h1Terms": ["blog burzy mózgów"]
+    },
+    "/blog-jak-przygotowac-sie-do-matury-z-matematyki": {
+      "cluster": "poradniki-matura-matematyka",
+      "role": "article",
+      "parent": "/blog",
+      "intent": "Plan przygotowań do matury z matematyki",
+      "primaryKeyword": "jak przygotować się do matury z matematyki",
+      "titleTerms": ["przygotować", "matury", "matematyki"],
+      "h1Terms": ["przygotować", "matury", "matematyki"]
+    },
+    "/blog-jak-zdobyc-70-procent-z-matury-z-matematyki": {
+      "cluster": "poradniki-matura-matematyka",
+      "role": "article",
+      "parent": "/blog",
+      "intent": "Strategia zdobycia 70 procent z matury z matematyki",
+      "primaryKeyword": "jak zdobyć 70 procent z matury z matematyki",
+      "titleTerms": ["70%", "matury", "matematyki"],
+      "h1Terms": ["70%", "matury", "matematyki"]
+    },
+    "/blog-kurs-grupowy-czy-korepetycje-indywidualne": {
+      "cluster": "poradniki-wybor-zajec",
+      "role": "article",
+      "parent": "/blog",
+      "intent": "Porównanie kursu grupowego i korepetycji indywidualnych",
+      "primaryKeyword": "kurs grupowy czy korepetycje indywidualne",
+      "titleTerms": ["kurs grupowy", "korepetycje indywidualne"],
+      "h1Terms": ["kurs grupowy", "korepetycje indywidualne"]
+    },
+    "/privacy-policy": {
+      "cluster": "prawne",
+      "role": "legal",
+      "parent": "/",
+      "intent": "Zapoznanie się z polityką prywatności",
+      "primaryKeyword": "polityka prywatności Burza Mózgów",
+      "titleTerms": ["polityka prywatności"],
+      "h1Terms": ["polityka prywatności"]
+    }
+  }
+}
