@@ -90,6 +90,8 @@
     .number{display:inline-flex;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--cream);font-family:var(--display);font-size:1rem;color:var(--blush-deep);font-weight:600}
     .problem h3,.feature h3{font-size:1.25rem;margin:1rem 0 .5rem;font-weight:500}
     .problem p,.feature p{margin:0;color:rgba(32,28,26,.62);font-size:.95rem}
+    .pillars-grid .feature:first-child{grid-column:1/-1}
+    .pillars-grid .feature:first-child p{max-width:760px}
     .dark{background:var(--gray)}
     .dark .kicker{color:var(--blush-deep)}
     .feature-icon{display:inline-flex;align-items:center;justify-content:center;width:2.8rem;height:2.8rem;border-radius:50%;background:var(--cream);font-size:1.25rem;line-height:1}
@@ -220,6 +222,7 @@
       .proof-grid{grid-template-columns:1fr 1fr}
       .proof-item{padding:1.2rem 1rem}
       .problem-grid,.feature-grid{grid-template-columns:1fr}
+      .pillars-grid .feature:first-child{grid-column:auto}
       section{padding:4rem 0}
       .month{grid-template-columns:1fr auto;gap:.4rem}
       .month b{grid-column:1/-1}
