@@ -3548,9 +3548,7 @@
           btn.style.color = 'var(--blush)';
           btn.style.borderColor = 'var(--blush)';
           qcForm.reset();
-          if (typeof trackPixelEvent === 'function') {
-            trackPixelEvent('Lead', { lead_type: 'quick_contact_form', subject: przedmiot });
-          }
+          
         } catch (err) {
           btn.textContent = 'Błąd - zadzwoń: 605 947 803';
           btn.disabled = false;
@@ -3607,9 +3605,7 @@
           btn.style.color = 'var(--wine)';
           btn.style.borderColor = 'var(--wine)';
           hfForm.reset();
-          if (typeof trackPixelEvent === 'function') {
-            trackPixelEvent('Lead', { lead_type: 'hero_form', subject: przedmiot });
-          }
+          
         } catch (err) {
           btn.textContent = 'Błąd - zadzwoń: 605 947 803';
           btn.disabled = false;
@@ -3645,9 +3641,7 @@
         btn.style.borderColor = 'var(--wine)';
         form.reset();
         form.querySelectorAll('.form-select').forEach(s => s.classList.remove('has-value'));
-        if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'contact_form', subject: data.przedmiot });
-        }
+        
       } catch (err) {
         btn.textContent = 'Błąd - spróbuj ponownie';
         btn.disabled = false;
@@ -3824,9 +3818,7 @@
 
       try {
         await window.postLead(QUIZ_SHEETS_URL, payload);
-        if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, lokalizacja: answers.lokalizacja });
-        }
+        
         showStepId('success');
       } catch (err) {
         errorEl.classList.add('show');

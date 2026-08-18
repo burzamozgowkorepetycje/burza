@@ -2410,9 +2410,7 @@
         btn.style.color = 'var(--blush)';
         form.reset();
         form.querySelectorAll('.form-select').forEach(s => s.classList.remove('has-value'));
-        if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'contact_form', subject: data.przedmiot });
-        }
+        
       } catch (err) {
         btn.textContent = 'Błąd - spróbuj ponownie';
         btn.disabled = false;
@@ -2589,9 +2587,7 @@
 
       try {
         await window.postLead(QUIZ_SHEETS_URL, payload);
-        if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, lokalizacja: answers.lokalizacja });
-        }
+        
         showStepId('success');
       } catch (err) {
         errorEl.classList.add('show');

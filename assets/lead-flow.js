@@ -178,8 +178,12 @@
       idField.name = 'event_id';
       form.appendChild(idField);
       // event_id powstaje dopiero przy wysyłce - wpisujemy go w fazie
-      // przechwytywania, zanim handler formularza zbierze dane.
-      form.addEventListener('submit', function () { idField.value = eventId(); }, true);
+      // przechwytywania, zanim handler formularza zbierze dane. Przy okazji
+      // zapamiętujemy formularz, żeby complete() znało jego form_id i typ.
+      form.addEventListener('submit', function () {
+        idField.value = eventId();
+        pendingForm = form;
+      }, true);
     });
   }
 
@@ -244,16 +248,83 @@
     pendingEventId = '';
   }
 
+  // Jedno zdarzenie leada w całym serwisie: generate_lead. Parametry są
+  // opisowe (przedmiot, lokalizacja, typ) i nie zawierają identyfikatorów
+  // reklamowych ani danych osobowych, więc leci zawsze - także bez zgody
+  // marketingowej. Consent Mode sam decyduje, czy ping będzie z cookies.
+  var FORM_ID_BY_SLUG = {
+    'index': 'hero',
+    'zapisz-sie': 'zapisz-sie',
+    'jablonna': 'hub-jablonna',
+    'jablonna/angielski': 'jablonna-angielski',
+    'jablonna/kursy-maturalne-e8': 'jablonna-kursy',
+    'diagnoza': 'diagnoza',
+    'kursy-maturalne': 'kursy-maturalne',
+    'kursy-egzamin-osmoklasisty': 'kursy-e8',
+    'korepetycje-matematyka': 'korepetycje-matma',
+    'korepetycje-online': 'online'
+  };
+
+  var pendingForm = null;
+
+  function formId() {
+    if (pendingForm && pendingForm.dataset && pendingForm.dataset.formId) {
+      return pendingForm.dataset.formId;
+    }
+    return FORM_ID_BY_SLUG[slug()] || slug();
+  }
+
+  // Cztery wartości, o które prosi raportowanie: kurs / korepetycje /
+  // angielski / diagnoza. Strona i przedmiot wystarczą, żeby je rozstrzygnąć.
+  function typ(payload) {
+    if (pendingForm && pendingForm.dataset && pendingForm.dataset.typ) {
+      return pendingForm.dataset.typ;
+    }
+    var path = slug();
+    var subject = String(payload.przedmiot || payload.subject || '').toLowerCase();
+    if (path.indexOf('diagnoza') > -1) return 'diagnoza';
+    if (path.indexOf('kurs') > -1) return 'kurs';
+    if (subject.indexOf('angielski') > -1 || path.indexOf('angielski') > -1) return 'angielski';
+    return 'korepetycje';
+  }
+
+  // Formularze podają lokalizację w kilku wariantach („Jabłonna – Legionowo",
+  // „Do ustalenia"); raport chce czterech stałych wartości.
+  function lokalizacja(payload) {
+    var value = String(payload.lokalizacja || payload.location || '').toLowerCase();
+    if (value.indexOf('jabłonn') > -1 || value.indexOf('jablonn') > -1 || value.indexOf('legionow') > -1) return 'Jabłonna';
+    if (value.indexOf('wyszk') > -1) return 'Wyszków';
+    if (value.indexOf('online') > -1) return 'Online';
+    return 'Do ustalenia';
+  }
+
   function complete(payload, formLocation) {
     payload = payload || {};
     fireLead(payload);
+
+    var params = {
+      form_id: formId(),
+      lokalizacja: lokalizacja(payload),
+      przedmiot: payload.przedmiot || payload.subject || '',
+      typ: typ(payload)
+    };
+    // GA4 (i AW jako drugi cel konfiguracji gtag - tam to zwykłe zdarzenie,
+    // nie konwersja; konwersję Ads odpala GTM na lead_form_success).
+    try {
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', params);
+    } catch (e) { console.error('[lead] generate_lead:', e && e.message); }
+
     window.dataLayer = window.dataLayer || [];
+    // Ta sama nazwa w dataLayer, żeby dało się na niej oprzeć trigger w GTM.
     window.dataLayer.push({
-      event: 'lead_form_submit',
+      event: 'generate_lead',
+      form_id: params.form_id,
       form_location: formLocation || slug(),
-      subject: payload.przedmiot || payload.subject || '',
-      location: payload.lokalizacja || payload.location || ''
+      lokalizacja: params.lokalizacja,
+      przedmiot: params.przedmiot,
+      typ: params.typ
     });
+    pendingForm = null;
     var q = query();
     window.location.assign('/dziekujemy' + (q ? '?' + q : ''));
     // Nawigacja już trwa. Obietnica, która nigdy się nie rozwiązuje, zostawia

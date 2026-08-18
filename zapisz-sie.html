@@ -860,9 +860,7 @@
 
       try {
         await window.postLead(QUIZ_SHEETS_URL, payload);
-        if (typeof trackPixelEvent === 'function') {
-          trackPixelEvent('Lead', { lead_type: 'quiz_completed', grade: answers.grade, subject: answers.subject, goal: answers.goal, urgency: answers.urgency, lokalizacja: answers.lokalizacja });
-        }
+        
         showStepId('success');
       } catch (err) {
         errorEl.classList.add('show');

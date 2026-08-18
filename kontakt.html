@@ -284,7 +284,7 @@
     document.getElementById('leadForm').addEventListener('submit',async event=>{
       event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button[type="submit"]');const status=document.getElementById('leadStatus');const data=new FormData(form);
       button.disabled=true;button.textContent='Wysyłanie…';
-      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),przedmiot:data.get('subject'),lokalizacja:data.get('lokalizacja'),wiadomosc:data.get('message')});Shared.track('Lead',{lead_type:'kontakt_form',location:data.get('lokalizacja'),subject:data.get('subject')});Shared.showStatus(status,'✓ Dziękujemy! Wiadomość dotarła. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Wiadomość wysłana ✓';}
+      try{await Shared.sendLead({imie:data.get('name'),telefon:data.get('phone'),przedmiot:data.get('subject'),lokalizacja:data.get('lokalizacja'),wiadomosc:data.get('message')});Shared.showStatus(status,'✓ Dziękujemy! Wiadomość dotarła. Oddzwonimy w ciągu 24 godzin.','success');form.reset();button.textContent='Wiadomość wysłana ✓';}
       catch(error){Shared.showStatus(status,'Nie udało się wysłać wiadomości. Zadzwoń: 605 947 803','error');button.disabled=false;button.textContent='Spróbuj ponownie →';}
     });
   </script>
