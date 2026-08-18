@@ -9,13 +9,13 @@
   root.innerHTML =
     '<div class="bm-consent__panel" role="dialog" aria-modal="true" aria-labelledby="bm-consent-title">' +
       '<div data-bm-view="intro">' +
-        '<h2 class="bm-consent__title" id="bm-consent-title">Twoja prywatność</h2>' +
-        '<p class="bm-consent__copy">Niezbędne mechanizmy obsługują stronę i formularze. Za Twoją zgodą używamy także statystyk Google oraz narzędzi reklamowych Google i Meta. Szczegóły znajdziesz w <a href="/privacy-policy">polityce prywatności</a>.</p>' +
+        '<h2 class="bm-consent__title" id="bm-consent-title">Pomóż nam wiedzieć, co działa</h2>' +
+        '<p class="bm-consent__copy">Strona i formularz działają tak samo niezależnie od Twojej decyzji. Zgoda na statystyki Google i narzędzia reklamowe Google oraz Meta pozwala nam sprawdzić, które ogłoszenia realnie pomagają rodzicom nas znaleźć — dzięki temu nie przepalamy budżetu. Decyzję zmienisz w każdej chwili. Szczegóły w <a href="/privacy-policy">polityce prywatności</a>.</p>' +
         '<div class="bm-consent__actions">' +
-          '<button class="bm-consent__button bm-consent__button--primary" type="button" data-bm-action="accept">Akceptuję wszystkie</button>' +
+          '<button class="bm-consent__button bm-consent__button--primary" type="button" data-bm-action="accept">Akceptuję</button>' +
           '<button class="bm-consent__button" type="button" data-bm-action="reject">Tylko niezbędne</button>' +
-          '<button class="bm-consent__button" type="button" data-bm-action="preferences">Ustawienia</button>' +
         '</div>' +
+        '<button class="bm-consent__link" type="button" data-bm-action="preferences">Ustawienia szczegółowe</button>' +
       '</div>' +
       '<div data-bm-view="preferences" hidden>' +
         '<h2 class="bm-consent__title">Ustawienia prywatności</h2>' +
@@ -88,6 +88,13 @@
 
   document.body.appendChild(root);
   document.body.appendChild(settings);
-  if (window.BMConsent.get().decided) settings.hidden = false;
-  else open(false);
+  if (window.BMConsent.get().decided) {
+    settings.hidden = false;
+  } else {
+    // Sekunda zwłoki: pierwszy ekran (nagłówek i formularz) zdąży się pokazać,
+    // a decyzja wciąż mieści się w oknie wait_for_update ustawionym na 2000 ms.
+    setTimeout(function () {
+      if (!window.BMConsent.get().decided) open(false);
+    }, 1000);
+  }
 })();

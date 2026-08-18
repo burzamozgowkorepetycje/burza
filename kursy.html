@@ -87,7 +87,7 @@
     personalization_storage: 'denied',
     functionality_storage: 'granted',
     security_storage: 'granted',
-    wait_for_update: 500
+    wait_for_update: 2000
   });
   w.gtag('set', 'ads_data_redaction', true);
   w.gtag('set', 'url_passthrough', true);
@@ -147,6 +147,21 @@
     current = normalize(next);
     try { w.localStorage.setItem(STORAGE_KEY, JSON.stringify(current)); } catch (e) { /* tryb prywatny */ }
     w.gtag('consent', 'update', googleState(current));
+    // Odsetek akceptacji ma być mierzalny, a nie zgadywany z rozbieżności
+    // między arkuszem a Metą. Zdarzenie nie niesie żadnych danych osobowych,
+    // więc leci także przy odmowie (cookieless ping w trybie zaawansowanym).
+    var decision = current.marketing ? 'granted' : 'denied';
+    var scope = current.marketing ? 'all' : (current.analytics ? 'analytics_only' : 'none');
+    w.dataLayer.push({
+      event: 'consent_decision',
+      consent_decision: decision,
+      consent_scope: scope,
+      consent_analytics: current.analytics ? 'granted' : 'denied',
+      consent_marketing: current.marketing ? 'granted' : 'denied'
+    });
+    try {
+      w.gtag('event', 'consent_decision', { consent_decision: decision, consent_scope: scope });
+    } catch (e) { /* gtag jeszcze nie wstał - zdarzenie zostaje w dataLayer */ }
     w.dataLayer.push({
       event: 'consent_update',
       consent_analytics: current.analytics ? 'granted' : 'denied',
@@ -386,8 +401,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/consent.css">
-<script defer src="/assets/consent.js"></script>
+<link rel="stylesheet" href="/assets/consent.css?v=20260818">
+<script defer src="/assets/consent.js?v=20260818"></script>
 <!-- BM head assets end -->
 </head>
 <body data-zrodlo="Landing kursy egzaminacyjne" data-tel-source="course_landing">
@@ -525,8 +540,8 @@
 
   <footer class="wrap footer"><div class="footer-top"><div class="footer-brand"><b>Burza Mózgów Korepetycje</b><a href="tel:+48605947803">605 947 803</a></div><nav class="footer-sitemap" aria-label="Mapa strony"><div class="footer-col"><span class="footer-col-title">Przedmioty</span><a href="/korepetycje-matematyka">Matematyka</a><a href="/korepetycje-angielski">Angielski</a><a href="/angielski-wyszkow">Szkoła językowa</a><a href="/korepetycje-polski">Polski</a><a href="/korepetycje-biologia">Biologia</a><a href="/korepetycje-chemia">Chemia</a><a href="/korepetycje-geografia">Geografia</a><a href="/korepetycje-hiszpanski">Hiszpański</a><a href="/korepetycje-wos">WOS</a><a href="/korepetycje-online">Online</a></div><div class="footer-col"><span class="footer-col-title">Kursy</span><a href="/kursy-maturalne">Kursy maturalne</a><a href="/kursy-egzamin-osmoklasisty">Kurs E8</a><a href="/kursy">Wszystkie kursy</a><a href="/cennik">Cennik</a></div><div class="footer-col"><span class="footer-col-title">Lokalizacje</span><a href="/lokalizacje">Lokalizacje</a><a href="/jablonna">Jabłonna / Legionowo</a><a href="/lokalizacja-prosta-3-wyszkow">ul. Prosta 3</a><a href="/lokalizacja-sowinskiego-38-wyszkow">ul. Sowińskiego 38</a></div><div class="footer-col"><span class="footer-col-title">Firma</span><a href="/diagnoza">Bezpłatna diagnoza</a><a href="/o-nas">O nas</a><a href="/opinie">Opinie</a><a href="/wyniki">Wyniki</a><a href="/blog">Blog</a><a href="/kontakt">Kontakt</a></div></nav></div><div class="footer-row"><span>© 2026 Burza Mózgów Korepetycje · Wszelkie prawa zastrzeżone</span><a href="/privacy-policy">Polityka prywatności</a></div></footer>
   <div class="sticky-cta"><a class="btn phone-btn" href="tel:+48605947803">Zadzwoń</a><a class="btn" href="#zapis">Umów bezpłatną diagnozę</a></div>
-  <script src="/assets/lead-flow.js?v=20260817"></script>
-  <script src="/assets/shared.js?v=20260817"></script>
+  <script src="/assets/lead-flow.js?v=20260818"></script>
+  <script src="/assets/shared.js?v=20260818"></script>
   <script>
     let currentMode='matura';
     const quickSubject=document.getElementById('quickSubject');

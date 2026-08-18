@@ -17,7 +17,7 @@
     personalization_storage: 'denied',
     functionality_storage: 'granted',
     security_storage: 'granted',
-    wait_for_update: 500
+    wait_for_update: 2000
   });
   w.gtag('set', 'ads_data_redaction', true);
   w.gtag('set', 'url_passthrough', true);
@@ -77,6 +77,21 @@
     current = normalize(next);
     try { w.localStorage.setItem(STORAGE_KEY, JSON.stringify(current)); } catch (e) { /* tryb prywatny */ }
     w.gtag('consent', 'update', googleState(current));
+    // Odsetek akceptacji ma być mierzalny, a nie zgadywany z rozbieżności
+    // między arkuszem a Metą. Zdarzenie nie niesie żadnych danych osobowych,
+    // więc leci także przy odmowie (cookieless ping w trybie zaawansowanym).
+    var decision = current.marketing ? 'granted' : 'denied';
+    var scope = current.marketing ? 'all' : (current.analytics ? 'analytics_only' : 'none');
+    w.dataLayer.push({
+      event: 'consent_decision',
+      consent_decision: decision,
+      consent_scope: scope,
+      consent_analytics: current.analytics ? 'granted' : 'denied',
+      consent_marketing: current.marketing ? 'granted' : 'denied'
+    });
+    try {
+      w.gtag('event', 'consent_decision', { consent_decision: decision, consent_scope: scope });
+    } catch (e) { /* gtag jeszcze nie wstał - zdarzenie zostaje w dataLayer */ }
     w.dataLayer.push({
       event: 'consent_update',
       consent_analytics: current.analytics ? 'granted' : 'denied',
