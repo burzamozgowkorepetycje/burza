@@ -326,7 +326,21 @@
     });
     pendingForm = null;
     var q = query();
-    window.location.assign('/dziekujemy' + (q ? '?' + q : ''));
+    var target = '/dziekujemy' + (q ? '?' + q : '');
+
+    // Redirect musi poczekać na tagi. Konwersja Google Ads wisi w GTM na
+    // lead_form_success, wypchniętym chwilę wcześniej; przy natychmiastowym
+    // window.location.assign() w tym samym takcie GTM może nie zdążyć jej
+    // wysłać. eventCallback puszcza nas dalej, gdy tagi się wykonają,
+    // a timer jest wyjściem awaryjnym, gdyby GTM nie wstał.
+    var navigated = false;
+    function go() {
+      if (navigated) return;
+      navigated = true;
+      window.location.assign(target);
+    }
+    window.dataLayer.push({ event: 'bm_lead_ready', eventCallback: go, eventTimeout: 1500 });
+    setTimeout(go, 1600);
     // Nawigacja już trwa. Obietnica, która nigdy się nie rozwiązuje, zostawia
     // przycisk w stanie „Wysyłanie…" - zamiast mignąć komunikatem inline,
     // którego i tak nikt nie zdąży przeczytać przed przeładowaniem strony.
