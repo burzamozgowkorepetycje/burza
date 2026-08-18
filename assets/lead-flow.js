@@ -27,6 +27,8 @@
   var ATTR_KEYS = ['gclid', 'gbraid', 'wbraid', 'msclkid', 'fbclid',
     'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   var STORE_KEY = 'bm_attr';
+  var FIRST_KEY = 'bm_first';   // pierwszy kontakt - nie nadpisujemy przez 90 dni
+  var LAST_KEY = 'bm_last';     // ostatni kontakt - odświeżany przy każdym wejściu
   var TTL_MS = 90 * 24 * 60 * 60 * 1000; // okno atrybucji Google/Meta
   var CAPI_URL = '/api/meta-lead';
 
@@ -61,6 +63,14 @@
   function clearStore() {
     try { localStorage.removeItem(STORE_KEY); } catch (e) { /* tryb prywatny */ }
     try { sessionStorage.removeItem(STORE_KEY); } catch (e) { /* j.w. */ }
+  }
+
+  // Cofnięcie zgody kasuje również historię kontaktów - zostaje „Brak zgody".
+  function clearTouches() {
+    firstTouch = null;
+    lastTouch = null;
+    try { localStorage.removeItem(FIRST_KEY); } catch (e) { /* tryb prywatny */ }
+    try { localStorage.removeItem(LAST_KEY); } catch (e) { /* j.w. */ }
   }
 
   // Pusta wartość nigdy nie nadpisuje zapamiętanej: wejście z linku bez utm
@@ -136,6 +146,120 @@
     return path || 'index';
   }
 
+  /* ── First-touch / last-touch ──────────────────────────────────────────
+     Dwa komplety w localStorage. bm_first zapisujemy tylko raz na 90 dni,
+     bm_last odświeżamy przy każdym wejściu z zewnątrz (także bez parametrów -
+     inaczej „wróciłem wpisując adres" wyglądałoby jak stary klik w reklamę).
+     Wejście z linku wewnętrznego nie jest nowym kontaktem i nic nie zmienia.
+     Wszystko za bramką zgody marketingowej - bez niej nie zapisujemy nic.   */
+
+  function readTouch(key) {
+    if (!marketingAllowed()) return null;
+    try {
+      var parsed = JSON.parse(localStorage.getItem(key) || 'null');
+      if (!parsed || typeof parsed !== 'object' || !parsed.ts) return null;
+      if (Date.now() - parsed.ts > TTL_MS) return null;
+      return parsed;
+    } catch (e) { return null; }
+  }
+
+  function writeTouch(key, value) {
+    if (!marketingAllowed()) return;
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* tryb prywatny */ }
+  }
+
+  function sameHost(url) {
+    if (!url) return false;
+    try { return new URL(url).hostname === window.location.hostname; } catch (e) { return false; }
+  }
+
+  function currentTouch() {
+    var params;
+    try { params = new URLSearchParams(window.location.search); } catch (e) { params = null; }
+    var get = function (key) { return (params && params.get(key)) || ''; };
+    return {
+      source: get('utm_source'),
+      medium: get('utm_medium'),
+      campaign: get('utm_campaign'),
+      content: get('utm_content'),
+      term: get('utm_term'),
+      gclid: get('gclid') || get('gbraid') || get('wbraid'),
+      fbclid: get('fbclid'),
+      referrer: document.referrer || '',
+      landing: window.location.href.split('#')[0],
+      ts: Date.now()
+    };
+  }
+
+  function hasParams(touch) {
+    return !!(touch.gclid || touch.fbclid || touch.source || touch.medium || touch.campaign);
+  }
+
+  // UWAGA: te dwie zmienne muszą być zadeklarowane PRZED wywołaniem
+  // captureTouches() - przy `var` deklaracja się hoistuje, ale inicjalizacja
+  // na null wykonuje się w miejscu zapisu i wyzerowałaby świeżo ustawione
+  // wartości, gdyby wywołanie stało wyżej w pliku.
+  var firstTouch = null;
+  var lastTouch = null;
+
+  function captureTouches() {
+    if (!marketingAllowed()) { firstTouch = null; lastTouch = null; return; }
+    var now = currentTouch();
+    var wejscieZZewnatrz = hasParams(now) || !sameHost(now.referrer);
+
+    firstTouch = readTouch(FIRST_KEY);
+    if (!firstTouch) {                    // pusty albo starszy niż 90 dni
+      firstTouch = now;
+      writeTouch(FIRST_KEY, firstTouch);
+    }
+
+    lastTouch = readTouch(LAST_KEY);
+    if (wejscieZZewnatrz || !lastTouch) {
+      lastTouch = now;
+      writeTouch(LAST_KEY, lastTouch);
+    }
+  }
+
+  // Kanał liczony z pierwszego kontaktu; pierwsza pasująca reguła wygrywa.
+  function kanal() {
+    if (!marketingAllowed()) return 'Brak zgody';
+    var t = firstTouch || currentTouch();
+    var source = String(t.source || '').toLowerCase();
+    var medium = String(t.medium || '').toLowerCase();
+    var referrer = String(t.referrer || '');
+    var META_SOURCES = ['fb', 'ig', 'meta', 'an', 'facebook', 'instagram'];
+
+    if (t.gclid) return 'Google Ads';
+    if (medium === 'paid' && META_SOURCES.indexOf(source) !== -1) return 'Meta';
+    if (t.fbclid && !source && !medium && !t.campaign) return 'Meta (nieokreślone: reklama lub post)';
+    if (source === 'google' && !t.gclid) return 'Google organiczny';
+    if (/google\.[a-z.]+\/maps|(^|[/.])g\.co([/?]|$)/i.test(referrer)) return 'Wizytówka Google';
+    if (source) return 'Inne: ' + t.source;
+    if (!referrer) return 'Direct';
+    try { return 'Referral: ' + new URL(referrer).hostname.replace(/^www\./, ''); }
+    catch (e) { return 'Referral: ' + referrer; }
+  }
+
+  captureTouches();
+
+  function touchFields() {
+    var pusty = { source: '', medium: '', campaign: '', referrer: '', landing: '', ts: 0 };
+    var f = firstTouch || pusty;
+    var l = lastTouch || pusty;
+    return {
+      kanal: kanal(),
+      first_source: f.source || '',
+      first_medium: f.medium || '',
+      first_campaign: f.campaign || '',
+      first_data: f.ts ? new Date(f.ts).toISOString().slice(0, 19).replace('T', ' ') : '',
+      last_source: l.source || '',
+      last_medium: l.medium || '',
+      last_campaign: l.campaign || '',
+      strona_wejscia: f.landing || '',
+      referrer: f.referrer || ''
+    };
+  }
+
   // Atrybucja dojeżdża do arkusza razem z leadem (klucze spoza LEAD_FIELDS
   // Apps Script dokleja na końcu wiersza, po nazwach kolumn).
   function enrich(payload) {
@@ -144,6 +268,8 @@
     ATTR_KEYS.forEach(function (key) { out[key] = attribution[key] || ''; });
     out.landing_page = attribution.landing_page || '';
     out.event_id = eventId();
+    var touches = touchFields();
+    Object.keys(touches).forEach(function (key) { out[key] = touches[key]; });
     // Jedna kolumna „gclid / fbclid" w arkuszu: Google ma pierwszeństwo.
     out.klik = attribution.gclid || attribution.fbclid || '';
     return out;
@@ -151,9 +277,13 @@
 
   function hiddenFields() {
     var fields = {};
-    if (!marketingAllowed()) return fields;
+    // Bez zgody nie ma identyfikatorów, ale sam Kanał („Brak zgody") jedzie -
+    // inaczej nie da się odróżnić „nie wiem, bo organiczny" od „nie kliknął banera".
+    if (!marketingAllowed()) return { kanal: 'Brak zgody' };
     ATTR_KEYS.forEach(function (key) { if (attribution[key]) fields[key] = attribution[key]; });
     if (attribution.landing_page) fields.landing_page = attribution.landing_page;
+    var touches = touchFields();
+    Object.keys(touches).forEach(function (key) { if (touches[key]) fields[key] = touches[key]; });
     var browserId = fbp();
     var clickCookie = fbc();
     if (browserId) fields.fbp = browserId;
@@ -165,12 +295,17 @@
     var fields = hiddenFields();
     document.querySelectorAll('form').forEach(function (form) {
       Object.keys(fields).forEach(function (key) {
-        if (form.querySelector('input[name="' + key + '"]')) return;
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = fields[key];
-        form.appendChild(input);
+        // Aktualizujemy istniejące pole zamiast je pomijać: po kliknięciu
+        // „Akceptuję" wartości się zmieniają (np. kanal „Brak zgody" -> „Google
+        // Ads") i stara wartość nie może zostać w formularzu.
+        var input = form.querySelector('input[name="' + key + '"]');
+        if (!input) {
+          input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          form.appendChild(input);
+        }
+        if (input.type === 'hidden') input.value = fields[key];
       });
       if (form.querySelector('input[name="event_id"]')) return;
       var idField = document.createElement('input');
@@ -188,7 +323,9 @@
   }
 
   function removeAttributionFields() {
-    var names = ATTR_KEYS.concat(['landing_page', 'fbp', 'fbc']);
+    var names = ATTR_KEYS.concat(['landing_page', 'fbp', 'fbc',
+      'kanal', 'first_source', 'first_medium', 'first_campaign', 'first_data',
+      'last_source', 'last_medium', 'last_campaign', 'strona_wejscia', 'referrer']);
     document.querySelectorAll('form').forEach(function (form) {
       names.forEach(function (name) {
         var field = form.querySelector('input[name="' + name + '"]');
@@ -360,9 +497,11 @@
   window.addEventListener('bm:consent-updated', function (event) {
     if (event.detail && event.detail.marketing) {
       setAttribution(capture());
+      captureTouches();
       decorateForms();
     } else {
       clearStore();
+      clearTouches();
       setAttribution({});
       removeAttributionFields();
     }

@@ -5,6 +5,11 @@
  * arkusza (Rozszerzenia -> Apps Script). Trzymamy ją w repo, żeby nie była
  * jedyną kopią w chmurze. Poprzednia wersja: apps-script-leady-POPRZEDNIA-WERSJA.gs
  *
+ * UWAGA: wersja wdrożona w arkuszu jest starsza (z 12.08) i nie zna kolumn
+ * atrybucji - dlatego gclid, utm_* i reszta leciały z formularza w próżnię.
+ * Po wklejeniu tej wersji i wdrożeniu nowej wersji skrypt sam dopisze
+ * brakujące kolumny na końcu arkusza przy pierwszym zgłoszeniu.
+ *
  * Zmiana wobec poprzedniej: wiersz jest budowany według NAZW kolumn z nagłówka
  * arkusza, a nie jako sztywne 8 pozycji od kolumny A. Dzięki temu dodanie pola
  * w formularzu nie przesuwa kolumn ani nie gubi danych - brakujące nagłówki
@@ -34,19 +39,32 @@ var FIELD_TO_HEADER = {
   zgodaTelefon: 'Zgoda tel.',
   zgodaEmail:   'Zgoda e-mail',
   zrodlo:       'Źródło',
-  // Atrybucja z /assets/lead-flow.js - potrzebna do importu konwersji offline
-  // do Google Ads (gclid) i Meta (fbclid). „klik" to jedna kolumna zbiorcza:
-  // gclid, a gdy go nie ma - fbclid.
-  klik:         'gclid / fbclid',
-  gclid:        'gclid',
-  fbclid:       'fbclid',
-  utm_source:   'utm_source',
-  utm_medium:   'utm_medium',
-  utm_campaign: 'utm_campaign',
-  utm_content:  'utm_content',
-  utm_term:     'utm_term',
-  landing_page: 'Landing',
-  event_id:     'event_id'
+  // ── Atrybucja z /assets/lead-flow.js ──────────────────────────────────
+  // Wszystkie te kolumny skrypt dopisuje sam na końcu arkusza przy pierwszym
+  // leadzie po wdrożeniu (patrz dopiszBrakujaceNaglowki) - istniejących 18
+  // kolumn nie rusza. Wcześniejsza wersja tego pliku miała część z nich, ale
+  // nigdy nie została wdrożona, więc pola leciały z formularza w próżnię:
+  // wiersz budowany jest po nazwach nagłówków, a klucz bez nagłówka przepada.
+  kanal:          'Kanał',
+  gclid:          'gclid',
+  fbclid:         'fbclid',
+  utm_source:     'utm_source',
+  utm_medium:     'utm_medium',
+  utm_campaign:   'utm_campaign',
+  first_source:   'first_source',
+  first_medium:   'first_medium',
+  first_campaign: 'first_campaign',
+  first_data:     'first_data',
+  last_source:    'last_source',
+  last_medium:    'last_medium',
+  last_campaign:  'last_campaign',
+  strona_wejscia: 'strona_wejscia',
+  referrer:       'referrer',
+  // Poza listą z briefu, przydatne przy imporcie konwersji offline i dedup CAPI.
+  klik:           'gclid / fbclid',
+  utm_content:    'utm_content',
+  utm_term:       'utm_term',
+  event_id:       'event_id'
 };
 
 // Kolumny prowadzone ręcznie - skrypt ich nie dotyka przy dopisywaniu leada.
@@ -68,7 +86,11 @@ function doPost(e) {
     var values = header.names.map(function (name) {
       var field = headerToField(name);
       if (!field) return '';
+      // strona_wejscia bierzemy z landing_page, jeśli front przysłał starą nazwę
       var value = payload[field];
+      if ((value === undefined || value === '') && field === 'strona_wejscia') {
+        value = payload.landing_page;
+      }
       if (value === undefined || value === null) return '';
       if (typeof value === 'boolean') return value ? 'tak' : 'nie';
       return String(value);
