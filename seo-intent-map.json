@@ -388,6 +388,16 @@
       "titleTerms": ["kurs grupowy", "korepetycje indywidualne"],
       "h1Terms": ["kurs grupowy", "korepetycje indywidualne"]
     },
+    "/blog-co-wypadlo-z-matury-2027-z-matematyki": {
+      "cluster": "poradniki-zakres-2027",
+      "role": "article",
+      "parent": "/blog",
+      "intent": "Sprawdzenie, co wypadło z zakresu matury 2027 i egzaminu ósmoklasisty",
+      "primaryKeyword": "co wypadło z matury 2027 i z egzaminu ósmoklasisty",
+      "titleTerms": ["matura", "e8 2027", "wypadło", "matematyki"],
+      "h1Terms": ["matura", "e8 2027", "wypadło", "matematyki"],
+      "requiredLinks": ["/kurs-maturalny-matematyka", "/kurs-e8-matematyka"]
+    },
     "/privacy-policy": {
       "cluster": "prawne",
       "role": "legal",
