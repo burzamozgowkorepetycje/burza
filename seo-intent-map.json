@@ -293,10 +293,10 @@
       "cluster": "konwersja",
       "role": "service",
       "parent": "/",
-      "intent": "Umówienie bezpłatnej diagnozy poziomu ucznia",
-      "primaryKeyword": "bezpłatna diagnoza edukacyjna",
-      "titleTerms": ["bezpłatna diagnoza"],
-      "h1Terms": ["bezpłatna diagnoza"]
+      "intent": "Umówienie bezpłatnej konsultacji telefonicznej przed zapisem na zajęcia",
+      "primaryKeyword": "bezpłatna konsultacja telefoniczna",
+      "titleTerms": ["bezpłatna konsultacja telefoniczna"],
+      "h1Terms": ["bezpłatna konsultacja telefoniczna"]
     },
     "/lokalizacja-sowinskiego-38-wyszkow": {
       "cluster": "lokalizacje-wyszkow",
