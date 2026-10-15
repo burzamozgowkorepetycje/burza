@@ -184,7 +184,7 @@
 
     /* ─── Nagłówek ─── */
     .lp-header {
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
       max-width: 1120px; width: 100%; margin: 0 auto;
       padding: 1.25rem 1.5rem 0.25rem;
     }
@@ -205,27 +205,10 @@
            komputer = argumenty po lewej, formularz po prawej ─── */
     .lp-main {
       flex: 1;
-      width: 100%; max-width: 1120px; margin: 0 auto;
+      width: 100%; max-width: 520px; margin: 0 auto;
       padding: 1rem 1.5rem 2.5rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: "hero" "form" "details";
-      gap: 1.5rem;
     }
-    .lp-hero { grid-area: hero; }
-    .lp-form { grid-area: form; }
-    .lp-details { grid-area: details; }
-
-    @media (min-width: 960px) {
-      .lp-main {
-        grid-template-columns: minmax(0, 1fr) 470px;
-        grid-template-areas: "hero form" "details form";
-        grid-template-rows: auto 1fr;
-        column-gap: 4rem; row-gap: 2rem;
-        padding-top: 3rem; align-items: start;
-      }
-      .lp-form { position: sticky; top: 1.5rem; }
-    }
+    @media (min-width: 960px) { .lp-main { padding-top: 2.5rem; } }
 
     /* ─── Hero ─── */
     .lp-eyebrow {
@@ -482,20 +465,9 @@
       <span class="lw-sub">Korepetycje · Wyszków · Jabłonna</span>
     </span>
     </a>
-    <a class="lp-call" href="tel:+48605947803" aria-label="Zadzwoń: 605 947 803">📞 <span>605 947 803</span></a>
   </header>
 
   <main class="lp-main">
-    <section class="lp-hero">
-      <p class="lp-eyebrow">Wyszków · Jabłonna/Legionowo · Online</p>
-      <h1>Lepsze oceny i wyższy wynik z egzaminu. <em>Zapisz dziecko w 30&nbsp;sekund.</em></h1>
-      <p class="lp-lead">Odpowiedz na 3 krótkie pytania i zostaw numer. Oddzwonimy w ciągu 24 h, dobierzemy grupę albo nauczyciela i termin. Bez zobowiązań.</p>
-      <div class="lp-proof">
-        <span class="lp-proof-item"><span class="stars" aria-hidden="true">★★★★★</span> 5,0<span class="hm"> · 100+ opinii</span> w Google</span>
-        <span class="lp-proof-item"><strong>80%</strong>&nbsp;średni wynik kursantów</span>
-        <span class="lp-proof-item hide-mobile">Matura · E8 · bieżący materiał</span>
-      </div>
-    </section>
 
     <div class="lp-form">
     <div class="quiz-card" role="region" aria-label="Zapisz się na zajęcia">
@@ -575,25 +547,10 @@
     </div>
     </div>
 
-    <section class="lp-details" aria-label="Dlaczego Burza Mózgów">
-      <ul class="lp-benefits">
-        <li><i>✓</i><span><b>Wszystkie typy zadań z egzaminu</b>, przerobione krok po kroku</span></li>
-        <li><i>✓</i><span><b>Powtórki ułożone według krzywej zapominania</b>, żeby wiedza została do dnia egzaminu</span></li>
-        <li><i>✓</i><span><b>Małe grupy albo zajęcia 1 na 1</b>: matura, E8 i bieżący materiał</span></li>
-        <li><i>✓</i><span><b>Stacjonarnie w Wyszkowie i Jabłonnej</b> albo online</span></li>
-      </ul>
-      <figure class="lp-quote">
-        <div class="stars" aria-label="5 na 5">★★★★★</div>
-        <blockquote>„Syn chodził na angielski przez dwa semestry. Egzamin ósmoklasisty zdał na 91%. Polecam każdemu rodzicowi, któremu zależy na realnych wynikach.”</blockquote>
-        <cite>Małgorzata W. · mama ucznia kl. 8</cite>
-      </figure>
-      <p class="lp-places"><strong>Jabłonna:</strong> ul. Zegrzyńska 22, 5 minut od Legionowa<br /><strong>Wyszków:</strong> ul. Prosta 3 i ul. Sowińskiego 38</p>
-    </section>
   </main>
 
   <footer class="lp-footer">
     <p>Burza Mózgów Korepetycje · <a href="tel:+48605947803">605 947 803</a> · <a href="/privacy-policy">Polityka prywatności</a></p>
-    <p class="fine">*Gwarancja wyniku 70%+ dotyczy wyłącznie matematyki i obowiązuje po spełnieniu wszystkich warunków określonych w regulaminie. Obejmuje kursy prowadzone w Wyszkowie i online; nie dotyczy zajęć w placówce w Jabłonnie.</p>
   </footer>
 
   <script>
