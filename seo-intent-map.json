@@ -298,7 +298,7 @@
       "primaryKeyword": "kurs E8 Legionowo",
       "titleTerms": ["egzaminu ósmoklasisty", "legionowo"],
       "h1Terms": ["egzaminu ósmoklasisty", "jabłonnie", "legionowa"],
-      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/kurs-maturalny"]
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/kurs-maturalny", "/jablonna/kurs-e8-matematyka", "/jablonna/kurs-e8-polski", "/jablonna/kurs-e8-angielski"]
     },
     "/jablonna/kurs-maturalny": {
       "cluster": "lokalizacje-jablonna",
@@ -308,7 +308,7 @@
       "primaryKeyword": "kurs maturalny Legionowo",
       "titleTerms": ["kurs maturalny", "legionowo"],
       "h1Terms": ["kurs maturalny", "jabłonnie", "legionowa"],
-      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/egzamin-osmoklasisty"]
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/egzamin-osmoklasisty", "/jablonna/kurs-maturalny-matematyka", "/jablonna/kurs-maturalny-matematyka-rozszerzona", "/jablonna/kurs-maturalny-polski", "/jablonna/kurs-maturalny-angielski"]
     },
     "/jablonna/korepetycje-polski": {
       "cluster": "lokalizacje-jablonna",
@@ -486,6 +486,76 @@
       "primaryKeyword": "polityka prywatności Burza Mózgów",
       "titleTerms": ["polityka prywatności"],
       "h1Terms": ["polityka prywatności"]
+    },
+    "/jablonna/kurs-e8-matematyka": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/egzamin-osmoklasisty",
+      "intent": "Grupowy kurs do egzaminu ósmoklasisty z matematyki w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "kurs ósmoklasisty matematyka Legionowo",
+      "titleTerms": ["e8", "matematyki", "legionowo"],
+      "h1Terms": ["kurs e8 z matematyki", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty"]
+    },
+    "/jablonna/kurs-e8-polski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/egzamin-osmoklasisty",
+      "intent": "Grupowy kurs do egzaminu ósmoklasisty z języka polskiego w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "kurs ósmoklasisty polski Legionowo",
+      "titleTerms": ["e8", "polskiego", "legionowo"],
+      "h1Terms": ["kurs e8 z polskiego", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty"]
+    },
+    "/jablonna/kurs-e8-angielski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/egzamin-osmoklasisty",
+      "intent": "Grupowy kurs do egzaminu ósmoklasisty z języka angielskiego w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "kurs ósmoklasisty angielski Legionowo",
+      "titleTerms": ["e8", "angielskiego", "legionowo"],
+      "h1Terms": ["kurs e8 z angielskiego", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty"]
+    },
+    "/jablonna/kurs-maturalny-matematyka": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/kurs-maturalny",
+      "intent": "Grupowy kurs maturalny z matematyki na poziomie podstawowym w Jabłonnie dla maturzystów z Legionowa",
+      "primaryKeyword": "kurs maturalny matematyka Legionowo",
+      "titleTerms": ["kurs maturalny", "matematyki", "legionowo"],
+      "h1Terms": ["kurs maturalny z matematyki", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny"]
+    },
+    "/jablonna/kurs-maturalny-matematyka-rozszerzona": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/kurs-maturalny",
+      "intent": "Grupowy kurs do matury rozszerzonej z matematyki w Jabłonnie dla maturzystów z Legionowa",
+      "primaryKeyword": "matura rozszerzona matematyka Legionowo",
+      "titleTerms": ["matura rozszerzona", "matematyki", "legionowo"],
+      "h1Terms": ["matematyka rozszerzona", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny"]
+    },
+    "/jablonna/kurs-maturalny-polski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/kurs-maturalny",
+      "intent": "Grupowy kurs maturalny z języka polskiego w Jabłonnie dla maturzystów z Legionowa",
+      "primaryKeyword": "kurs maturalny polski Legionowo",
+      "titleTerms": ["kurs maturalny", "polskiego", "legionowo"],
+      "h1Terms": ["kurs maturalny z polskiego", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny"]
+    },
+    "/jablonna/kurs-maturalny-angielski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna/kurs-maturalny",
+      "intent": "Grupowy kurs maturalny z języka angielskiego w Jabłonnie dla maturzystów z Legionowa",
+      "primaryKeyword": "kurs maturalny angielski Legionowo",
+      "titleTerms": ["kurs maturalny", "angielskiego", "legionowo"],
+      "h1Terms": ["kurs maturalny z angielskiego", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny"]
     }
   }
 }
