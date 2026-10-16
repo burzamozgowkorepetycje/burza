@@ -310,6 +310,56 @@
       "h1Terms": ["kurs maturalny", "jabłonnie", "legionowa"],
       "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/egzamin-osmoklasisty"]
     },
+    "/jablonna/korepetycje-polski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Korepetycje z języka polskiego w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z polskiego Legionowo",
+      "titleTerms": ["polskiego", "legionowo", "jabłonna"],
+      "h1Terms": ["korepetycje z polskiego", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/egzamin-osmoklasisty"]
+    },
+    "/jablonna/korepetycje-angielski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Korepetycje z angielskiego pod materiał szkolny w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z angielskiego Legionowo",
+      "titleTerms": ["angielskiego", "legionowo", "jabłonna"],
+      "h1Terms": ["korepetycje z angielskiego", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/angielski", "/jablonna/angielski-dla-dzieci", "/jablonna/angielski-dla-doroslych"]
+    },
+    "/jablonna/angielski-dla-dzieci": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Angielski dla dzieci od 6 lat w Jabłonnie dla rodzin z Legionowa",
+      "primaryKeyword": "angielski dla dzieci Legionowo",
+      "titleTerms": ["angielski dla dzieci", "legionowo"],
+      "h1Terms": ["angielski dla dzieci", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/angielski", "/jablonna/korepetycje-angielski"]
+    },
+    "/jablonna/angielski-dla-doroslych": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Angielski dla dorosłych wieczorami i online w Jabłonnie dla mieszkańców Legionowa",
+      "primaryKeyword": "angielski dla dorosłych Legionowo",
+      "titleTerms": ["angielski dla dorosłych", "legionowo"],
+      "h1Terms": ["angielski dla dorosłych", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/angielski", "/jablonna/korepetycje-angielski"]
+    },
+    "/jablonna/korepetycje-dla-liceum": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Korepetycje dla uczniów liceum i technikum w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje liceum Legionowo",
+      "titleTerms": ["liceum", "legionowo"],
+      "h1Terms": ["liceum", "technikum", "jabłonnie"],
+      "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny", "/jablonna/korepetycje-matematyka", "/jablonna/korepetycje-polski"]
+    },
     "/jablonna/kursy-maturalne-e8": {
       "cluster": "lokalizacje-jablonna",
       "role": "location-service",
