@@ -269,7 +269,8 @@
       "intent": "Korepetycje i kursy w Jabłonnie i Legionowie",
       "primaryKeyword": "korepetycje Jabłonna Legionowo",
       "titleTerms": ["jabłonna", "legionowo"],
-      "h1Terms": ["korepetycje", "jabłonnie", "legionowie"]
+      "h1Terms": ["korepetycje", "jabłonnie", "legionowie"],
+      "requiredLinks": ["/jablonna/korepetycje-biologia", "/jablonna/korepetycje-chemia", "/jablonna/korepetycje-fizyka", "/jablonna/korepetycje-geografia", "/jablonna/korepetycje-historia", "/jablonna/korepetycje-wos"]
     },
     "/jablonna/angielski": {
       "cluster": "lokalizacje-jablonna",
@@ -556,6 +557,66 @@
       "titleTerms": ["kurs maturalny", "angielskiego", "legionowo"],
       "h1Terms": ["kurs maturalny z angielskiego", "jabłonnie", "legionowa"],
       "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny"]
+    },
+    "/jablonna/korepetycje-biologia": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Indywidualne korepetycje z biologii w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z biologii Legionowo",
+      "titleTerms": ["biologii", "legionowo"],
+      "h1Terms": ["korepetycje z biologii", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
+    },
+    "/jablonna/korepetycje-chemia": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Indywidualne korepetycje z chemii w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z chemii Legionowo",
+      "titleTerms": ["chemii", "legionowo"],
+      "h1Terms": ["korepetycje z chemii", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
+    },
+    "/jablonna/korepetycje-fizyka": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Indywidualne korepetycje z fizyki w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z fizyki Legionowo",
+      "titleTerms": ["fizyki", "legionowo"],
+      "h1Terms": ["korepetycje z fizyki", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
+    },
+    "/jablonna/korepetycje-geografia": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Indywidualne korepetycje z geografii w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z geografii Legionowo",
+      "titleTerms": ["geografii", "legionowo"],
+      "h1Terms": ["korepetycje z geografii", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
+    },
+    "/jablonna/korepetycje-historia": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Indywidualne korepetycje z historii w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z historii Legionowo",
+      "titleTerms": ["historii", "legionowo"],
+      "h1Terms": ["korepetycje z historii", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
+    },
+    "/jablonna/korepetycje-wos": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Indywidualne korepetycje z WOS w Jabłonnie dla uczniów z Legionowa",
+      "primaryKeyword": "korepetycje z WOS Legionowo",
+      "titleTerms": ["WOS", "legionowo"],
+      "h1Terms": ["korepetycje z WOS", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
     }
   }
 }
