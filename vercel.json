@@ -33,7 +33,7 @@
     },
     {
       "source": "/korepetycje-matematyka-jablonna",
-      "destination": "/jablonna#matematyka",
+      "destination": "/jablonna/korepetycje-matematyka",
       "permanent": true
     },
     {
@@ -48,7 +48,7 @@
     },
     {
       "source": "/kursy-maturalne-jablonna",
-      "destination": "/jablonna/kursy-maturalne-e8",
+      "destination": "/jablonna/kurs-maturalny",
       "permanent": true
     },
     {

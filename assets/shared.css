@@ -102,3 +102,11 @@ body.menu-open{overflow:hidden}
   .footer-top{flex-direction:column;gap:1.6rem}
   .footer-sitemap{gap:1.6rem 2rem}
 }
+
+/* Blok „Mieszkasz w Legionowie lub Jabłonnie?” na stronach Wyszkowa - link do odpowiednika w /jablonna/. */
+section.local-xsell-section{padding:2.5rem 0 0}
+.local-xsell{display:flex;align-items:center;justify-content:space-between;gap:1.3rem;flex-wrap:wrap;padding:1.4rem 1.6rem;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--blush-deep)}
+.local-xsell b{display:block;margin-bottom:.25rem;font-size:1.05rem}
+.local-xsell p{margin:.2rem 0;max-width:680px;color:var(--muted);font-size:.9rem;line-height:1.55}
+.local-xsell .btn{white-space:nowrap}
+@media(max-width:620px){.local-xsell{flex-direction:column;align-items:flex-start;padding:1.2rem}.local-xsell .btn{width:100%;white-space:normal}}
