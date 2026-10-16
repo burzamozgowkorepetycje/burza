@@ -270,7 +270,7 @@
       "primaryKeyword": "korepetycje Jabłonna Legionowo",
       "titleTerms": ["jabłonna", "legionowo"],
       "h1Terms": ["korepetycje", "jabłonnie", "legionowie"],
-      "requiredLinks": ["/jablonna/korepetycje-biologia", "/jablonna/korepetycje-chemia", "/jablonna/korepetycje-fizyka", "/jablonna/korepetycje-geografia", "/jablonna/korepetycje-historia", "/jablonna/korepetycje-wos"]
+      "requiredLinks": ["/jablonna/korepetycje-biologia", "/jablonna/korepetycje-chemia", "/jablonna/korepetycje-fizyka", "/jablonna/korepetycje-geografia", "/jablonna/korepetycje-historia", "/jablonna/korepetycje-wos", "/jablonna/cennik", "/jablonna/dojazd", "/jablonna/wolne-terminy"]
     },
     "/jablonna/angielski": {
       "cluster": "lokalizacje-jablonna",
@@ -617,6 +617,36 @@
       "titleTerms": ["WOS", "legionowo"],
       "h1Terms": ["korepetycje z WOS", "jabłonnie", "legionowa"],
       "requiredLinks": ["/jablonna", "/jablonna/korepetycje-dla-liceum"]
+    },
+    "/jablonna/cennik": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Sprawdzenie cen korepetycji i kursów w Jabłonnie przed zapisem",
+      "primaryKeyword": "korepetycje Legionowo cena",
+      "titleTerms": ["cennik", "legionowo"],
+      "h1Terms": ["cennik", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/korepetycje-polski", "/jablonna/korepetycje-angielski"]
+    },
+    "/jablonna/dojazd": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Sprawdzenie dojazdu do placówki w Jabłonnie z Legionowa i okolicznych miejscowości",
+      "primaryKeyword": "dojazd korepetycje Jabłonna Legionowo",
+      "titleTerms": ["dojazd", "legionowa"],
+      "h1Terms": ["dojazd", "jabłonny", "legionowa"],
+      "requiredLinks": ["/jablonna"]
+    },
+    "/jablonna/wolne-terminy": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-service",
+      "parent": "/jablonna",
+      "intent": "Sprawdzenie wolnego terminu i zapis na zajęcia w Jabłonnie",
+      "primaryKeyword": "wolne terminy korepetycje Legionowo",
+      "titleTerms": ["wolne terminy", "legionowo"],
+      "h1Terms": ["wolne terminy", "jabłonnie", "legionowa"],
+      "requiredLinks": ["/jablonna"]
     }
   }
 }
