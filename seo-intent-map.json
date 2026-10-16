@@ -299,7 +299,7 @@
       "primaryKeyword": "kurs E8 Legionowo",
       "titleTerms": ["egzaminu ósmoklasisty", "legionowo"],
       "h1Terms": ["egzaminu ósmoklasisty", "jabłonnie", "legionowa"],
-      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/kurs-maturalny", "/jablonna/kurs-e8-matematyka", "/jablonna/kurs-e8-polski", "/jablonna/kurs-e8-angielski"]
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/kurs-maturalny", "/jablonna/kurs-e8-matematyka", "/jablonna/kurs-e8-polski", "/jablonna/kurs-e8-angielski", "/jablonna/blog-kalkulator-punktow-rekrutacja", "/jablonna/blog-wyniki-egzaminu-osmoklasisty-powiat-legionowski"]
     },
     "/jablonna/kurs-maturalny": {
       "cluster": "lokalizacje-jablonna",
@@ -309,7 +309,7 @@
       "primaryKeyword": "kurs maturalny Legionowo",
       "titleTerms": ["kurs maturalny", "legionowo"],
       "h1Terms": ["kurs maturalny", "jabłonnie", "legionowa"],
-      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/egzamin-osmoklasisty", "/jablonna/kurs-maturalny-matematyka", "/jablonna/kurs-maturalny-matematyka-rozszerzona", "/jablonna/kurs-maturalny-polski", "/jablonna/kurs-maturalny-angielski"]
+      "requiredLinks": ["/jablonna", "/jablonna/korepetycje-matematyka", "/jablonna/egzamin-osmoklasisty", "/jablonna/kurs-maturalny-matematyka", "/jablonna/kurs-maturalny-matematyka-rozszerzona", "/jablonna/kurs-maturalny-polski", "/jablonna/kurs-maturalny-angielski", "/jablonna/blog-wyniki-matur-legionowo"]
     },
     "/jablonna/korepetycje-polski": {
       "cluster": "lokalizacje-jablonna",
@@ -647,6 +647,66 @@
       "titleTerms": ["wolne terminy", "legionowo"],
       "h1Terms": ["wolne terminy", "jabłonnie", "legionowa"],
       "requiredLinks": ["/jablonna"]
+    },
+    "/jablonna/blog-wyniki-egzaminu-osmoklasisty-powiat-legionowski": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-article",
+      "parent": "/jablonna",
+      "intent": "Sprawdzenie wyników egzaminu ósmoklasisty w powiecie legionowskim",
+      "primaryKeyword": "wyniki E8 powiat legionowski",
+      "titleTerms": ["e8", "legionowskim"],
+      "h1Terms": ["wyniki egzaminu ósmoklasisty", "powiecie legionowskim"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty"]
+    },
+    "/jablonna/blog-wyniki-matur-legionowo": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-article",
+      "parent": "/jablonna",
+      "intent": "Porównanie wyników matury w szkołach Legionowa",
+      "primaryKeyword": "matura Legionowo wyniki",
+      "titleTerms": ["wyniki matur", "legionowa"],
+      "h1Terms": ["wyniki matur", "legionowa"],
+      "requiredLinks": ["/jablonna", "/jablonna/kurs-maturalny"]
+    },
+    "/jablonna/blog-rekrutacja-2027-mazowieckie-terminy": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-article",
+      "parent": "/jablonna",
+      "intent": "Sprawdzenie terminów rekrutacji do szkół średnich 2027 na Mazowszu",
+      "primaryKeyword": "rekrutacja 2027 mazowieckie",
+      "titleTerms": ["rekrutacja 2027", "mazowszu"],
+      "h1Terms": ["rekrutacja 2027", "mazowszu"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty"]
+    },
+    "/jablonna/blog-szkoly-srednie-legionowo": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-article",
+      "parent": "/jablonna",
+      "intent": "Porównanie liceów i techników w Legionowie przed wyborem szkoły",
+      "primaryKeyword": "licea Legionowo",
+      "titleTerms": ["szkoły średnie", "legionowie"],
+      "h1Terms": ["szkoły średnie", "legionowie"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty", "/jablonna/blog-wyniki-matur-legionowo"]
+    },
+    "/jablonna/blog-progi-punktowe-legionowo": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-article",
+      "parent": "/jablonna",
+      "intent": "Sprawdzenie progów punktowych do liceów w Legionowie",
+      "primaryKeyword": "progi punktowe Legionowo",
+      "titleTerms": ["progi punktowe", "legionowie"],
+      "h1Terms": ["progi punktowe", "legionowie"],
+      "requiredLinks": ["/jablonna", "/jablonna/blog-kalkulator-punktow-rekrutacja"]
+    },
+    "/jablonna/blog-kalkulator-punktow-rekrutacja": {
+      "cluster": "lokalizacje-jablonna",
+      "role": "location-article",
+      "parent": "/jablonna",
+      "intent": "Policzenie punktów rekrutacyjnych do liceum",
+      "primaryKeyword": "kalkulator punktów rekrutacja",
+      "titleTerms": ["kalkulator punktów", "legionowo"],
+      "h1Terms": ["kalkulator punktów", "legionowie"],
+      "requiredLinks": ["/jablonna", "/jablonna/egzamin-osmoklasisty", "/jablonna/blog-progi-punktowe-legionowo"]
     }
   }
 }

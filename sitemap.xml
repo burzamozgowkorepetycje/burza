@@ -408,4 +408,40 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/jablonna/blog-wyniki-egzaminu-osmoklasisty-powiat-legionowski</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/jablonna/blog-wyniki-matur-legionowo</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/jablonna/blog-rekrutacja-2027-mazowieckie-terminy</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/jablonna/blog-szkoly-srednie-legionowo</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/jablonna/blog-progi-punktowe-legionowo</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://burza-mozgow-korepetycje.pl/jablonna/blog-kalkulator-punktow-rekrutacja</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
