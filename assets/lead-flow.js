@@ -95,6 +95,39 @@
     return data;
   }
 
+  /* ── Kolumna „Kampania" ────────────────────────────────────────────────
+     Etykieta reklamy, z której przyszedł lead, w jednej kolumnie arkusza,
+     np. „utm_source=facebook | utm_campaign=Jabłonna kursy | utm_content=Rolka 2 | fbclid".
+     Działa także bez zgody marketingowej, dlatego trzyma tylko nazwy
+     z tagów URL i sam fakt kliknięcia (gclid/fbclid), nigdy wartości
+     identyfikatorów - te jadą osobno, w kolumnach gclid/fbclid, po zgodzie.
+     sessionStorage, więc znika razem z kartą. Wejście z linku bez tagów
+     nie kasuje etykiety z wcześniejszego kliknięcia w reklamę.            */
+  var KAMPANIA_KEY = 'bm_kampania';
+  var KAMPANIA_UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+  var KAMPANIA_KLIK = ['gclid', 'fbclid'];
+
+  function captureKampania() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var parts = [];
+      KAMPANIA_UTM.forEach(function (key) {
+        var value = params.get(key);
+        if (value) parts.push(key + '=' + value.slice(0, 120));
+      });
+      KAMPANIA_KLIK.forEach(function (key) {
+        if (params.get(key)) parts.push(key);
+      });
+      if (parts.length) sessionStorage.setItem(KAMPANIA_KEY, parts.join(' | '));
+    } catch (e) { /* brak storage - lead i tak przechodzi */ }
+  }
+
+  function kampania() {
+    try { return sessionStorage.getItem(KAMPANIA_KEY) || ''; } catch (e) { return ''; }
+  }
+
+  captureKampania();
+
   var attribution = {};
   function setAttribution(next) {
     Object.keys(attribution).forEach(function (key) { delete attribution[key]; });
@@ -272,6 +305,7 @@
     Object.keys(touches).forEach(function (key) { out[key] = touches[key]; });
     // Jedna kolumna „gclid / fbclid" w arkuszu: Google ma pierwszeństwo.
     out.klik = attribution.gclid || attribution.fbclid || '';
+    out.kampania = kampania();
     return out;
   }
 

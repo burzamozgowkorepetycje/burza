@@ -64,7 +64,10 @@ var FIELD_TO_HEADER = {
   klik:           'gclid / fbclid',
   utm_content:    'utm_content',
   utm_term:       'utm_term',
-  event_id:       'event_id'
+  event_id:       'event_id',
+  // Etykieta reklamy z tagów URL (utm_* + fakt kliknięcia gclid/fbclid),
+  // zbierana bez względu na zgodę marketingową - patrz captureKampania().
+  kampania:       'Kampania'
 };
 
 // Kolumny prowadzone ręcznie - skrypt ich nie dotyka przy dopisywaniu leada.
