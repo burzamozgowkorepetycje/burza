@@ -5,10 +5,9 @@
  * arkusza (Rozszerzenia -> Apps Script). Trzymamy ją w repo, żeby nie była
  * jedyną kopią w chmurze. Poprzednia wersja: apps-script-leady-POPRZEDNIA-WERSJA.gs
  *
- * UWAGA: wersja wdrożona w arkuszu jest starsza (z 12.08) i nie zna kolumn
- * atrybucji - dlatego gclid, utm_* i reszta leciały z formularza w próżnię.
- * Po wklejeniu tej wersji i wdrożeniu nowej wersji skrypt sam dopisze
- * brakujące kolumny na końcu arkusza przy pierwszym zgłoszeniu.
+ * Wdrożona 19.10.2026. Do tego dnia w arkuszu działała wersja z 12.08, która
+ * nie znała kolumn atrybucji - gclid, utm_* i reszta leciały w próżnię.
+ * Brakujące kolumny skrypt dopisuje sam na końcu arkusza przy zgłoszeniu.
  *
  * Zmiana wobec poprzedniej: wiersz jest budowany według NAZW kolumn z nagłówka
  * arkusza, a nie jako sztywne 8 pozycji od kolumny A. Dzięki temu dodanie pola
